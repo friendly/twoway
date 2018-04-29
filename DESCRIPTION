@@ -1,0 +1,11 @@
+Package: twoway
+Type: Package
+Title: Analysis of Two-Way Tables
+Version: 0.1.0
+Author: Michael Frendly
+Maintainer: The package maintainer <friendly@yorku.ca>
+Description: This package is designed to carry out analyses of two way
+    Use four spaces when indenting paragraphs within the Description.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
