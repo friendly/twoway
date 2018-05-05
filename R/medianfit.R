@@ -1,10 +1,11 @@
 #' Fit a two-way table using median polish
 #'
 #' @param x a numeric matrix
+#' @param trace.iter whether to give verbose output of iteration history in median polish.
 #' @param ... other arguments passed down
 #' @importFrom stats medpolish
 #' @export
-#' @result An object of class \code{c("twoway", "medpolish")} with the following named components:
+#' @return An object of class \code{c("twoway", "medpolish")} with the following named components:
 #' \describe{
 #'  \item{overall}{the fitted constant term.}
 #'  \item{row}{the fitted row effects.}
@@ -31,7 +32,7 @@ medianfit <- function(x, trace.iter=FALSE, ...) {
 #' @param x a numeric matrix
 #' @param ... other arguments passed down
 #' @export
-#' @result An object of class \code{c("twoway")} with the following named components:
+#' @return An object of class \code{c("twoway")} with the following named components:
 #' \describe{
 #'  \item{overall}{the fitted constant term.}
 #'  \item{row}{the fitted row effects.}

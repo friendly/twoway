@@ -4,11 +4,11 @@ Title: Analysis of Two-Way Tables
 Version: 0.1.0
 Author: Michael Frendly
 Maintainer: Michael Friendly <friendly@yorku.ca>
-Description:  Carries out analyses of two way tables including Tukey's           
+Description: Carries out analyses of two way tables including Tukey's           
     1df test for row*column non-additivity, and graphical display of the 
     additive fit, together with a diagnostic plot for removable non-additivity
     via a power transformation.
-
 License: GPL
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1

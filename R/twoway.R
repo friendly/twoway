@@ -15,14 +15,15 @@
 twoway <-
 	function(x, ...) UseMethod("twoway")
 
+#' Default method for two-way tables
 
-#' @param x a numeric matrix
 #' @param method one of \code{"mean"} or \code{"median"}
-#' @param ... other arguments passed down
+#'
 #' @rdname twoway
 #' @method twoway default
 #' @export
-#' @result
+#' @return An object of class \code{"twoway"}
+#' @seealso \code{\link{medianfit}}, \code{\link{meanfit}}
 
 twoway.default <- function(x, method=c("mean", "median"), ...) {
 
@@ -54,7 +55,6 @@ function (x, main = "Tukey Additivity Plot", ...)
 #' @param x a numeric matrix
 #' @param digits number of digits to print
 #' @param ... other arguments passed down
-#' @rdname twoway
 
 print.twoway <-
 function (x, digits = getOption("digits"), ...)
@@ -80,9 +80,11 @@ function (x, digits = getOption("digits"), ...)
 #' a diagnostic plot for removable non-additivity
 #' @param x a numeric matrix
 #' @param type one of \code{"fit"} or \code{"diagnose"}
+#' @param main plot title
 #' @param rfactor for the \code{"fit"} method, draw arrows for \code{abs(residuals) > rfactor*sqrt(MSPE)}
 #' @param ... other arguments passed down
-#' @rdname twoway
+#' @importFrom graphics plot text abline
+#' @importFrom stats lm
 
 plot.twoway <- function(x, type=c("fit", "diagnose"), main,  rfactor=1.5, ...) {
 	type <- match.arg(type)
