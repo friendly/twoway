@@ -1,6 +1,6 @@
 Package: twoway
 Type: Package
-Title: Analysis of Two-Way Tables
+Title: Analysis of Two-Way Tables a la Tukey
 Version: 0.1.0
 Author: Michael Frendly
 Maintainer: Michael Friendly <friendly@yorku.ca>
