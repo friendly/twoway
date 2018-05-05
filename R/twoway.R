@@ -35,7 +35,8 @@ twoway.default <- function(x, method=c("mean", "median"), ...) {
 
 }
 
-## diagnostic plot for removable interaction
+
+## diagnostic plot for removable interaction, from stats::medpolish
 plot.medpolish <-
 function (x, main = "Tukey Additivity Plot", ...)
 {
@@ -48,6 +49,12 @@ function (x, main = "Tukey Additivity Plot", ...)
     abline(h = 0, v = 0, lty = "dotted")
 }
 
+#' Print method for two-way tables
+
+#' @param x a numeric matrix
+#' @param digits number of digits to print
+#' @param ... other arguments passed down
+#' @rdname twoway
 
 print.twoway <-
 function (x, digits = getOption("digits"), ...)
@@ -56,9 +63,6 @@ function (x, digits = getOption("digits"), ...)
 			"Mean decomposition "
 			else
 			"Median polish decomposition "
-
-#    cat("\nMedian Polish Results (Dataset: \"", x$name, "\")\n",
-#        sep = "")
 		cat("\n", title, "(Dataset: \"", x$name, "\")\n", sep="")
     cat("\nOverall: ", x$overall, "\n\nRow Effects:\n", sep = "")
     print(x$row, digits = digits, ...)
@@ -70,29 +74,55 @@ function (x, digits = getOption("digits"), ...)
     invisible(x)
 }
 
+#' Plot method for two-way tables
+#'
+#' Plots either the fitted values and residuals under additivity or
+#' a diagnostic plot for removable non-additivity
+#' @param x a numeric matrix
+#' @param type one of \code{"fit"} or \code{"diagnose"}
+#' @param rfactor for the \code{"fit"} method, draw arrows for \code{abs(residuals) > rfactor*sqrt(MSPE)}
+#' @param ... other arguments passed down
+#' @rdname twoway
 
-
-plot.twoway <- function(x, type=c("fit", "diagnose"), rfactor=1.5, ...) {
+plot.twoway <- function(x, type=c("fit", "diagnose"), main,  rfactor=1.5, ...) {
 	type <- match.arg(type)
 
-	row <- x$row
-	col <- x$col
-	r <- length(row)
-	c <- length(col)
-	all <- x$overal
-	clo <- min(col) + all
-	chi <- max(col) + all
-  from <- cbind(clo - row, clo + row)
-  to   <- cbind(chi - row, chi + row)
+	if(type=="fit") {
+    if (missing(main)) main <- "Tukey two-way fit plot"
+  	row <- x$row
+  	col <- x$col
+  	r <- length(row)
+  	c <- length(col)
+  	all <- x$overal
+  	clo <- min(col) + all
+  	chi <- max(col) + all
+    from <- cbind(clo - row, clo + row)
+    to   <- cbind(chi - row, chi + row)
 
-  rlo <- min(row)
-  rhi <- max(row)
-  from <- rbind(from,  cbind(col + all - rhi, col + all + rhi))
-  to   <- rbind(to,    cbind(col + all - rlo, col + all + rlo))
-  colnames(from) <- c("x", "y")
-  colnames(to)   <- c("x", "y")
+    rlo <- min(row)
+    rhi <- max(row)
+    from <- rbind(from,  cbind(col + all - rhi, col + all + rhi))
+    to   <- rbind(to,    cbind(col + all - rlo, col + all + rlo))
+    colnames(from) <- c("x", "y")
+    colnames(to)   <- c("x", "y")
 
-  labs <- c(names(row), names(col))
+    labs <- c(names(row), names(col))
 
-  plot( rbind(from, to) , col=rep(c("red", "blue"), times= c(r, c)))
+    plot( rbind(from, to), main=main,
+          col=rep(c("red", "blue"), times= c(r, c)),
+          ...)
+
+    text(to, labs, srt=rep(c(45, -45), c(r,c)))
+	}
+	else {
+	  if (missing(main)) main <- "Tukey additivity plot"
+	  comp <- outer(x$row, x$col)/x$overall
+	  res <- x$residuals
+	  plot(comp, x$residuals, main = main,
+	       xlab = "Diagnostic Comparison Values", ylab = "Residuals",
+	       ...)
+	  abline(lm(res ~ comp))
+	  abline(h = 0, v = 0, lty = "dotted")
+
+	}
 }
