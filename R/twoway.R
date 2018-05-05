@@ -55,6 +55,7 @@ function (x, main = "Tukey Additivity Plot", ...)
 #' @param x a numeric matrix
 #' @param digits number of digits to print
 #' @param ... other arguments passed down
+#' @export
 
 print.twoway <-
 function (x, digits = getOption("digits"), ...)
@@ -85,6 +86,7 @@ function (x, digits = getOption("digits"), ...)
 #' @param ... other arguments passed down
 #' @importFrom graphics plot text abline
 #' @importFrom stats lm
+#' @export
 
 plot.twoway <- function(x, type=c("fit", "diagnose"), main,  rfactor=1.5, ...) {
 	type <- match.arg(type)
@@ -112,14 +114,17 @@ plot.twoway <- function(x, type=c("fit", "diagnose"), main,  rfactor=1.5, ...) {
 
     plot( rbind(from, to), main=main,
           col=rep(c("red", "blue"), times= c(r, c)),
+          asp=1,
+          ylab="Fitted value",
           ...)
 
-    text(to, labs, srt=rep(c(45, -45), c(r,c)))
+    text(to[1:r,], labs[1:r], srt=45, pos=4)
+    text(to[(r+1):(r+c),], labs[(r+1):(r+c)], srt=-45, pos=4)
 	}
 	else {
 	  if (missing(main)) main <- "Tukey additivity plot"
-	  comp <- outer(x$row, x$col)/x$overall
-	  res <- x$residuals
+	  comp <- c(outer(x$row, x$col)/x$overall)
+	  res <- c(x$residuals)
 	  plot(comp, x$residuals, main = main,
 	       xlab = "Diagnostic Comparison Values", ylab = "Residuals",
 	       ...)
