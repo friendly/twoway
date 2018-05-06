@@ -51,7 +51,7 @@ meanfit <- function(x, ...) {
   overall <- mean(z)
   row <- rowMeans(z) - overall
   col <- colMeans(z) - overall
-  residuals <- z - outer(row, col) - overall
+  residuals <- z - outer(row, col, "+") - overall
   names(row) <- rownames(z)
   names(col) <- colnames(z)
   ans <- list(overall = overall, row = row, col = col, residuals = residuals,
