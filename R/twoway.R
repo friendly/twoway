@@ -98,8 +98,8 @@ plot.twoway <- function(x, type=c("fit", "diagnose"), main, ylab, rfactor=1.5, .
 	type <- match.arg(type)
 
 	if(type=="fit") {
-    if (missing(main)) main <- "Tukey two-way fit plot"
-    if (missing(ylab)) main <- "Fitted value"
+    if (missing(main)) main <- paste("Tukey two-way fit plot for", x$name)
+    if (missing(ylab)) ylab <- "Fitted value"
     row <- x$row
   	col <- x$col
   	r <- length(row)
@@ -119,15 +119,17 @@ plot.twoway <- function(x, type=c("fit", "diagnose"), main, ylab, rfactor=1.5, .
 
     labs <- c(names(row), names(col))
 
+    # find the plot range to include residuals and labels
     fit <- outer(x$row, x$col, "+") + x$overall
     dat <- fit + x$residuals
     ylim <- range(rbind(dat, fit))
     ylim <- ylim + c(-.1, .1)* range(rbind(dat,fit))
+
     plot( rbind(from, to), main=main,
           col=rep(c("red", "blue"), times= c(r, c)),
           asp=1,
           ylim = ylim,
-          ylab="Fitted value",
+          ylab = ylab,
           xlab="Row Effect - Column Fit",
           ...)
 
@@ -135,21 +137,28 @@ plot.twoway <- function(x, type=c("fit", "diagnose"), main, ylab, rfactor=1.5, .
     indr <- 1:r
     indc <- (r+1):(r+c)
     # labels for rows and columns
+    # TODO: tweak label positions with an offset
     text(to[indr,], labs[indr], srt=45, pos=4)
     text(to[(r+1):(r+c),], labs[(r+1):(r+c)], srt=-45, pos=4)
     # draw lines
     segments(from[indr,1], from[indr,2], to[indr,1], to[indr,2])
     segments(from[indc,1], from[indc,2], to[indc,1], to[indc,2])
+    # draw large residuals
 	}
+  # diagnostic plot
 	else {
-	  if (missing(main)) main <- "Tukey additivity plot"
+	  if (missing(main)) main <- paste("Tukey additivity plot for", x$name)
 	  comp <- c(outer(x$row, x$col)/x$overall)
 	  res <- c(x$residuals)
 	  plot(comp, x$residuals, main = main,
-	       xlab = "Diagnostic Comparison Values", ylab = "Residuals",
+	       xlab = "Diagnostic Comparison Values",
+	       ylab = "Residuals",
 	       ...)
 	  abline(lm(res ~ comp))
 	  abline(h = 0, v = 0, lty = "dotted")
+	  # TODO: Identify unusual points
+	  # TODO: Optionally, add confidence limits for lm line, or add loess smooth??
+
 
 	}
 }
