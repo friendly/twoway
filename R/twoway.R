@@ -24,6 +24,10 @@ twoway <-
 #' @export
 #' @return An object of class \code{"twoway"}
 #' @seealso \code{\link{medianfit}}, \code{\link{meanfit}}
+#' @example
+#' data(taskRT)
+#' twoway(taskRT)
+#'
 
 twoway.default <- function(x, method=c("mean", "median"), ...) {
 
@@ -32,6 +36,7 @@ twoway.default <- function(x, method=c("mean", "median"), ...) {
     result <- meanfit(x)
   else
     result <- medianfit(x, ...)
+  result$name <- deparse(substitute(x))
   result
 
 }
