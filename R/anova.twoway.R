@@ -2,6 +2,8 @@
 #'
 #' Test for a 1-df interaction in two-way ANOVA table by the Tukey test.
 #'
+#' @param x a \code{class("twoway")} object
+#' @param ... other arguments passed down
 
 anova.twoway <- function(x, ...) {
 
