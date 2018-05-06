@@ -4,17 +4,21 @@
 \alias{plot.twoway}
 \title{Plot method for two-way tables}
 \usage{
-\method{plot}{twoway}(x, type = c("fit", "diagnose"), main, rfactor = 1.5,
-  ...)
+\method{plot}{twoway}(x, type = c("fit", "diagnose"), main, ylab,
+  rfactor = 1.5, rcolor = c("blue", "red"), ...)
 }
 \arguments{
-\item{x}{a numeric matrix}
+\item{x}{a \code{class("twoway")} object}
 
 \item{type}{one of \code{"fit"} or \code{"diagnose"}}
 
 \item{main}{plot title}
 
+\item{ylab}{Y axis label for \code{"fit"} plot}
+
 \item{rfactor}{for the \code{"fit"} method, draw arrows for \code{abs(residuals) > rfactor*sqrt(MSPE)}}
+
+\item{rcolor}{for the \code{"fit"} method, color of arrows for positive and negative residuals}
 
 \item{...}{other arguments passed down}
 }

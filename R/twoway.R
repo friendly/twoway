@@ -24,7 +24,7 @@ twoway <-
 #' @export
 #' @return An object of class \code{"twoway"}
 #' @seealso \code{\link{medianfit}}, \code{\link{meanfit}}
-#' @example
+#' @examples
 #' data(taskRT)
 #' twoway(taskRT)
 #'
@@ -89,12 +89,16 @@ function (x, digits = getOption("digits"), ...)
 #' @param main plot title
 #' @param ylab Y axis label for \code{"fit"} plot
 #' @param rfactor for the \code{"fit"} method, draw arrows for \code{abs(residuals) > rfactor*sqrt(MSPE)}
+#' @param rcolor  for the \code{"fit"} method, color of arrows for positive and negative residuals
 #' @param ... other arguments passed down
-#' @importFrom graphics plot text abline
+#' @importFrom graphics plot text abline arrows segments
 #' @importFrom stats lm
 #' @export
 
-plot.twoway <- function(x, type=c("fit", "diagnose"), main, ylab, rfactor=1.5, ...) {
+plot.twoway <- function(x, type=c("fit", "diagnose"), main, ylab,
+                        rfactor=1.5,
+                        rcolor=c("blue", "red"),
+                        ...) {
 	type <- match.arg(type)
 
 	if(type=="fit") {
@@ -122,9 +126,11 @@ plot.twoway <- function(x, type=c("fit", "diagnose"), main, ylab, rfactor=1.5, .
     # find the plot range to include residuals and labels
     fit <- outer(x$row, x$col, "+") + x$overall
     dat <- fit + x$residuals
+    dif <- -outer(row, col+all, "-")  # colfit - roweff
     ylim <- range(rbind(dat, fit))
     ylim <- ylim + c(-.1, .1)* range(rbind(dat,fit))
 
+    # coordinates of vertices in the plot are (fit, dif)
     plot( rbind(from, to), main=main,
           col=rep(c("red", "blue"), times= c(r, c)),
           asp=1,
@@ -143,7 +149,23 @@ plot.twoway <- function(x, type=c("fit", "diagnose"), main, ylab, rfactor=1.5, .
     # draw lines
     segments(from[indr,1], from[indr,2], to[indr,1], to[indr,2])
     segments(from[indc,1], from[indc,2], to[indc,1], to[indc,2])
-    # draw large residuals
+
+    # draw arrows for  large residuals
+    # TODO should use sqrt(SSPE)
+    e <- x$residuals
+    MSE <- sum(e^2) / prod(c(r,c)-1)
+    sigma <- sqrt(MSE)
+    showres <- abs(e) > rfactor * sigma
+    clr <- ifelse(e > 0, rcolor[1], rcolor[2])
+    # TODO vectorize this code !!!
+    for (i in 1:r) {
+      for (j in 1:c) {
+        bot <- c(dif[i,j], fit[i,j])
+        top <- bot + c(0, e[i,j])
+        arrows(bot[1], bot[2], top[1], top[2], col = clr[i,j])
+      }
+    }
+
 	}
   # diagnostic plot
 	else {

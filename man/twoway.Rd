@@ -24,6 +24,11 @@ Fits an additive model using either row and column means or Tukey's median polis
 
 Default method for two-way tables
 }
+\examples{
+data(taskRT)
+twoway(taskRT)
+
+}
 \references{
 Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesley.
             Friendly, M. (1991). \emph{SAS System for Statistical Graphics} Cary, NC: SAS Institute
