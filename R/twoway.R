@@ -83,13 +83,13 @@ function (x, digits = getOption("digits"), ...)
 #' Plot method for two-way tables
 #'
 #' Plots either the fitted values and residuals under additivity or
-#' a diagnostic plot for removable non-additivity
+#' a diagnostic plot for removable non-additivity by a power transformation
 #' @param x a \code{class("twoway")} object
 #' @param which one of \code{"fit"} or \code{"diagnose"}
 #' @param main plot title
 #' @param ylab Y axis label for \code{"fit"} plot
-#' @param rfactor for the \code{"fit"} method, draw arrows for \code{abs(residuals) > rfactor*sqrt(MSPE)}
-#' @param rcolor  for the \code{"fit"} method, color of arrows for positive and negative residuals
+#' @param rfactor for the \code{"fit"} method, draw lines for \code{abs(residuals) > rfactor*sqrt(MSPE)}
+#' @param rcolor  for the \code{"fit"} method, a vector of length 2 giving the color of lines for positive and negative residuals
 #' @param ... other arguments passed down
 #' @importFrom graphics plot text abline arrows segments
 #' @importFrom stats lm
@@ -97,14 +97,15 @@ function (x, digits = getOption("digits"), ...)
 #' @examples
 #' data(sentRT)
 #' twoway(sentRT)
-#' plot(twoway(sentRT))
-#' ## plot(twoway(sentRT), which="diagnose")
+#' plot(twoway(sentRT), ylab="Reaction Time")
+#' plot(twoway(sentRT), which="diagnose")
 
 plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
                         rfactor=1,
                         rcolor=c("blue", "red"),
                         ...) {
 	which <- match.arg(which)
+	# TODO: do both plots in a single call??
 
 	if(which=="fit") {
     if (missing(main)) main <- paste("Tukey two-way fit plot for", x$name)
@@ -136,8 +137,8 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
     ylim <- ylim + c(-.1, .1)* range(rbind(dat,fit))
 
     # coordinates of vertices in the plot are (fit, dif)
-    plot( rbind(from, to), main=main,
-          col=rep(c("red", "blue"), times= c(r, c)),
+    plot( rbind(from, to), main=main, type="n",
+#          col=rep(c("red", "blue"), times= c(r, c)),
           asp=1,
           ylim = ylim,
           ylab = ylab,
@@ -149,13 +150,14 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
     indc <- (r+1):(r+c)
     # labels for rows and columns
     # TODO: tweak label positions with an offset
-    text(to[indr,], labs[indr], srt=45, pos=4)
-    text(to[(r+1):(r+c),], labs[(r+1):(r+c)], srt=-45, pos=4)
+    off <- c(0, .5)
+    text(to[indr,], labs[indr], srt=45, pos=4, offset=c(0.1,0.5), xpd=TRUE)
+    text(to[(r+1):(r+c),], labs[(r+1):(r+c)], srt=-45, pos=4, offset=c(0,-.5), xpd=TRUE)
     # draw lines
     segments(from[indr,1], from[indr,2], to[indr,1], to[indr,2])
     segments(from[indc,1], from[indc,2], to[indc,1], to[indc,2])
 
-    # draw arrows for  large residuals
+    # draw lines/arrows for  large residuals
     # TODO should use sqrt(SSPE)
     e <- x$residuals
     MSE <- sum(e^2) / prod(c(r,c)-1)
@@ -184,7 +186,7 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
 	  res <- c(x$residuals)
 	  plot(comp, x$residuals, main = main,
 	       xlab = "Diagnostic Comparison Values",
-	       ylab = "Residuals",
+	       ylab = "Interaction Residuals",
 	       ...)
 	  abline(lm(res ~ comp))
 	  abline(h = 0, v = 0, lty = "dotted")
