@@ -16,11 +16,19 @@ knitr::opts_chunk$set(
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell,
 most typically used in an Analysis of Variance (ANOVA) context.
-The methods follow Tukey (1949), "One Degree of Freedom for Non-additivity" and Tukey (1972), *Exploratory Data Analysis*
-The R implementation is based on my SAS macro, [twoway.sas](http://www.datavis.ca/sasmac/twoway.html).
+The methods follow Tukey (1949), "One Degree of Freedom for Non-additivity" and Tukey (1972), *Exploratory Data Analysis*,
+but the graphical ideas are more interesting and general:
+
+* how to display an **assumed** additive relation between two factors graphically, and visualize departures from an additive fit.
+* how to assess visually whether a power transformation of the response might be more nearly additive in the factors.
+
+
+This R implementation is based on my SAS macro, [twoway.sas](http://www.datavis.ca/sasmac/twoway.html). It is still at an early
+stage of development.
 
 ## Installation
 
+This package has not yet been submitted to CRAN.
 You can install `twoway` from github with:
 
 ```{r gh-installation, eval = FALSE}
@@ -30,8 +38,41 @@ devtools::install_github("friendly/twoway")
 
 ## Example
 
-This will eventually be a basic example which shows you how to use the package:
+A trivial example shows the analysis of a 3 x 3 table, containing mean reaction times for three subjects
+presented with three types of sentences and asked to judge whether the sentence was TRUE or FALSE.
+The questions are:
 
-```{r example}
-## basic example code
+* How does reaction time vary with subject and sentence type?
+* Can the results be accounted for by an additive model, with an effect for subject and for sentence type?
+
+```{r ex1-data}
+library(twoway)
+data("sentRT")
+sentRT
 ```
+
+The `twoway()` function gives the basic analysis: a decomposition of the two-way table, giving the:
+
+* grand mean ($\mu = \bar{x}_{..}$), 
+* row effects ($\alpha_i = \bar{x}_{i.}-\mu$), 
+* column effects ($\beta_j = \bar{x}_{.j}-\mu$), and
+* residuals ($x_{ij}-\mu -\alpha_i -\beta_j$)
+
+```{r ex1-twoway}
+twoway(sentRT)
+```
+
+`twoway()` also allows for a robust fitting by row and column medians, using Tukey's idea of median polish, as implemented
+in `stats::medpolish()`. This uses `method="median" in the call to `twoway()`.
+
+The plot method for `twoway` objects currently provides two types of plots:
+
+* a plot of fitted values under the additive models and residuals (the default, `which="fit"`)
+* a diagnostic plot of interaction residuals vs. comparison values under additivity (`which="diagnose"`). If the points in this plot are reasonably
+linear and have a non-zero slope, *b*, a suggested power transformation of the response to $x^{1-b}$ will often remove
+non-additivity.
+
+```{r ex1-plot}
+plot(twoway(sentRT))
+```
+
