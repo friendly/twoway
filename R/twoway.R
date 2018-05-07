@@ -85,7 +85,7 @@ function (x, digits = getOption("digits"), ...)
 #' Plots either the fitted values and residuals under additivity or
 #' a diagnostic plot for removable non-additivity
 #' @param x a \code{class("twoway")} object
-#' @param type one of \code{"fit"} or \code{"diagnose"}
+#' @param which one of \code{"fit"} or \code{"diagnose"}
 #' @param main plot title
 #' @param ylab Y axis label for \code{"fit"} plot
 #' @param rfactor for the \code{"fit"} method, draw arrows for \code{abs(residuals) > rfactor*sqrt(MSPE)}
@@ -94,14 +94,19 @@ function (x, digits = getOption("digits"), ...)
 #' @importFrom graphics plot text abline arrows segments
 #' @importFrom stats lm
 #' @export
+#' @examples
+#' data(sentRT)
+#' twoway(sentRT)
+#' plot(twoway(sentRT))
+#' ## plot(twoway(sentRT), which="diagnose")
 
-plot.twoway <- function(x, type=c("fit", "diagnose"), main, ylab,
-                        rfactor=1.5,
+plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
+                        rfactor=1,
                         rcolor=c("blue", "red"),
                         ...) {
-	type <- match.arg(type)
+	which <- match.arg(which)
 
-	if(type=="fit") {
+	if(which=="fit") {
     if (missing(main)) main <- paste("Tukey two-way fit plot for", x$name)
     if (missing(ylab)) ylab <- "Fitted value"
     row <- x$row
@@ -126,7 +131,7 @@ plot.twoway <- function(x, type=c("fit", "diagnose"), main, ylab,
     # find the plot range to include residuals and labels
     fit <- outer(x$row, x$col, "+") + x$overall
     dat <- fit + x$residuals
-    dif <- -outer(row, col+all, "-")  # colfit - roweff
+    dif <- t(outer(col+all, row,  "-"))  # colfit - roweff
     ylim <- range(rbind(dat, fit))
     ylim <- ylim + c(-.1, .1)* range(rbind(dat,fit))
 
@@ -157,12 +162,17 @@ plot.twoway <- function(x, type=c("fit", "diagnose"), main, ylab,
     sigma <- sqrt(MSE)
     showres <- abs(e) > rfactor * sigma
     clr <- ifelse(e > 0, rcolor[1], rcolor[2])
+#    browser()
+
     # TODO vectorize this code !!!
+    re <- outer(row, rep(1,r))
+    cf <- outer(rep(1,c), col) + all
     for (i in 1:r) {
       for (j in 1:c) {
-        bot <- c(dif[i,j], fit[i,j])
+#        bot <- c(dif[i,j], fit[i,j])
+        bot <- c( (cf[i,j]-re[i,j]), (cf[i,j]+re[i,j]) )
         top <- bot + c(0, e[i,j])
-        arrows(bot[1], bot[2], top[1], top[2], col = clr[i,j])
+        segments(bot[1], bot[2], top[1], top[2], col = clr[i,j])
       }
     }
 
