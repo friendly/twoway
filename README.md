@@ -49,27 +49,18 @@ The `twoway()` function gives the basic analysis: a decomposition of the two-way
 twoway(sentRT)
 #> 
 #> Mean decomposition (Dataset: "sentRT")
+#> Residuals bordered by row effects, column effects, and overall
 #> 
-#> Overall: 4.966667
-#> 
-#> Row Effects:
-#> subj1 subj2 subj3 
-#>  -3.1  -0.1   3.2 
-#> 
-#> Column Effects:
-#>      sent1      sent2      sent3 
-#> -0.7333333 -0.3666667  1.1000000 
-#> 
-#> Residuals:
-#>          sent1 sent2    sent3
-#> subj1  0.56667   0.4 -0.96667
-#> subj2  0.26667   0.0 -0.26667
-#> subj3 -0.83333  -0.4  1.23333
+#>           sent1    sent2    sent3  roweff
+#> subj1   0.56667  0.40000 -0.96667 -3.1000
+#> subj2   0.26667  0.00000 -0.26667 -0.1000
+#> subj3  -0.83333 -0.40000  1.23333  3.2000
+#> coleff -0.73333 -0.36667  1.10000  4.9667
 ```
 
-`twoway()` also allows for a robust fitting by row and column medians, using Tukey's idea of median polish, as implemented in `stats::medpolish()`.
+`twoway()` also allows for a robust fitting by row and column medians, using Tukey's idea of median polish, as implemented in `stats::medpolish()`. This uses `method="median" in the call to`twoway()\`.
 
-The plot method for `twoway` objects provides two types of plots:
+The plot method for `twoway` objects currently provides two types of plots:
 
 -   a plot of fitted values under the additive models and residuals (the default, `which="fit"`)
 -   a diagnostic plot of interaction residuals vs. comparison values under additivity (`which="diagnose"`). If the points in this plot are reasonably linear and have a non-zero slope, *b*, a suggested power transformation of the response to *x*<sup>1 − *b*</sup> will often remove non-additivity.
