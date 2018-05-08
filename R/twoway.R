@@ -59,25 +59,42 @@ function (x, main = "Tukey Additivity Plot", ...)
 
 #' @param x a numeric matrix
 #' @param digits number of digits to print
+#' @param border if 0, the components \code{"twoway"} object (\code{"overall", "row", "col", "residuals"}) are printed separately;
+#'               if 1, the row, column and overall effects are joined to the residuals in a single table.
 #' @param ... other arguments passed down
 #' @export
 
 print.twoway <-
-function (x, digits = getOption("digits"), ...)
+function (x, digits = getOption("digits"), border=1, ...)
 {
-		title <- if(x$method == "mean")
+    title <- if(x$method == "mean")
 			"Mean decomposition "
 			else
 			"Median polish decomposition "
-		cat("\n", title, "(Dataset: \"", x$name, "\")\n", sep="")
-    cat("\nOverall: ", x$overall, "\n\nRow Effects:\n", sep = "")
-    print(x$row, digits = digits, ...)
-    cat("\nColumn Effects:\n")
-    print(x$col, digits = digits, ...)
-    cat("\nResiduals:\n")
-    print(x$residuals, digits = max(2L, digits - 2L), ...)
+  	cat("\n", title, "(Dataset: \"", x$name, "\")\n", sep="")
+
+		if (border < 1) {
+      cat("\nOverall: ", x$overall, "\n\nRow Effects:\n", sep = "")
+      print(x$row, digits = digits, ...)
+      cat("\nColumn Effects:\n")
+      print(x$col, digits = digits, ...)
+      cat("\nResiduals:\n")
+      print(x$residuals, digits = max(2L, digits - 2L), ...)
+		}
+    else {
+      cat("Residuals bordered by row effects, column effects, and overall\n\n")
+      tbl <- rbind(
+              cbind( x$residuals, roweff=x$row ),
+              coleff=    c( x$col, x$overall)
+              # cbind( x$residuals, roweff=round(x$row,2) ),
+              # coleff=    round(c( x$col, x$overall),2)
+      )
+      print(tbl, digits = max(2L, digits - 2L), ...)
+    }
     cat("\n")
+
     invisible(x)
+
 }
 
 #' Plot method for two-way tables
