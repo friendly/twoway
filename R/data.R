@@ -6,6 +6,8 @@
 #' @name taskRT
 #' @docType data
 #' @keywords data
+#' data(taskRT)
+#' twoway(taskRT)
 NULL
 
 #'  Reaction times for T/F judgments
@@ -21,4 +23,19 @@ NULL
 #' data(sentRT)
 #' twoway(sentRT)
 NULL
+
+
+#' Scores for 5 subjects after being given each of 4 drugs
+#'
+#' The original source is Winer (1971), p. 268
+#'
+#' @name drugs
+#' @docType data
+#' @keywords data
+#' @references Friendly, M. (1991). \emph{SAS System for Statistical Graphics} Cary, NC: SAS Institute, Output 7.28
+#' @examples
+#' data(drugs)
+#' twoway(drugs)
+NULL
+
 

@@ -9,3 +9,5 @@ A demonstration 3 x 4 two-way table composed of reaction times for
 tasks varying in difficulty, with content on different topics.
 }
 \keyword{data}
+\keyword{data(taskRT)}
+\keyword{twoway(taskRT)}
