@@ -1,6 +1,7 @@
 data("taskRT")
 
 res <- twoway(taskRT)
+names(res)
 plot(res)
 
 plot(res, type="diagnose")
