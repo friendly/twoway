@@ -8,20 +8,24 @@
 #' @return An object of class \code{c("twoway", "medpolish")} with the following named components:
 #' \describe{
 #'  \item{overall}{the fitted constant term.}
-#'  \item{row}{the fitted row effects.}
-#'  \item{col}{the fitted column effects.}
+#'  \item{roweff}{the fitted row effects.}
+#'  \item{coleff}{the fitted column effects.}
 #'  \item{residuals}{the residuals.}
 #'  \item{name}{the name of the dataset.}
+#'  \item{rownames}{the names for the rows}
+#'  \item{colnames}{the names for the columns}
+#'  \item{method}{"median"}
 #' }
 
 
 medianfit <- function(x, trace.iter=FALSE, ...) {
   result <- stats::medpolish(x, trace.iter=trace.iter, ...)
+  names(result)[2:3] <- c("roweff", "coleff")
+  result$name <-  deparse(substitute(x))
   result$rownames <- rownames(x)
   result$colnames <- colnames(x)
-  result$name <-  deparse(substitute(x))
-  #	result$roweff <- result$row - result$overall
-  #	result$coleff <- result$col - result$overall
+  # result$roweff <- result$row - result$overall
+  # result$coleff <- result$col - result$overall
   result$method <- "median"
   class(result) <- c("twoway", "medpolish")
   result
@@ -35,10 +39,13 @@ medianfit <- function(x, trace.iter=FALSE, ...) {
 #' @return An object of class \code{c("twoway")} with the following named components:
 #' \describe{
 #'  \item{overall}{the fitted constant term.}
-#'  \item{row}{the fitted row effects.}
-#'  \item{col}{the fitted column effects.}
+#'  \item{roweff}{the fitted row effects.}
+#'  \item{coleff}{the fitted column effects.}
 #'  \item{residuals}{the residuals.}
 #'  \item{name}{the name of the dataset.}
+#'  \item{rownames}{the names for the rows}
+#'  \item{colnames}{the names for the columns}
+#'  \item{method}{"median"}
 #' }
 
 
@@ -49,13 +56,13 @@ meanfit <- function(x, ...) {
   r <- numeric(nr)
   c <- numeric(nc)
   overall <- mean(z)
-  row <- rowMeans(z) - overall
-  col <- colMeans(z) - overall
-  residuals <- z - outer(row, col, "+") - overall
-  names(row) <- rownames(z)
-  names(col) <- colnames(z)
-  ans <- list(overall = overall, row = row, col = col, residuals = residuals,
-              name = deparse(substitute(x)),
+  roweff <- rowMeans(z) - overall
+  coleff <- colMeans(z) - overall
+  residuals <- z - outer(roweff, coleff, "+") - overall
+  names(roweff) <- rownames(z)
+  names(coleff) <- colnames(z)
+  ans <- list(overall = overall, roweff = roweff, coleff = coleff, residuals = residuals,
+              name = deparse(substitute(x)), rownames = rownames(z), colnames = colnames(z),
               method = "mean")
   class(ans) <- "twoway"
   ans

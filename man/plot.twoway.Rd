@@ -4,25 +4,31 @@
 \alias{plot.twoway}
 \title{Plot method for two-way tables}
 \usage{
-\method{plot}{twoway}(x, type = c("fit", "diagnose"), main, ylab,
-  rfactor = 1.5, rcolor = c("blue", "red"), ...)
+\method{plot}{twoway}(x, which = c("fit", "diagnose"), main, ylab,
+  rfactor = 1, rcolor = c("blue", "red"), ...)
 }
 \arguments{
 \item{x}{a \code{class("twoway")} object}
 
-\item{type}{one of \code{"fit"} or \code{"diagnose"}}
+\item{which}{one of \code{"fit"} or \code{"diagnose"}}
 
 \item{main}{plot title}
 
 \item{ylab}{Y axis label for \code{"fit"} plot}
 
-\item{rfactor}{for the \code{"fit"} method, draw arrows for \code{abs(residuals) > rfactor*sqrt(MSPE)}}
+\item{rfactor}{for the \code{"fit"} method, draw lines for \code{abs(residuals) > rfactor*sqrt(MSPE)}}
 
-\item{rcolor}{for the \code{"fit"} method, color of arrows for positive and negative residuals}
+\item{rcolor}{for the \code{"fit"} method, a vector of length 2 giving the color of lines for positive and negative residuals}
 
 \item{...}{other arguments passed down}
 }
 \description{
 Plots either the fitted values and residuals under additivity or
-a diagnostic plot for removable non-additivity
+a diagnostic plot for removable non-additivity by a power transformation
+}
+\examples{
+data(sentRT)
+twoway(sentRT)
+plot(twoway(sentRT), ylab="Reaction Time")
+plot(twoway(sentRT), which="diagnose")
 }

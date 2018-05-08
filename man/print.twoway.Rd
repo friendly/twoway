@@ -4,12 +4,15 @@
 \alias{print.twoway}
 \title{Print method for two-way tables}
 \usage{
-\method{print}{twoway}(x, digits = getOption("digits"), ...)
+\method{print}{twoway}(x, digits = getOption("digits"), border = 1, ...)
 }
 \arguments{
 \item{x}{a numeric matrix}
 
 \item{digits}{number of digits to print}
+
+\item{border}{if 0, the components \code{"twoway"} object (\code{"overall", "roweff", "coleff", "residuals"}) are printed separately;
+if 1, the row, column and overall effects are joined to the residuals in a single table.}
 
 \item{...}{other arguments passed down}
 }

@@ -17,10 +17,13 @@ medianfit(x, trace.iter = FALSE, ...)
 An object of class \code{c("twoway", "medpolish")} with the following named components:
 \describe{
  \item{overall}{the fitted constant term.}
- \item{row}{the fitted row effects.}
- \item{col}{the fitted column effects.}
+ \item{roweff}{the fitted row effects.}
+ \item{coleff}{the fitted column effects.}
  \item{residuals}{the residuals.}
  \item{name}{the name of the dataset.}
+ \item{rownames}{the names for the rows}
+ \item{colnames}{the names for the columns}
+ \item{method}{"median"}
 }
 }
 \description{

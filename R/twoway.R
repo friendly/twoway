@@ -42,24 +42,24 @@ twoway.default <- function(x, method=c("mean", "median"), ...) {
 }
 
 
-## diagnostic plot for removable interaction, from stats::medpolish
-plot.medpolish <-
-function (x, main = "Tukey Additivity Plot", ...)
-{
-		comp <- outer(x$row, x$col)/x$overall
-		res <- x$residuals
-    plot(comp, x$residuals, main = main,
-        xlab = "Diagnostic Comparison Values", ylab = "Residuals",
-        ...)
-    abline(lm(res ~ comp))
-    abline(h = 0, v = 0, lty = "dotted")
-}
+# ## diagnostic plot for removable interaction, from stats::medpolish
+# plot.medpolish <-
+# function (x, main = "Tukey Additivity Plot", ...)
+# {
+# 		comp <- outer(x$row, x$col)/x$overall
+# 		res <- x$residuals
+#     plot(comp, x$residuals, main = main,
+#         xlab = "Diagnostic Comparison Values", ylab = "Residuals",
+#         ...)
+#     abline(lm(res ~ comp))
+#     abline(h = 0, v = 0, lty = "dotted")
+# }
 
 #' Print method for two-way tables
 
 #' @param x a numeric matrix
 #' @param digits number of digits to print
-#' @param border if 0, the components \code{"twoway"} object (\code{"overall", "row", "col", "residuals"}) are printed separately;
+#' @param border if 0, the components \code{"twoway"} object (\code{"overall", "roweff", "coleff", "residuals"}) are printed separately;
 #'               if 1, the row, column and overall effects are joined to the residuals in a single table.
 #' @param ... other arguments passed down
 #' @export
@@ -75,19 +75,19 @@ function (x, digits = getOption("digits"), border=1, ...)
 
 		if (border < 1) {
       cat("\nOverall: ", x$overall, "\n\nRow Effects:\n", sep = "")
-      print(x$row, digits = digits, ...)
+      print(x$roweff, digits = digits, ...)
       cat("\nColumn Effects:\n")
-      print(x$col, digits = digits, ...)
+      print(x$coleff, digits = digits, ...)
       cat("\nResiduals:\n")
       print(x$residuals, digits = max(2L, digits - 2L), ...)
 		}
     else {
       cat("Residuals bordered by row effects, column effects, and overall\n\n")
       tbl <- rbind(
-              cbind( x$residuals, roweff=x$row ),
-              coleff=    c( x$col, x$overall)
-              # cbind( x$residuals, roweff=round(x$row,2) ),
-              # coleff=    round(c( x$col, x$overall),2)
+              cbind( x$residuals, roweff=x$roweff ),
+              coleff=    c( x$coleff, x$overall)
+              # cbind( x$residuals, roweff=round(x$roweff,2) ),
+              # coleff=    round(c( x$coleff, x$overall),2)
       )
       print(tbl, digits = max(2L, digits - 2L), ...)
     }
@@ -127,29 +127,29 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
 	if(which=="fit") {
     if (missing(main)) main <- paste("Tukey two-way fit plot for", x$name)
     if (missing(ylab)) ylab <- "Fitted value"
-    row <- x$row
-  	col <- x$col
-  	r <- length(row)
-  	c <- length(col)
+    roweff <- x$roweff
+  	coleff <- x$coleff
+  	r <- length(roweff)
+  	c <- length(coleff)
   	all <- x$overal
-  	clo <- min(col) + all
-  	chi <- max(col) + all
-    from <- cbind(clo - row, clo + row)
-    to   <- cbind(chi - row, chi + row)
+  	clo <- min(coleff) + all
+  	chi <- max(coleff) + all
+    from <- cbind(clo - roweff, clo + roweff)
+    to   <- cbind(chi - roweff, chi + roweff)
 
-    rlo <- min(row)
-    rhi <- max(row)
-    from <- rbind(from,  cbind(col + all - rhi, col + all + rhi))
-    to   <- rbind(to,    cbind(col + all - rlo, col + all + rlo))
+    rlo <- min(roweff)
+    rhi <- max(roweff)
+    from <- rbind(from,  cbind(coleff + all - rhi, coleff + all + rhi))
+    to   <- rbind(to,    cbind(coleff + all - rlo, coleff + all + rlo))
     colnames(from) <- c("x", "y")
     colnames(to)   <- c("x", "y")
 
-    labs <- c(names(row), names(col))
+    labs <- c(names(roweff), names(coleff))
 
     # find the plot range to include residuals and labels
-    fit <- outer(x$row, x$col, "+") + x$overall
+    fit <- outer(x$roweff, x$coleff, "+") + x$overall
     dat <- fit + x$residuals
-    dif <- t(outer(col+all, row,  "-"))  # colfit - roweff
+    dif <- t(outer(coleff+all, roweff,  "-"))  # colfit - roweff
     ylim <- range(rbind(dat, fit))
     ylim <- ylim + c(-.1, .1)* range(rbind(dat,fit))
 
@@ -184,8 +184,8 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
 #    browser()
 
     # TODO vectorize this code !!!
-    re <- outer(row, rep(1,r))
-    cf <- outer(rep(1,c), col) + all
+    re <- outer(roweff, rep(1,r))
+    cf <- outer(rep(1,c), coleff) + all
     for (i in 1:r) {
       for (j in 1:c) {
 #        bot <- c(dif[i,j], fit[i,j])
@@ -199,7 +199,7 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
   # diagnostic plot
 	else {
 	  if (missing(main)) main <- paste("Tukey additivity plot for", x$name)
-	  comp <- c(outer(x$row, x$col)/x$overall)
+	  comp <- c(outer(x$roweff, x$coleff)/x$overall)
 	  res <- c(x$residuals)
 	  plot(comp, x$residuals, main = main,
 	       xlab = "Diagnostic Comparison Values",
