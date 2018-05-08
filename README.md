@@ -1,4 +1,6 @@
 
+[![Project Status: Active The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 twoway
 ======
@@ -58,7 +60,7 @@ twoway(sentRT)
 #> coleff -0.73333 -0.36667  1.10000  4.9667
 ```
 
-`twoway()` also allows for a robust fitting by row and column medians, using Tukey's idea of median polish, as implemented in `stats::medpolish()`. This uses `method="median" in the call to`twoway()\`.
+`twoway()` also allows for a robust fitting by row and column medians, using Tukey's idea of median polish, as implemented in `stats::medpolish()`. This uses `method="median"` in the call to `twoway()`.
 
 The plot method for `twoway` objects currently provides two types of plots:
 
@@ -70,3 +72,11 @@ plot(twoway(sentRT))
 ```
 
 ![](README-ex1-plot-1.png)
+
+TODOs
+-----
+
+This package is at an early stage of development. There are some small **TODO**s scattered throughout the code. In addition:
+
+-   Implement a proper `anova.twoway()` method, giving the analysis of variance table, including the Tukey 1 df test for non-additivity.
+-   Allow input of a data.frame with columns like `row, col, value` as might be used in `lm(value ~ row + col)`
