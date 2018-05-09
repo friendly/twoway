@@ -26,9 +26,24 @@
 Plots either the fitted values and residuals under additivity or
 a diagnostic plot for removable non-additivity by a power transformation
 }
+\details{
+For the \code{which="fit"} plot, the basic result comes from a plot of the row effects against the column fitted
+    values, which appears as a rectangular grid in these coordinates.  Rotating this 45 degrees counterclockwise give a plot
+    in which the vertical coordinate is the fitted value for the two-way table, and the horizontal coordinate is the column fit
+    minus the row effect.  The spacing of the grid lines for the rows and columns of the table show the relative magnitudes of the
+    row/column means or medians.
+
+    For the \code{which="diagnose"} plot, the interaction residuals from an additive model, \eqn{y_{ij} = \mu + \alpha_i + \beta_j},
+    are plotted against the estimated components \eqn{\alpha_i \beta_j / \mu}. If this plot shows a substantially non-zero
+    slope, \eqn{b}, this analysis suggests that a power transformation, \eqn{ y \rightarrow y^(1-b)} might reduce the
+    apparent interaction effects.
+}
 \examples{
 data(sentRT)
 twoway(sentRT)
 plot(twoway(sentRT), ylab="Reaction Time")
 plot(twoway(sentRT), which="diagnose")
+}
+\author{
+Michael Friendly
 }

@@ -18,15 +18,15 @@ a data.frame with \eqn{r \times c} rows corresponding to the input data table, a
  \item{row}{row labels}
  \item{col}{column labels}
  \item{data}{the data value in the cell}
- \item{fit}{the fitted value}
+ \item{fit}{the fitted value, }
  \item{roweff}{the row effect}
  \item{coleff}{the column effec}
  \item{nonadd}{the 1 df for non-additivity value}
 }
 }
 \description{
-Convert a twoway object to a data frame
-This function converts a \code{"twoway"} object to a \code{data.frame}
+The rows and columns of the data table are strung out in standard R order in a vector, joined with row and column labels.
+Additional columns are added, representing the calculated values used in the two-way display.
 }
 \examples{
 data(sentRT)

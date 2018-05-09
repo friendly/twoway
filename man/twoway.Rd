@@ -38,3 +38,6 @@ code{\link[stats]{medpolish}}
 
 \code{\link{medianfit}}, \code{\link{meanfit}}
 }
+\author{
+Michael Friendly
+}

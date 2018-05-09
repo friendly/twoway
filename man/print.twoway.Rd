@@ -19,3 +19,6 @@ if 1, the row, column and overall effects are joined to the residuals in a singl
 \description{
 Print method for two-way tables
 }
+\author{
+Michael Friendly
+}
