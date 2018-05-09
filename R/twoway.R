@@ -152,7 +152,7 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
     dat <- fit + x$residuals
     dif <- t(outer(coleff+all, roweff,  "-"))  # colfit - roweff
     ylim <- range(rbind(dat, fit))
-    ylim <- ylim + c(-.1, .1)* range(rbind(dat,fit))
+    ylim <- ylim + c(-.25, .1)* range(rbind(dat,fit))
 
     # coordinates of vertices in the plot are (fit, dif)
     plot( rbind(from, to), main=main, type="n",
@@ -160,7 +160,7 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
           asp=1,
           ylim = ylim,
           ylab = ylab,
-          xlab="Row Effect - Column Fit",
+          xlab=" Column Fit - Row Effect",
           ...)
 
 
@@ -184,30 +184,58 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
     clr <- ifelse(e > 0, rcolor[1], rcolor[2])
 #    browser()
 
+
     # TODO vectorize this code !!!
-    re <- outer(roweff, rep(1,r))
-    cf <- outer(rep(1,c), coleff) + all
-    for (i in 1:r) {
-      for (j in 1:c) {
-#        bot <- c(dif[i,j], fit[i,j])
-        bot <- c( (cf[i,j]-re[i,j]), (cf[i,j]+re[i,j]) )
-        top <- bot + c(0, e[i,j])
-        segments(bot[1], bot[2], top[1], top[2], col = clr[i,j])
-      }
-    }
+
+    x.df <- as.data.frame(x)
+    bot <- cbind(x.df$dif, x.df$fit)
+    top <- cbind(x.df$dif, x.df$data)
+    clr <- ifelse(x$residual > 0, rcolor[1], rcolor[2])
+    segments(bot[,1], bot[,2], top[,1], top[,2], col = clr)
+
+#     re <- outer(roweff, rep(1,r))
+#     cf <- outer(rep(1,c), coleff) + all
+#     for (i in 1:r) {
+#       for (j in 1:c) {
+#         bot <- c(dif[i,j], fit[i,j])
+# #        bot <- c( (cf[i,j]-re[i,j]), (cf[i,j]+re[i,j]) )
+#         top <- bot + c(0, e[i,j])
+#         segments(bot[1], bot[2], top[1], top[2], col = clr[i,j])
+#       }
+#     }
 
 	}
   # diagnostic plot
 	else {
 	  if (missing(main)) main <- paste("Tukey additivity plot for", x$name)
-	  comp <- c(outer(x$roweff, x$coleff)/x$overall)
-	  res <- c(x$residuals)
-	  plot(comp, x$residuals, main = main,
+	  # comp <- c(outer(x$roweff, x$coleff)/x$overall)
+	  # res <- c(x$residuals)
+	  # plot(comp, x$residuals, main = main,
+	  #      xlab = "Diagnostic Comparison Values",
+	  #      ylab = "Interaction Residuals",
+	  #      ...)
+	  # fit <- lm(res ~ comp)
+	  # abline(fit)
+	  # abline(h = 0, v = 0, lty = "dotted")
+
+	  x.df <- as.data.frame(x)
+	  plot(residual ~ nonadd, data=x.df,
+	       main = main,
+	       cex = 1.2,
+	       pch = 16,
 	       xlab = "Diagnostic Comparison Values",
 	       ylab = "Interaction Residuals",
 	       ...)
-	  abline(lm(res ~ comp))
+	  fit <- lm(residual ~ nonadd, data=x.df)
+	  abline(fit, lwd=2)
 	  abline(h = 0, v = 0, lty = "dotted")
+	  slope <- coef(fit)[2]
+	  b <- 1 - slope
+	  loc <- c(min(x.df$nonadd), .95*max(x.df$residual) )
+	  text(loc[1], loc[2],
+	       paste("Slope:", round(slope,1), "\nPower:", round(b,1)),
+	       pos=4)
+
 	  # TODO: Identify unusual points
 	  # TODO: Optionally, add confidence limits for lm line, or add loess smooth??
 
