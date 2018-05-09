@@ -2,6 +2,9 @@
 
 #' This function converts a \code{"twoway"} object to a \code{data.frame}
 #'
+#' The rows and columns of the data table are strung out in standard R order in a vector, joined with row and column labels.
+#' Additional columns are added, representing the calculated values used in the two-way display.
+#'
 #' @param x a \code{"twoway"} object
 #' @param ... other arguments, presently ignored
 #' @export
@@ -10,7 +13,7 @@
 #'  \item{row}{row labels}
 #'  \item{col}{column labels}
 #'  \item{data}{the data value in the cell}
-#'  \item{fit}{the fitted value}
+#'  \item{fit}{the fitted value, }
 #'  \item{roweff}{the row effect}
 #'  \item{coleff}{the column effec}
 #'  \item{nonadd}{the 1 df for non-additivity value}
@@ -34,8 +37,9 @@ as.data.frame.twoway <- function(x, ...){
   data <- fit + residual
   roweff <- rep(x$roweff, c)
   coleff <- rep(x$coleff, each=r)
+  dif <- (x$overall + coleff) - roweff
   nonadd <- c(outer(x$roweff, x$coleff)/x$overall)
 #browser()
-  result <- data.frame(row, col, data, fit, residual, roweff, coleff, nonadd)
+  result <- data.frame(row, col, data, fit, dif, residual, roweff, coleff, nonadd)
   result
 }
