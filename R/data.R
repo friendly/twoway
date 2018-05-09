@@ -47,8 +47,9 @@ NULL
 #' @references Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesley. Exhibit 1 of chapter 10, p. 333
 #' @examples
 #' data(Arizona)
-#' twoway(Arizona)
-#' ## plot(twoway(Arizona))
+#' (AR.2way <-twoway(Arizona))
+#'
+#' ## plot(AR.2way)
 NULL
 
 #' This is the data set used by Tukey (1977) for the initial examples of twoway tables
