@@ -122,7 +122,7 @@ function (x, digits = getOption("digits"), border=1, ...)
 #' @param rcolor  for the \code{"fit"} method, a vector of length 2 giving the color of lines for positive and negative residuals
 #' @param ... other arguments passed down
 #' @importFrom graphics plot text abline arrows segments
-#' @importFrom stats lm
+#' @importFrom stats lm coef
 #' @author Michael Friendly
 #' @export
 #' @examples
