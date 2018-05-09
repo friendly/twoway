@@ -73,6 +73,12 @@ plot(twoway(sentRT))
 
 ![](README-ex1-plot-1.png)
 
+``` r
+plot(twoway(sentRT), which="diagnose")
+```
+
+![](README-ex1-plot2-1.png)
+
 TODOs
 -----
 

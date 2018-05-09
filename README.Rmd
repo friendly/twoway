@@ -77,6 +77,10 @@ non-additivity.
 plot(twoway(sentRT))
 ```
 
+```{r ex1-plot2}
+plot(twoway(sentRT), which="diagnose")
+```
+
 ## TODOs
 
 This package is at an early stage of development.  There are some small **TODO**s scattered throughout the code.  In addition:
