@@ -189,8 +189,8 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
     cf <- outer(rep(1,c), coleff) + all
     for (i in 1:r) {
       for (j in 1:c) {
-#        bot <- c(dif[i,j], fit[i,j])
-        bot <- c( (cf[i,j]-re[i,j]), (cf[i,j]+re[i,j]) )
+        bot <- c(dif[i,j], fit[i,j])
+#        bot <- c( (cf[i,j]-re[i,j]), (cf[i,j]+re[i,j]) )
         top <- bot + c(0, e[i,j])
         segments(bot[1], bot[2], top[1], top[2], col = clr[i,j])
       }

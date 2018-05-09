@@ -35,7 +35,7 @@ as.data.frame.twoway <- function(x, ...){
   roweff <- rep(x$roweff, c)
   coleff <- rep(x$coleff, each=r)
   nonadd <- c(outer(x$roweff, x$coleff)/x$overall)
-
+#browser()
   result <- data.frame(row, col, data, fit, residual, roweff, coleff, nonadd)
   result
 }
