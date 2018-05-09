@@ -2,7 +2,11 @@ Package: twoway
 Type: Package
 Title: Analysis of Two-Way Tables a la Tukey
 Version: 0.3.0
-Author: Michael Frendly
+Authors@R: c(person(given = "Michael", family = "Friendly", role=c("aut", "cre"), email="friendly@yorku.ca"),
+            person(given = "Richard", family = "Heiberger", role="ctb", email="rmh@temple.edu"),
+            person(given = "John", family = "Fox", role="ctb", email="jfox@mcmaster.ca")
+            )
+Author: Michael Friendly [aut, cre], Richard M. Heiberger [ctb], John Fox [ctb]
 Maintainer: Michael Friendly <friendly@yorku.ca>
 Description: Carries out analyses of two way tables including Tukey's           
     1-df test for row*column non-additivity, and graphical display of the 
