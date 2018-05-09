@@ -63,6 +63,7 @@ twoway.default <- function(x, method=c("mean", "median"), ...) {
 #' @param border if 0, the components \code{"twoway"} object (\code{"overall", "roweff", "coleff", "residuals"}) are printed separately;
 #'               if 1, the row, column and overall effects are joined to the residuals in a single table.
 #' @param ... other arguments passed down
+#' @author Michael Friendly
 #' @export
 
 print.twoway <-
@@ -102,6 +103,17 @@ function (x, digits = getOption("digits"), border=1, ...)
 #'
 #' Plots either the fitted values and residuals under additivity or
 #' a diagnostic plot for removable non-additivity by a power transformation
+#'
+#' @details For the \code{which="fit"} plot, the basic result comes from a plot of the row effects against the column fitted
+#'     values, which appears as a rectangular grid in these coordinates.  Rotating this 45 degrees counterclockwise give a plot
+#'     in which the vertical coordinate is the fitted value for the two-way table, and the horizontal coordinate is the column fit
+#'     minus the row effect.  The spacing of the grid lines for the rows and columns of the table show the relative magnitudes of the
+#'     row/column means or medians.
+#'
+#'     For the \code{which="diagnose"} plot, the interaction residuals from an additive model, \eqn{y_{ij} = \mu + \alpha_i + \beta_j},
+#'     are plotted against the estimated components \eqn{\alpha_i \beta_j / \mu}. If this plot shows a substantially non-zero
+#'     slope, \eqn{b}, this analysis suggests that a power transformation, \eqn{ y \rightarrow y^(1-b)} might reduce the
+#'     apparent interaction effects.
 #' @param x a \code{class("twoway")} object
 #' @param which one of \code{"fit"} or \code{"diagnose"}
 #' @param main plot title
@@ -111,6 +123,7 @@ function (x, digits = getOption("digits"), border=1, ...)
 #' @param ... other arguments passed down
 #' @importFrom graphics plot text abline arrows segments
 #' @importFrom stats lm
+#' @author Michael Friendly
 #' @export
 #' @examples
 #' data(sentRT)
