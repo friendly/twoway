@@ -20,13 +20,13 @@ Version: ```r packageVersion("twoway")```
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell,
 most typically used in an Analysis of Variance (ANOVA) context.
-The methods follow Tukey (1949), "One Degree of Freedom for Non-additivity" and Tukey (1972), *Exploratory Data Analysis*,
+The methods follow Tukey (1949), "One Degree of Freedom for Non-additivity", explained more concretely in Tukey (1972), *Exploratory Data Analysis*,
 but the graphical ideas are more interesting and general:
 
-* how to display an **assumed** additive relation between two factors graphically, and visualize departures from an additive fit.
-* how to assess visually whether a power transformation of the response might be more nearly additive in the factors.
+* How to display an **assumed** additive relation between two factors graphically, and visualize departures from an additive fit?
+* How to assess **visually** whether a power transformation of the response might be more nearly additive in the factors?
 
-
+The goal of the package is to introduce these ideas in R, and allow further development.
 This R implementation is based on my SAS macro, [twoway.sas](http://www.datavis.ca/sasmac/twoway.html). It is still at an early
 stage of development.
 
@@ -48,6 +48,9 @@ The questions are:
 
 * How does reaction time vary with subject and sentence type?
 * Can the results be accounted for by an additive model, with an effect for subject and for sentence type?
+* Are there any unusual observations that deviate from an additive model?
+* If there are systematic departures from additivity, could a power transformation of the response
+(1/x, log(x), sqrt(x), $x^2$, ...) make the simpler additive model more tenable, and more easily understood?
 
 ```{r ex1-data}
 library(twoway)
@@ -69,25 +72,38 @@ print(twoway(sentRT), border=2)
 `twoway()` also allows for a robust fitting by row and column medians, using Tukey's idea of median polish, as implemented
 in `stats::medpolish()`. This uses `method="median"` in the call to `twoway()`.
 
+
+```{r ex2-twoway}
+print(twoway(sentRT, method="median"), border=2)
+```
+The result is much simpler, in that most residuals are closer to 0, and one large one stands out.
+
+### Plot methods
 The plot method for `twoway` objects currently provides two types of plots:
 
 * a plot of fitted values under the additive models and residuals (the default, `which="fit"`)
-* a diagnostic plot of interaction residuals vs. comparison values under additivity (`which="diagnose"`). If the points in this plot are reasonably
-linear and have a non-zero slope, *b*, a suggested power transformation of the response to $x^{1-b}$ will often remove
-non-additivity.
+* a diagnostic plot of interaction residuals vs. comparison values under additivity (`which="diagnose"`). 
 
 ```{r ex1-plot}
 plot(twoway(sentRT))
 ```
 
+The diagnostic plot shows the regression of residuals under the additive model against the comparison values under the additive model. If the points in this plot are reasonably
+linear and have a non-zero slope, *b*, a suggested power transformation of the response to $x^{1-b}$ will often remove
+non-additivity.
 ```{r ex1-plot2}
 plot(twoway(sentRT), which="diagnose")
 ```
+
+There is an opposite-corner pattern to the residuals in the analysis by means. In the diagnostic plot, the positive slope,
+$b=1.6$ suggests a power transformation $x^{1-b} = x^{-0.6}$, which can be taken as close to $1 / \sqrt{x}$.
+Alternatively, reaction time data is often more easily analyzed by classical methods and the results more easily understood
+in terms of *response speed*, using the transformation $1/x$.
 
 ## TODOs
 
 This package is at an early stage of development.  There are some small **TODO**s scattered throughout the code.  In addition:
 
-* Implement a proper `anova.twoway()` method, giving the analysis of variance table, including the Tukey 1 df test for non-additivity.
-* Allow input of a data.frame with columns like `row, col, value` as might be used in `lm(value ~ row + col)`
+* Implement a proper `anova.twoway()` method, giving a comprehensive analysis of variance table, including the Tukey 1 df test for non-additivity. The present version is just an initial sketch.
+* Allow input of a `data.frame` with columns like `row, col, value` as might be used in `lm(value ~ row + col)`.
 
