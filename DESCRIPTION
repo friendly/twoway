@@ -14,7 +14,7 @@ Description: Carries out analyses of two way tables including Tukey's
     via a power transformation.
 URL: https://github.com/friendly/twoway
 BugReports: https://github.com/friendly/twoway/issues
-License: GPL
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1

@@ -1,9 +1,12 @@
 
 [![Project Status: Active The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
+<!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 twoway
 ======
+
+Version: `0.3.0`
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell, most typically used in an Analysis of Variance (ANOVA) context. The methods follow Tukey (1949), "One Degree of Freedom for Non-additivity" and Tukey (1972), *Exploratory Data Analysis*, but the graphical ideas are more interesting and general:
 
@@ -48,16 +51,18 @@ The `twoway()` function gives the basic analysis: a decomposition of the two-way
 -   residuals (*x*<sub>*i**j*</sub> − *μ* − *α*<sub>*i*</sub> − *β*<sub>*j*</sub>)
 
 ``` r
-twoway(sentRT)
+print(twoway(sentRT), border=2)
 #> 
 #> Mean decomposition (Dataset: "sentRT")
 #> Residuals bordered by row effects, column effects, and overall
 #> 
-#>           sent1    sent2    sent3  roweff
-#> subj1   0.56667  0.40000 -0.96667 -3.1000
-#> subj2   0.26667  0.00000 -0.26667 -0.1000
-#> subj3  -0.83333 -0.40000  1.23333  3.2000
-#> coleff -0.73333 -0.36667  1.10000  4.9667
+#>          sent1    sent2    sent3      roweff  
+#>        + -------- -------- -------- + --------
+#> subj1  |  0.56667  0.40000 -0.96667 : -3.10000
+#> subj2  |  0.26667  0.00000 -0.26667 : -0.10000
+#> subj3  | -0.83333 -0.40000  1.23333 :  3.20000
+#>        + ........ ........ ........ + ........
+#> coleff | -0.73333 -0.36667  1.10000 :  4.96667
 ```
 
 `twoway()` also allows for a robust fitting by row and column medians, using Tukey's idea of median polish, as implemented in `stats::medpolish()`. This uses `method="median"` in the call to `twoway()`.

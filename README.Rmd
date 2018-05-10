@@ -3,6 +3,8 @@ output: github_document
 ---
 [![Project Status: Active The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
+<!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, echo = FALSE}
@@ -14,6 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 # twoway
+Version: ```r packageVersion("twoway")```
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell,
 most typically used in an Analysis of Variance (ANOVA) context.
@@ -60,7 +63,7 @@ The `twoway()` function gives the basic analysis: a decomposition of the two-way
 * residuals ($x_{ij}-\mu -\alpha_i -\beta_j$)
 
 ```{r ex1-twoway}
-twoway(sentRT)
+print(twoway(sentRT), border=2)
 ```
 
 `twoway()` also allows for a robust fitting by row and column medians, using Tukey's idea of median polish, as implemented
