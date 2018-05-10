@@ -4,10 +4,10 @@
 \alias{anova.twoway}
 \title{ANOVA summary for a two-way table, including Tukey Additivity Test}
 \usage{
-\method{anova}{twoway}(x, ...)
+\method{anova}{twoway}(object, ...)
 }
 \arguments{
-\item{x}{a \code{class("twoway")} object}
+\item{object}{a \code{class("twoway")} object}
 
 \item{...}{other arguments passed down, but not used here}
 }
