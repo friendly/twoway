@@ -12,13 +12,22 @@
 \item{digits}{number of digits to print}
 
 \item{border}{if 0, the components \code{"twoway"} object (\code{"overall", "roweff", "coleff", "residuals"}) are printed separately;
-if 1, the row, column and overall effects are joined to the residuals in a single table.}
+if 1, the row, column and overall effects are joined to the residuals in a single table.
+if 2, row, column, overall and residuals are joined, and decorated with horizontal and vertical rules}
 
 \item{...}{other arguments passed down}
 }
 \description{
 Print method for two-way tables
 }
+\examples{
+data(sentRT)
+sent.2way <- twoway(sentRT)
+print(sent.2way, border=0)
+print(sent.2way, border=1)
+print(sent.2way, border=2)
+
+}
 \author{
-Michael Friendly
+Michael Friendly, Richard Heiberger
 }

@@ -62,8 +62,16 @@ twoway.default <- function(x, method=c("mean", "median"), ...) {
 #' @param digits number of digits to print
 #' @param border if 0, the components \code{"twoway"} object (\code{"overall", "roweff", "coleff", "residuals"}) are printed separately;
 #'               if 1, the row, column and overall effects are joined to the residuals in a single table.
+#'               if 2, row, column, overall and residuals are joined, and decorated with horizontal and vertical rules
 #' @param ... other arguments passed down
-#' @author Michael Friendly
+#' @author Michael Friendly, Richard Heiberger
+#' @examples
+#' data(sentRT)
+#' sent.2way <- twoway(sentRT)
+#' print(sent.2way, border=0)
+#' print(sent.2way, border=1)
+#' print(sent.2way, border=2)
+#'
 #' @export
 
 print.twoway <-
@@ -83,16 +91,30 @@ function (x, digits = getOption("digits"), border=1, ...)
       cat("\nResiduals:\n")
       print(x$residuals, digits = max(2L, digits - 2L), ...)
 		}
-    else {
+    else if (border == 1){
       cat("Residuals bordered by row effects, column effects, and overall\n\n")
       tbl <- rbind(
               cbind( x$residuals, roweff=x$roweff ),
               coleff=    c( x$coleff, x$overall)
-              # cbind( x$residuals, roweff=round(x$roweff,2) ),
-              # coleff=    round(c( x$coleff, x$overall),2)
-      )
+              )
       print(tbl, digits = max(2L, digits - 2L), ...)
     }
+  	else {
+  	  cat("Residuals bordered by row effects, column effects, and overall\n\n")
+  	  tbl <- rbind(cbind(x$residuals, roweff = x$roweff),
+  	               coleff = c(x$coleff, x$overall))
+  	  tblf <- format(tbl, digits=max(2L, digits - 2L))
+  	  nc <- nchar(tblf[1])
+  	  hhyphen <- paste0(rep("-", nc), collapse="")
+  	  ddot <- paste0(rep(".", nc), collapse="")
+  	  tblr <-  rbind(" "=hhyphen, tblf[-nrow(tblf),],
+  	                 " "=ddot, coleff=tblf[nrow(tblf),])
+  	  vvertical <- c("+", rep("|", nrow(tbl)-1), "+", "|")
+  	  ccolon <- c("+", rep(":", nrow(tbl)-1), "+", ":")
+  	  tblc <- cbind(" "=vvertical, tblr[, -ncol(tblr)],
+  	                " "=ccolon, roweff=tblr[, ncol(tblr)])
+  	  print(tblc, quote=FALSE, ...)
+  	}
     cat("\n")
 
     invisible(x)
