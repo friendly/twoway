@@ -9,8 +9,20 @@
 \arguments{
 \item{x}{a \code{class("twoway")} object}
 
-\item{...}{other arguments passed down}
+\item{...}{other arguments passed down, but not used here}
 }
 \description{
 Test for a 1-df interaction in two-way ANOVA table by the Tukey test.
+}
+\details{
+At present, this function simply gives the results of the ANOVAs for the additive model, the model including the 1 df
+         term for non-additivity, and an \code{anova()} comparison of the two.
+}
+\examples{
+data(sentRT)
+sent.2way <- twoway(sentRT)
+anova(sent.2way)
+}
+\author{
+Michael Friendly
 }

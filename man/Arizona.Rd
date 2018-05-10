@@ -9,7 +9,7 @@ Mean monthly temperatures in Arizona
 }
 \examples{
 data(Arizona)
-(AR.2way <-twoway(Arizona))
+(AR.2way <-twoway(Arizona, method="median"))
 
 ## plot(AR.2way)
 }
