@@ -47,7 +47,7 @@ NULL
 #' @references Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesley. Exhibit 1 of chapter 10, p. 333
 #' @examples
 #' data(Arizona)
-#' (AR.2way <-twoway(Arizona))
+#' (AR.2way <-twoway(Arizona, method="median"))
 #'
 #' ## plot(AR.2way)
 NULL
