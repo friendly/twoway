@@ -27,7 +27,7 @@ NULL
 
 #' Scores for 5 subjects after being given each of 4 drugs
 #'
-#' The original source is Winer (1971), p. 268
+#' The original source is Winer (1971), p. 268.  This was used as an example in Friendly (1991).
 #'
 #' @name drugs
 #' @docType data
