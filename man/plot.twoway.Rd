@@ -5,7 +5,7 @@
 \title{Plot method for two-way tables}
 \usage{
 \method{plot}{twoway}(x, which = c("fit", "diagnose"), main, ylab,
-  rfactor = 1, rcolor = c("blue", "red"), ...)
+  annotate = TRUE, rfactor = 1, rcolor = c("blue", "red"), ...)
 }
 \arguments{
 \item{x}{a \code{class("twoway")} object}
@@ -15,6 +15,8 @@
 \item{main}{plot title}
 
 \item{ylab}{Y axis label for \code{"fit"} plot}
+
+\item{annotate}{A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot}
 
 \item{rfactor}{for the \code{"fit"} method, draw lines for \code{abs(residuals) > rfactor*sqrt(MSPE)}}
 

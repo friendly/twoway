@@ -76,7 +76,7 @@ twoway.default <- function(x, method=c("mean", "median"), ...) {
 #' @param which one of \code{"fit"} or \code{"diagnose"}
 #' @param main plot title
 #' @param ylab Y axis label for \code{"fit"} plot
-#' @param annote  A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot
+#' @param annotate  A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot
 #' @param rfactor for the \code{"fit"} method, draw lines for \code{abs(residuals) > rfactor*sqrt(MSPE)}
 #' @param rcolor  for the \code{"fit"} method, a vector of length 2 giving the color of lines for positive and negative residuals
 #' @param ... other arguments passed down

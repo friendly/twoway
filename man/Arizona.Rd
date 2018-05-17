@@ -5,7 +5,7 @@
 \alias{Arizona}
 \title{Mean monthly temperatures in Arizona}
 \description{
-Mean monthly temperatures in Arizona
+This is the data set used by Tukey (1977) for the initial examples of twoway tables
 }
 \examples{
 data(Arizona)
