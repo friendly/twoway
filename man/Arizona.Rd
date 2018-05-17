@@ -4,6 +4,8 @@
 \name{Arizona}
 \alias{Arizona}
 \title{Mean monthly temperatures in Arizona}
+\format{a data.frame of 7 observations (months) and 3 variables (Arizona cities) where the value is mean
+      monthly temperature in degrees F.}
 \description{
 This is the data set used by Tukey (1977) for the initial examples of twoway tables
 }

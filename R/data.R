@@ -45,6 +45,8 @@ NULL
 #' @name Arizona
 #' @docType data
 #' @keywords data
+#' @format a data.frame of 7 observations (months) and 3 variables (Arizona cities) where the value is mean
+#'       monthly temperature in degrees F.
 #' @references Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesley. Exhibit 1 of chapter 10, p. 333
 #' @examples
 #' data(Arizona)
@@ -53,4 +55,30 @@ NULL
 #' ## plot(AR.2way)
 NULL
 
+#' Counts of an insect for the combinations of 4 treatments and 6 areas of a field
+#'
+#' These data are used in Tukey (1977) Exhibit 1 of Ch 11 and throughout the chapter as examples of
+#' median polish. Because the data are counts, either a sqrt or log transformation would be
+#' reasonable.
 
+#' @name insectCounts
+#' @docType data
+#' @keywords data
+#' @format a 4 x 6 matrix, where the rows are treatments and the columns are areas of a field.
+#' @references Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesley. Exhibit 1 of chapter 111
+#' @examples
+#' insect.2way <- twoway(insectCounts, method="median")
+#' print(insect.2way, digits=2)
+#'
+#' plot(insect.2way)
+#' plot(insect.2way, which="diagnose")
+#'
+#' # try sqrt
+#' insect.sqrt <- twoway(sqrt(insectCounts), method="median")
+#' print(insect.sqrt, digits=2)
+#'
+#' plot(insect.sqrt)
+#' plot(insect.sqrt, which="diagnose")
+
+
+NULL
