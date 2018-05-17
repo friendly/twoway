@@ -10,5 +10,9 @@ plot(res, type="diagnose")
 
 library(reshape2)
 long <- melt(as.matrix(taskRT))
-colnames(long) <- c("row", "col", "response")
+colnames(long) <- c("task", "topic", "RT")
+
+# converting long to wide
+
+dcast(long, task ~ topic, value.var="RT")
 
