@@ -1,7 +1,8 @@
 # twoway 0.4.1
 
-* Modified the twoway plot method per suggestions of Richard Heiberger (better axis labels)
+* Modified the twoway plot method per suggestions of RMH (better axis labels)
 * `plot.twoway(..., which="diagnose")` gets an `annotate=` argument
+* `print.twoway()` gets a `zapsmall=` argument per RMH
 
 # twoway 0.4.0
 
