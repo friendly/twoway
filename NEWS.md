@@ -1,3 +1,8 @@
+# twoway 0.4.1
+
+* Modified the twoway plot method per suggestions of Richard Heiberger (better axis labels)
+* `plot.twoway(..., which="diagnose")` gets an `annotate=` argument
+
 # twoway 0.4.0
 
 * Added an initial `anova.twoway()` method

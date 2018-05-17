@@ -140,6 +140,7 @@ function (x, digits = getOption("digits"), border=1, ...)
 #' @param which one of \code{"fit"} or \code{"diagnose"}
 #' @param main plot title
 #' @param ylab Y axis label for \code{"fit"} plot
+#' @param annote  A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot
 #' @param rfactor for the \code{"fit"} method, draw lines for \code{abs(residuals) > rfactor*sqrt(MSPE)}
 #' @param rcolor  for the \code{"fit"} method, a vector of length 2 giving the color of lines for positive and negative residuals
 #' @param ... other arguments passed down
@@ -154,6 +155,7 @@ function (x, digits = getOption("digits"), border=1, ...)
 #' plot(twoway(sentRT), which="diagnose")
 
 plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
+                        annotate=TRUE,
                         rfactor=1,
                         rcolor=c("blue", "red"),
                         ...) {
@@ -161,7 +163,7 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
 	# TODO: do both plots in a single call??
 
 	if(which=="fit") {
-    if (missing(main)) main <- paste("Tukey two-way fit plot for", x$name)
+    if (missing(main)) main <- paste0("Tukey two-way fit plot for ", x$name, " (method: ", x$method, ")")
     if (missing(ylab)) ylab <- "Fitted value"
     roweff <- x$roweff
   	coleff <- x$coleff
@@ -242,7 +244,7 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
 	}
   # diagnostic plot
 	else {
-	  if (missing(main)) main <- paste("Tukey additivity plot for", x$name)
+	  if (missing(main)) main <- paste0("Tukey additivity plot for ", x$name, " (method: ", x$method, ")")
 	  # comp <- c(outer(x$roweff, x$coleff)/x$overall)
 	  # res <- c(x$residuals)
 	  # plot(comp, x$residuals, main = main,
@@ -258,18 +260,32 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
 	       main = main,
 	       cex = 1.2,
 	       pch = 16,
-	       xlab = "Diagnostic Comparison Values",
-	       ylab = "Interaction Residuals",
+#	       xlab = expression("Comparison Values = " * frac(rc, hat(mu))),
+	       xlab = expression("Comparison Values = roweff * coleff /" * hat(mu)),
+	       ylab = expression("Residual from y ~ row + col"),
 	       ...)
 	  fit <- lm(residual ~ nonadd, data=x.df)
 	  abline(fit, lwd=2)
 	  abline(h = 0, v = 0, lty = "dotted")
 	  slope <- coef(fit)[2]
-	  b <- 1 - slope
-	  loc <- c(min(x.df$nonadd), .95*max(x.df$residual) )
-	  text(loc[1], loc[2],
-	       paste("Slope:", round(slope,1), "\nPower:", round(b,1)),
-	       pos=4)
+	  power <- 1 - slope
+	  cat("Slope of Residual on comparison value: ", round(slope,1),
+	    "\nSuggested power transformation:        ", round(power,1))
+
+	  if (is.logical(annotate) && annotate) {
+	    if( slope > 0 ) {
+	      loc <- c(min(x.df$nonadd), .95*max(x.df$residual))
+	      pos=4
+	    }
+	    else {
+	      loc <- c(max(x.df$nonadd), .95*max(x.df$residual))
+	      pos=2
+	    }
+
+  	  text(loc[1], loc[2],
+  	       paste("Slope:", round(slope,1), "\nPower:", round(power,1)),
+  	       pos=pos)
+	  }
 
 	  # TODO: Identify unusual points
 	  # TODO: Optionally, add confidence limits for lm line, or add loess smooth??

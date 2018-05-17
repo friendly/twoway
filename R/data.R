@@ -41,6 +41,7 @@ NULL
 
 #' Mean monthly temperatures in Arizona
 #'
+#' This is the data set used by Tukey (1977) for the initial examples of twoway tables
 #' @name Arizona
 #' @docType data
 #' @keywords data
@@ -52,5 +53,4 @@ NULL
 #' ## plot(AR.2way)
 NULL
 
-#' This is the data set used by Tukey (1977) for the initial examples of twoway tables
 
