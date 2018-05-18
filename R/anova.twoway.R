@@ -4,6 +4,7 @@
 #'
 #' @details At present, this function simply gives the results of the ANOVAs for the additive model, the model including the 1 df
 #'          term for non-additivity, and an \code{anova()} comparison of the two.
+#'
 #' @param object a \code{class("twoway")} object
 #' @param ... other arguments passed down, but not used here
 #' @author Michael Friendly
@@ -34,13 +35,17 @@ anova.twoway <- function(object, ...) {
   aov2 <- anova(mod2 <- aov(data ~ row + col + nonadd, data=z))
   aov3 <- anova(mod1, mod2)
 
-  info <- paste0('(Dataset: ', '"', object$name, '"; ', 'method: "', object$method, '")')
-  cat("Additive model", info, "\n")
+  info <- paste0('Dataset: ',  object$name, '; ', 'method: "', object$method, '"\n\n')
+  cat(info)
+  attr(aov1, "heading") <- "Analysis of Variance Table, assuming additivity\n"
   print(aov1)
 
-  cat("\nNon-Additive model", info, "\n")
+#  cat("\nNon-Additive model", info, "\n")
+  cat("\n\n")
+  attr(aov2, "heading") <- "Analysis of Variance Table, allowing non-additivity\n"
+  rownames(aov2)[4] <- "pure error"
   print(aov2)
 
-  cat("\nTukey test for non-additivity\n")
-  anova(mod1, mod2)
+  # cat("\nTukey test for non-additivity\n")
+  # anova(mod1, mod2)
 }

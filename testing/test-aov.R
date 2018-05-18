@@ -20,3 +20,10 @@ anova(sent.mod1, sent.mod2)
 
 str(aov1)
 rownames(aov1)
+attr(aov1, "heading") <- "Analysis of Variance Table, assuming additivity"
+aov1
+
+attr(aov2, "heading") <- "Analysis of Variance Table, allowing non-additivity"
+aov2
+
+row.names(aov2)

@@ -3,6 +3,8 @@
 * Modified the twoway plot method per suggestions of RMH (better axis labels)
 * `plot.twoway(..., which="diagnose")` gets an `annotate=` argument
 * `print.twoway()` gets a `zapsmall=` argument per RMH
+* Added `insectCounts` data
+* Revised `anova.twoway()` to be less redundant
 
 # twoway 0.4.0
 
