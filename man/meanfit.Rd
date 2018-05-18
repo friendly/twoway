@@ -7,7 +7,7 @@
 meanfit(x, ...)
 }
 \arguments{
-\item{x}{a numeric matrix}
+\item{x}{a numeric matrix or data frame}
 
 \item{...}{other arguments passed down}
 }

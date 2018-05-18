@@ -57,6 +57,11 @@ NULL
 
 #' Counts of an insect for the combinations of 4 treatments and 6 areas of a field
 #'
+#' Counts of numbers of an insect, \emph{Leptinotarsa decemlineata} (the
+#' Colorado potato beetle), each of which is the sum for two plots treated
+#' alike, for all combinations of 4 treatments and 6 areas of the field chosen
+#' to be relatively homogeneous.
+#'
 #' These data are used in Tukey (1977) Exhibit 1 of Ch 11 and throughout the chapter as examples of
 #' median polish. Because the data are counts, either a sqrt or log transformation would be
 #' reasonable.
@@ -73,7 +78,7 @@ NULL
 #' plot(insect.2way)
 #' plot(insect.2way, which="diagnose")
 #'
-#' # try sqrt
+#' # try sqrt transformation
 #' insect.sqrt <- twoway(sqrt(insectCounts), method="median")
 #' print(insect.sqrt, digits=2)
 #'

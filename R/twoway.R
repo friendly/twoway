@@ -4,7 +4,9 @@
 #'
 #' Fits an additive model using either row and column means or Tukey's median polish procedure
 #'
-#' @param x a numeric matrix
+#' @details The \code{rownames(x)} are used as the levels of the row factor and the \code{colnames(x}) are
+#'          the levels of the column factor.
+#' @param x a numeric matrix or data frame
 #' @param ... other arguments passed down
 #' @rdname twoway
 #' @author Michael Friendly

@@ -1,6 +1,6 @@
 #' Fit a two-way table using median polish
 #'
-#' @param x a numeric matrix
+#' @param x a numeric matrix or data frame
 #' @param trace.iter whether to give verbose output of iteration history in median polish.
 #' @param ... other arguments passed down
 #' @importFrom stats medpolish
@@ -33,7 +33,8 @@ medianfit <- function(x, trace.iter=FALSE, ...) {
 
 #' Fit a two-way table using row and column means
 #'
-#' @param x a numeric matrix
+#' @param x a numeric matrix or data frame
+#'
 #' @param ... other arguments passed down
 #' @export
 #' @return An object of class \code{c("twoway")} with the following named components:

@@ -7,7 +7,7 @@
 medianfit(x, trace.iter = FALSE, ...)
 }
 \arguments{
-\item{x}{a numeric matrix}
+\item{x}{a numeric matrix or data frame}
 
 \item{trace.iter}{whether to give verbose output of iteration history in median polish.}
 
