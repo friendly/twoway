@@ -208,7 +208,8 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
 	  slope <- coef(fit)[2]
 	  power <- 1 - slope
 	  cat("Slope of Residual on comparison value: ", round(slope,1),
-	    "\nSuggested power transformation:        ", round(power,1))
+	    "\nSuggested power transformation:        ", round(power,1),
+	    "\n")
 
 	  if (is.logical(annotate) && annotate) {
 	    if( slope > 0 ) {
