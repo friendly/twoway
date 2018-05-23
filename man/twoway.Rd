@@ -3,7 +3,7 @@
 \name{twoway}
 \alias{twoway}
 \alias{twoway.default}
-\title{Analysis of a two-way table}
+\title{Analysis of a two-way table with one observation per cell}
 \usage{
 twoway(x, ...)
 

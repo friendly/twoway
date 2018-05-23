@@ -1,6 +1,6 @@
 # Functions for Tukey anslysis of two-way tables
 
-#' Analysis of a two-way table
+#' Analysis of a two-way table with one observation per cell
 #'
 #' Fits an additive model using either row and column means or Tukey's median polish procedure
 #'

@@ -2,23 +2,34 @@
 % Please edit documentation in R/twoway.formula.R
 \name{twoway.formula}
 \alias{twoway.formula}
-\title{Initial sketch for a twoway formula method}
+\title{Formula method for twoway analysis using a dataset in long format}
 \usage{
 \method{twoway}{formula}(formula, data, subset, na.action, ...)
 }
 \arguments{
-\item{formula}{A formula of the form \code{response ~ rowvar + colVAR}}
+\item{formula}{A formula of the form \code{response ~ rowvar + colvar}, where \code{response} is numeric}
 
-\item{data}{The name of the data set}
+\item{data}{The name of the data set, containing a row vactor, column factor and a numeric response}
 
-\item{subset}{An expression to subset the data}
+\item{subset}{An expression to subset the data (unused)}
 
-\item{na.action}{What to do with NAs?}
+\item{na.action}{What to do with NAs? (unused)}
 
 \item{...}{other arguments, passed down}
 }
 \description{
-Doesn't do anything useful yet, but the idea is to be able to use a
-formula for a twoway table in long form, e.g.,
-twoway(response ~ row + col, data=mydata)
+The formula method reshapes the data set from long to wide format and calls the default method.
+}
+\examples{
+\donttest{
+library(tidyr)
+longRT <-taskRT \%>\%
+           tibble::rownames_to_column("task") \%>\%
+           tidyr::gather(key="topic", value=RT, -task)
+ twoway(RT ~ task + topic, data=longRT)
+ }
+}
+\references{
+the conversion of long to wide in a formula method was suggested on
+       \url{https://stackoverflow.com/questions/50469320/how-to-write-a-formula-method-that-converts-long-to-wide}
 }
