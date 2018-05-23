@@ -1,7 +1,7 @@
 Package: twoway
 Type: Package
 Title: Analysis of Two-Way Tables a la Tukey
-Version: 0.4.1
+Version: 0.5.0
 Authors@R: c(person(given = "Michael", family = "Friendly", role=c("aut", "cre"), email="friendly@yorku.ca"),
             person(given = "Richard", family = "Heiberger", role="aut", email="rmh@temple.edu"),
             person(given = "John", family = "Fox", role="ctb", email="jfox@mcmaster.ca")
