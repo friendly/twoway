@@ -8,14 +8,14 @@ twoway
 
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: `0.4.1`
+Version: `0.5.0`
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell, most typically used in an Analysis of Variance (ANOVA) context. The methods follow Tukey (1949), "One Degree of Freedom for Non-additivity", explained more concretely in Tukey (1972), *Exploratory Data Analysis*, but the graphical ideas are more interesting and general:
 
 -   How to display an **assumed** additive relation between two factors graphically, and visualize departures from an additive fit?
 -   How to assess **visually** whether a power transformation of the response might be more nearly additive in the factors?
 
-The goal of the package is to introduce these ideas in R, and allow further development. This R implementation is based on my SAS macro, [twoway.sas](http://www.datavis.ca/sasmac/twoway.html). It is still at an early stage of development.
+The goal of the package is to introduce these ideas in R, and allow further development. This R implementation is based on my SAS macro, [twoway.sas](http://www.datavis.ca/sasmac/twoway.html).
 
 Installation
 ------------
@@ -147,9 +147,8 @@ anova(sent.2way)
 TODOs
 -----
 
-This package is at an early stage of development. There are some small **TODO**s scattered throughout the code. In addition:
+This package is at a middle stage of development. There are some small **TODO**s scattered throughout the code. In addition:
 
 <!-- * Implement a proper `anova.twoway()` method, giving a comprehensive analysis of variance table, including the Tukey 1 df test for non-additivity. The present version is just an initial sketch. -->
--   Create a formula method for a `data.frame` with columns like `row, col, value` as might be used in `twoway(value ~ row + col, data=)`.
-
+<!-- * Create a formula method for a `data.frame` with columns like `row, col, value` as might be used in `twoway(value ~ row + col, data=)`. -->
 -   It would be nicer to use the names of the row and column variables in some displays, rather than `row` and `col`.
