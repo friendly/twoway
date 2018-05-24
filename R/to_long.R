@@ -19,7 +19,11 @@ to_long <- function(wide,
                     rowname=NULL, colname=NULL,
                     responseName=deparse(substitute(wide)),
                     varNames=c("Row","Col")) {
-  if (is.matrix(wide) && !is.null(attr(wide, "response"))) responseName <- attr(wide, "response")
+  # if wide is a matrix, try to get attributes from it directly
+  if (is.matrix(wide)) {
+      if(!is.null(attr(wide, "response"))) responseName <- attr(wide, "response")
+      if(!is.null(names(dimnames(wide)))) varNames <- names(dimnames(wide))
+  }
   result <- as.data.frame.table(data.matrix(wide),
                                 responseName=responseName)
   if (!is.null(rowname)) varnames[1] <- rowname
