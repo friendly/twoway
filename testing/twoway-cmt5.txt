@@ -1,0 +1,175 @@
+## 0.5.0
+
+## thinko
+twoway.formula: last line is missing ...
+twoway(wide, ...)
+
+## I think this should be the canonical example
+lm(y ~ a + b, data=mydata,
+   lin.lin=TRUE, method="c("mean", "median"), power.transform=TRUE)
+## it can't work at the moment, because with S3 the method argument
+## isn't used for dispatch
+
+sentRT.long <- as.data.frame.table(data.matrix(sentRT))
+
+## > system.time( for (i in 1:1000) as.data.frame.table(data.matrix(sentRT)))
+##    user  system elapsed
+##   0.369   0.004   0.374
+## > system.time( for (i in 1:1000) as.data.frame(as.table(data.matrix(sentRT))))
+##    user  system elapsed
+##   0.439   0.032   0.477
+## > system.time( for (i in 1:1000) cbind(stack(sentRT), subj=rownames(sentRT)))
+##    user  system elapsed
+##   0.653   0.013   0.670
+## > system.time( for (i in 1:1000)
+##               cbind(reshape::melt(sentRT), subj=rownames(sentRT)))
+##    user  system elapsed
+##   2.574   0.026   2.612
+## > system.time( for (i in 1:1000)
+##        stats::reshape(sentRT, direction="long", varying=list(colnames(sentRT))))
+##    user  system elapsed
+##   1.074   0.008   1.087
+
+## it has to be this way
+twoway(y ~ a + b, data=mydata,
+       lin.lin=TRUE, method="c("mean", "median"), power.transform=TRUE)
+
+
+Arizona
+Arizona.long <- as.data.frame.table(data.matrix(Arizona), responseName="Temperature")
+
+Arizona.long
+
+## system.time( for (i in 1:1000) as.data.frame.table(data.matrix(Arizona)))
+##   0.381   0.004   0.385
+## system.time( for (i in 1:1000) as.data.frame(as.table(data.matrix(Arizona))))
+##   0.428   0.002   0.429
+## system.time( for (i in 1:1000) cbind(stack(Arizona), subj=rownames(Arizona)))
+##   0.651   0.005   0.657
+## system.time( for (i in 1:1000)
+##             cbind(reshape::melt(Arizona), subj=rownames(Arizona)))
+##   2.668   0.022   2.705
+## system.time( for (i in 1:1000)
+##      stats::reshape(Arizona, direction="long", varying=list(colnames(Arizona))))
+##   1.125   0.011   1.140
+
+as.data.frame.table(data.matrix(Arizona))
+
+tapply(Arizona.long$Freq, Arizona.long[1:2], c)
+
+system.time( for (i in 1:1000)
+  tapply(Arizona.long$Freq, Arizona.long[1:2], c)
+)
+
+trace(twoway:::twoway.formula, exit=recover)
+
+twoway:::twoway.formula(Freq ~ Var1 + Var2, data=Arizona.long)
+system.time( for (i in 1:1000)
+  tapply(data$Freq, Arizona.long[1:2], c)
+)
+##    user  system elapsed
+##   0.115   0.000   0.115
+
+system.time( for (i in 1:1000)
+    edata %>%
+    select(one_of(rvar, lvar)) %>%
+    spread(key = rvar[2], value = lvar) %>%
+    column_to_rownames(rvar[1])
+)
+  ##  user  system elapsed
+  ## 5.239   0.043   5.307
+
+
+
+
+to.longdf <- function(wide, rowname=NULL, colname=NULL,
+                      responseName=deparse(substitute(wide)),
+		      dnn=c("Row","Col")) {
+  result <- as.data.frame.table(data.matrix(wide), responseName=responseName)
+  names(result)[1:2] <- dnn
+  result
+}
+
+Arizona
+
+to.longdf(Arizona)
+Arizona.long <-
+  to.longdf(Arizona, dnn=c("Month", "City"), responseName="Temperature")
+Arizona.long
+
+to.wide <- function(long, row=1, col=2, response=3)	{
+   tapply(long[,response], long[,c(row,col)], c)
+}
+
+to.wide(Arizona.long)
+
+## Both meanfit and medianfit take a matrix.  Neither needs a data.frame.
+## Therefore your examples, sentRT and Arizona, should be ordinary
+## matrices and not data.frames.
+
+## revised twoway.formula
+twoway.formula <- function(formula, data, subset, na.action, ...) {
+
+  if (missing(formula) || !inherits(formula, "formula"))
+    stop("'formula' missing or incorrect")
+  if (length(formula) != 3L)
+    stop("'formula' must have both left and right hand sides")
+  tt <- if (is.data.frame(data)) {
+    terms(formula, data = data)
+  } else { terms(formula) }
+  if (any(attr(tt, "order") > 1))
+    stop("interactions are not allowed")
+
+  rvar <- attr(terms(formula[-2L]), "term.labels")
+  lvar <- attr(terms(formula[-3L]), "term.labels")
+  if (length(rvar) != 2) stop("The 'formula' must have two variables on the right-hand side")
+  if (length(lvar) != 1) stop("The 'formula' must have one variable on the left-hand side")
+  rhs.has.dot <- any(rvar == ".")
+  lhs.has.dot <- any(lvar == ".")
+  if (lhs.has.dot || rhs.has.dot)
+    stop("'formula' cannot use '.' in left or right hand sides")
+  m <- match.call(expand.dots = FALSE)
+  edata <- eval(m$data, parent.frame())
+  # lhs <- formula[[2]]
+  # rhs <- formula[[3]]
+
+  wide <-
+  to.wide(edata)
+    ## edata %>%
+    ## select(one_of(rvar, lvar)) %>%
+    ## spread(key = rvar[2], value = lvar) %>%
+    ## column_to_rownames(rvar[1])
+
+  # call the default method on the wide data set
+  twoway(wide)
+}
+
+
+system.time( for (i in 1:1000)  ## this is the function in 0.5.0
+  twoway:::twoway.formula(Temperature ~ Month + City, data=Arizona.long)
+)
+  ##  user  system elapsed
+  ## 5.660   0.038   5.718
+
+system.time( for (i in 1:1000)  ## this is the function defined above
+    twoway.formula(Temperature ~ Month + City, data=Arizona.long)
+)
+  ##  user  system elapsed
+  ## 0.436   0.005   0.441
+
+
+## Next item, not tonight, you can do it if you get there first:
+## Move the calculation of the comparison value and the recommended power
+## transformation to the twoway.default function and store them in the
+## "twoway" object.  Among other things, this renders moot the
+## discussion of a base plot function returning a non-NULL value.
+
+
+Am <- data.matrix(Arizona)
+names(dimnames(Am)) <- c("Month","City")
+Am
+names(dimnames(Am))
+
+## now we have names(dimnames)
+## This can be incorporated into the printout and we no longer
+## need the asymmetry of the "fit" and "effect "notation".
