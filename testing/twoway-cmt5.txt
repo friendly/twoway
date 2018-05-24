@@ -82,7 +82,7 @@ system.time( for (i in 1:1000)
 
 
 
-to.longdf <- function(wide, rowname=NULL, colname=NULL,
+to_long <- function(wide, rowname=NULL, colname=NULL,
                       responseName=deparse(substitute(wide)),
 		      dnn=c("Row","Col")) {
   result <- as.data.frame.table(data.matrix(wide), responseName=responseName)
@@ -92,16 +92,16 @@ to.longdf <- function(wide, rowname=NULL, colname=NULL,
 
 Arizona
 
-to.longdf(Arizona)
+to_long(Arizona)
 Arizona.long <-
-  to.longdf(Arizona, dnn=c("Month", "City"), responseName="Temperature")
+  to_long(Arizona, dnn=c("Month", "City"), responseName="Temperature")
 Arizona.long
 
-to.wide <- function(long, row=1, col=2, response=3)	{
+to_wide <- function(long, row=1, col=2, response=3)	{
    tapply(long[,response], long[,c(row,col)], c)
 }
 
-to.wide(Arizona.long)
+to_wide(Arizona.long)
 
 ## Both meanfit and medianfit take a matrix.  Neither needs a data.frame.
 ## Therefore your examples, sentRT and Arizona, should be ordinary
@@ -134,7 +134,7 @@ twoway.formula <- function(formula, data, subset, na.action, ...) {
   # rhs <- formula[[3]]
 
   wide <-
-  to.wide(edata)
+  to_wide(edata)
     ## edata %>%
     ## select(one_of(rvar, lvar)) %>%
     ## spread(key = rvar[2], value = lvar) %>%

@@ -21,13 +21,8 @@
 The formula method reshapes the data set from long to wide format and calls the default method.
 }
 \examples{
-\donttest{
-library(tidyr)
-longRT <-taskRT \%>\%
-           tibble::rownames_to_column("task") \%>\%
-           tidyr::gather(key="topic", value=RT, -task)
- twoway(RT ~ task + topic, data=longRT)
- }
+longRT <- to_long(taskRT)
+twoway(RT ~ Task + Topic, data=longRT)
 }
 \references{
 the conversion of long to wide in a formula method was suggested on

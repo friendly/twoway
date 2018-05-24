@@ -9,19 +9,11 @@
 #' @param na.action What to do with NAs? (unused)
 #' @param ... other arguments, passed down
 #' @importFrom stats terms
-#' @importFrom tidyr spread gather %>%
-#' @importFrom tibble column_to_rownames
-#' @importFrom dplyr select one_of
 #' @references the conversion of long to wide in a formula method was suggested on
 #'        \url{https://stackoverflow.com/questions/50469320/how-to-write-a-formula-method-that-converts-long-to-wide}
 #' @examples
-#' \donttest{
-#' library(tidyr)
-#' longRT <-taskRT %>%
-#'            tibble::rownames_to_column("task") %>%
-#'            tidyr::gather(key="topic", value=RT, -task)
-#'  twoway(RT ~ task + topic, data=longRT)
-#'  }
+#' longRT <- to_long(taskRT)
+#' twoway(RT ~ Task + Topic, data=longRT)
 
 twoway.formula <- function(formula, data, subset, na.action, ...) {
 
@@ -48,46 +40,13 @@ twoway.formula <- function(formula, data, subset, na.action, ...) {
   # lhs <- formula[[2]]
   # rhs <- formula[[3]]
 
-  wide <-
-    edata %>%
-    select(one_of(rvar, lvar)) %>%
-    spread(key = rvar[2], value = lvar) %>%
-    column_to_rownames(rvar[1])
+  wide <- to_wide(edata)
+    # edata %>%
+    # select(one_of(rvar, lvar)) %>%
+    # spread(key = rvar[2], value = lvar) %>%
+    # column_to_rownames(rvar[1])
 
   # call the default method on the wide data set
   twoway(wide, ...)
 }
 
-# twoway.formula <- function(formula, data, subset, na.action, ...) {
-#
-#   if (missing(formula) || !inherits(formula, "formula"))
-#     stop("'formula' missing or incorrect")
-#   if (length(formula) != 3L)
-#     stop("'formula' must have both left and right hand sides")
-#   tt <- if (is.data.frame(data))
-#     terms(formula, data = data)
-#   else terms(formula)
-#   if (any(attr(tt, "order") > 1))
-#     stop("interactions are not allowed")
-#
-#   rvar <- attr(terms(formula[-2L]), "term.labels")
-#   lvar <- attr(terms(formula[-3L]), "term.labels")
-#   rhs.has.dot <- any(rvar == ".")
-#   lhs.has.dot <- any(lvar == ".")
-#   if (lhs.has.dot || rhs.has.dot)
-#     stop("'formula' has '.' in left or right hand sides")
-#   m <- match.call(expand.dots = FALSE)
-#   edata <- eval(m$data, parent.frame())
-#   lhs <- formula[[2]]
-#   rhs <- formula[[3]]
-#
-#   #  wide <- dcast(data=edata, formula=as.formula(rhs), value.var=lhs )
-#   #  Wide <- dcast(data=edata, value.var=lhs)
-#   #  Wide <- dcast(data=edata, rvar[1] ~ rvar[2], value.var=cvar)
-#   #  wide <- dcast(data=edata, list(.(rvar[1], .(rvar[2], .(cvar)))))
-# #browser()
-#   stop("The formula method is not yet implemented.")
-#
-#   # call the default method on the wide data set
-#   twoway(wide)
-# }
