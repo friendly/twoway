@@ -55,7 +55,7 @@ twoway.formula <- function(formula, data, subset, na.action, ...) {
     column_to_rownames(rvar[1])
 
   # call the default method on the wide data set
-  twoway(wide)
+  twoway(wide, ...)
 }
 
 # twoway.formula <- function(formula, data, subset, na.action, ...) {
