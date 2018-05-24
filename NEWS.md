@@ -1,3 +1,9 @@
+# twoway 0.5.0
+
+* Added a `twoway.formula()` method
+* Change some built-in data sets to matrices with proper names(dimnames); in matrix form, a `"responseName"` attribute is now partially supported in some functions.
+* Added `to_long()` and `to_wide()` to facilitate working either way [RMH]
+
 # twoway 0.4.1
 
 * Modified the twoway plot method per suggestions of RMH (better axis labels)
