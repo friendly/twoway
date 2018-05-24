@@ -6,8 +6,12 @@
 #' @name taskRT
 #' @docType data
 #' @keywords data
+#' @format A matrix of 3 rows and 4 columns, where the rows are the task difficulty levels and the columns are the the topics.
+#'        The cell values are average reaction times (in sec.). The matrix has a \code{responseName} attribute, \code{"RT"}
+#' @examples
 #' data(taskRT)
 #' twoway(taskRT)
+#' twoway(taskRT, method="median")
 NULL
 
 #'  Reaction times for T/F judgments
@@ -45,8 +49,8 @@ NULL
 #' @name Arizona
 #' @docType data
 #' @keywords data
-#' @format a data.frame of 7 observations (months) and 3 variables (Arizona cities) where the value is mean
-#'       monthly temperature in degrees F.
+#' @format a matrix of 7 rows (Month) and 3 columns (City) where the value is mean
+#'       monthly temperature in degrees F. The matrix has a \code{responseName} attribute, \code{"Temperature"}
 #' @references Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesley. Exhibit 1 of chapter 10, p. 333
 #' @examples
 #' data(Arizona)

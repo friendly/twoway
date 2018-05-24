@@ -4,10 +4,15 @@
 \name{taskRT}
 \alias{taskRT}
 \title{Data on reaction times for various tasks and topics}
+\format{A matrix of 3 rows and 4 columns, where the rows are the task difficulty levels and the columns are the the topics.
+       The cell values are average reaction times (in sec.). The matrix has a \code{responseName} attribute, \code{"RT"}}
 \description{
 A demonstration 3 x 4 two-way table composed of reaction times for
 tasks varying in difficulty, with content on different topics.
 }
+\examples{
+data(taskRT)
+twoway(taskRT)
+twoway(taskRT, method="median")
+}
 \keyword{data}
-\keyword{data(taskRT)}
-\keyword{twoway(taskRT)}
