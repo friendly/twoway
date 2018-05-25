@@ -2,6 +2,9 @@
 
 * Change some built-in data sets to matrices with proper names(dimnames); in matrix form, a `"responseName"` attribute is now partially supported in some functions.
 * Added `to_long()` and `to_wide()` to facilitate working either way [RMH]
+* `twoway.formula()` now uses `to_wide()` rather than `tidyr` constructs, resulting in a big speed-up 
+* `twoway.default()` now calculates the slope for the diagnostic plot, including it in the object [Suggestion: RMH]
+* `twoway.default()` now prefers matrix inputs, allowing better labels for row/col/response variables, but not yet implemented throughout the various methods.
 
 # twoway 0.5.0
 

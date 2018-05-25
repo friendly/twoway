@@ -1,4 +1,4 @@
-# Functions for Tukey anslysis of two-way tables
+# Functions for Tukey analysis of two-way tables
 
 #' Analysis of a two-way table with one observation per cell
 #'
@@ -6,7 +6,9 @@
 #'
 #' @details The \code{rownames(x)} are used as the levels of the row factor and the \code{colnames(x}) are
 #'          the levels of the column factor.
-#' @param x a numeric matrix or data frame
+#'          For a numeric matrix, the function uses the \code{names(dimnames(x))} as the names of these
+#'          variables, and, if present, a \code{responseName} attribute as the name for the response variable.
+#' @param x a numeric matrix or data frame.
 #' @param ... other arguments passed down
 #' @rdname twoway
 #' @author Michael Friendly
@@ -25,13 +27,14 @@ twoway <-
 #' @rdname twoway
 #' @method twoway default
 #' @export
-#' @return An object of class \code{"twoway"}
+#' @return An object of class \code{"twoway"}, but supplemented by additional components used for labeling
 #' @seealso \code{\link{medianfit}}, \code{\link{meanfit}}
 #' @examples
 #' data(taskRT)
 #' twoway(taskRT)
 #'
 
+# TODO: The function now needs default arguments for `responseName` and `varNames`
 twoway.default <- function(x, method=c("mean", "median"), ...) {
 
   method <- match.arg(method)
@@ -40,22 +43,27 @@ twoway.default <- function(x, method=c("mean", "median"), ...) {
   else
     result <- medianfit(x, ...)
   result$name <- deparse(substitute(x))
+
+  # keep the varNames and responseName in the object
+  # TODO: how to handle this for a data.frame input?
+  if (is.matrix(x)) {
+    if(!is.null(attr(x, "response"))) responseName <- attr(x, "response") else responseName <- "value"
+    if(!is.null(names(dimnames(x)))) varNames <- names(dimnames(x)) else varNames <- c("Row", "Col")
+  }
+  else {
+    responseName <- "value"
+    varNames <- c("Row", "Col")
+  }
+  result$varNames <- varNames
+  result$responseName <- responseName
+
+  # add the slope to the object here [RMH]
+  comp <- c(outer(result$roweff, result$coleff)/result$overall)
+  res <- c(result$residuals)
+  fit <- lm(res ~ comp)
+  result$slope <- coef(fit)[2]
   result
 
 }
-
-
-# ## diagnostic plot for removable interaction, from stats::medpolish
-# plot.medpolish <-
-# function (x, main = "Tukey Additivity Plot", ...)
-# {
-# 		comp <- outer(x$row, x$col)/x$overall
-# 		res <- x$residuals
-#     plot(comp, x$residuals, main = main,
-#         xlab = "Diagnostic Comparison Values", ylab = "Residuals",
-#         ...)
-#     abline(lm(res ~ comp))
-#     abline(h = 0, v = 0, lty = "dotted")
-# }
 
 

@@ -10,14 +10,14 @@ twoway(x, ...)
 \method{twoway}{default}(x, method = c("mean", "median"), ...)
 }
 \arguments{
-\item{x}{a numeric matrix or data frame}
+\item{x}{a numeric matrix or data frame.}
 
 \item{...}{other arguments passed down}
 
 \item{method}{one of \code{"mean"} or \code{"median"}}
 }
 \value{
-An object of class \code{"twoway"}
+An object of class \code{"twoway"}, but supplemented by additional components used for labeling
 }
 \description{
 Fits an additive model using either row and column means or Tukey's median polish procedure
@@ -27,6 +27,8 @@ Default method for two-way tables
 \details{
 The \code{rownames(x)} are used as the levels of the row factor and the \code{colnames(x}) are
          the levels of the column factor.
+         For a numeric matrix, the function uses the \code{names(dimnames(x))} as the names of these
+         variables, and, if present, a \code{responseName} attribute as the name for the response variable.
 }
 \examples{
 data(taskRT)
