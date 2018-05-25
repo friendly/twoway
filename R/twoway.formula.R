@@ -12,8 +12,10 @@
 #' @references the conversion of long to wide in a formula method was suggested on
 #'        \url{https://stackoverflow.com/questions/50469320/how-to-write-a-formula-method-that-converts-long-to-wide}
 #' @examples
+#' \donttest{
 #' longRT <- to_long(taskRT)
 #' twoway(RT ~ Task + Topic, data=longRT)
+#' }
 
 twoway.formula <- function(formula, data, subset, na.action, ...) {
 
@@ -41,10 +43,6 @@ twoway.formula <- function(formula, data, subset, na.action, ...) {
   # rhs <- formula[[3]]
 
   wide <- to_wide(edata)
-    # edata %>%
-    # select(one_of(rvar, lvar)) %>%
-    # spread(key = rvar[2], value = lvar) %>%
-    # column_to_rownames(rvar[1])
 
   # call the default method on the wide data set
   twoway(wide, ...)
