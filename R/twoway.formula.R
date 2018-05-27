@@ -43,7 +43,11 @@ twoway.formula <- function(formula, data, subset, na.action, ...) {
 
   wide <- to_wide(edata)
   # call the default method on the wide data set
+<<<<<<< HEAD
   # TODO: either allow twoway.formula to pass varNames, etc. or
+=======
+  # TODO: either allow twoway.formula to pass varNames, etc. or fixup the returned object
+>>>>>>> e7b5f7f4724917358da640536cb72b5aeeddbae0
   result <- twoway(wide, ...)
   result$name <- deparse(substitute(data))
   result$varNames <- rvar
