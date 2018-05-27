@@ -14,3 +14,14 @@ anova(sent.mod1)
 anova(sent.mod2)
 # test non-add
 anova(sent.mod1, sent.mod2)
+
+
+sent.mat <- as.matrix(sentRT)
+names(dimnames(sent.mat)) <- c("Subject", "Sentence")
+sentm.2way <- twoway(sent.mat)
+sentm.2way$varNames
+
+sentm.long <- to_long(sent.mat, response="RT")
+
+twoway(RT ~ Subject + Sentence, data=sentm.long)
+
