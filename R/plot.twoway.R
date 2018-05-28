@@ -38,6 +38,9 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
                         rcolor=c("blue", "red"),
                         ...) {
   which <- match.arg(which)
+  resp <- x$responseName
+  vnames <- x$varNames
+
   # TODO: do both plots in a single call??
 
   if(which=="fit") {
@@ -100,7 +103,7 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
     #    browser()
 
 
-    # TODO vectorize this code !!!
+    # DONE: vectorize this code !!!
 
     x.df <- as.data.frame(x)
     bot <- cbind(x.df$dif, x.df$fit)
@@ -138,14 +141,15 @@ plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
          main = main,
          cex = 1.2,
          pch = 16,
-         #	       xlab = expression("Comparison Values = " * frac(rc, hat(mu))),
          xlab = expression("Comparison Values = roweff * coleff /" * hat(mu)),
-         ylab = expression("Residual from y ~ row + col"),
+         ylab = sprintf("Residuals from %s ~ %s + %s", resp, vnames[1], vnames[2]),
+#         ylab = expression("Residual from y ~ row + col"),
          ...)
     fit <- lm(residual ~ nonadd, data=x.df)
     abline(fit, lwd=2)
     abline(h = 0, v = 0, lty = "dotted")
-    slope <- coef(fit)[2]
+#    slope <- coef(fit)[2]
+    slope <- x$slope
     power <- 1 - slope
     cat("Slope of Residual on comparison value: ", round(slope,1),
         "\nSuggested power transformation:        ", round(power,1),
