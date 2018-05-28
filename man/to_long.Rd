@@ -43,4 +43,12 @@ Reshape a data.frame or matrix to a wide data.frame
 Arizona.long <- to_long(Arizona, varNames=c("Month", "City"))
 Arizona.long
 
+Arizona.long <- to_long(Arizona, varNames=c("Month", "City"))
+# back the other way
+to_wide(Arizona.long)
+}
+\author{
+Michael Friendly and Richard Heiberger
+
+Michael Friendly and Richard Heiberger
 }

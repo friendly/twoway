@@ -28,3 +28,6 @@ twoway(RT ~ Task + Topic, data=longRT)
 the conversion of long to wide in a formula method was suggested on
        \url{https://stackoverflow.com/questions/50469320/how-to-write-a-formula-method-that-converts-long-to-wide}
 }
+\author{
+Michael Friendly and Richard Heiberger
+}

@@ -17,6 +17,21 @@ twoway(x, ...)
 \item{method}{one of \code{"mean"} or \code{"median"}}
 }
 \value{
+An object of class \code{c("twoway")} with the following named components:
+\describe{
+ \item{overall}{the fitted constant term.}
+ \item{roweff}{the fitted row effects.}
+ \item{coleff}{the fitted column effects.}
+ \item{residuals}{the residuals.}
+ \item{name}{the name of the dataset.}
+ \item{rownames}{the names for the rows}
+ \item{colnames}{the names for the columns}
+ \item{method}{the fitting method}
+ \item{varNames}{the names of the row and column variables}
+ \item{responseName}{the name of the response variable}
+ \item{slope}{the slope value, for the diagnostic plot}
+}
+
 An object of class \code{"twoway"}, but supplemented by additional components used for labeling
 }
 \description{
@@ -40,7 +55,7 @@ Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesle
             Friendly, M. (1991). \emph{SAS System for Statistical Graphics} Cary, NC: SAS Institute
 }
 \seealso{
-code{\link[stats]{medpolish}}
+code{\link{twoway.formula}}, code{\link[stats]{medpolish}}
 
 \code{\link{medianfit}}, \code{\link{meanfit}}
 }

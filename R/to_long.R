@@ -10,6 +10,7 @@
 #' @param varNames Default names for the row and column variables if not passed as \code{rowname} or \code{colname}
 #' @return A data.frame in long format
 #' @rdname to_long
+#' @author Michael Friendly and Richard Heiberger
 #' @export
 #' @examples
 #' Arizona.long <- to_long(Arizona, varNames=c("Month", "City"))
@@ -40,7 +41,13 @@ to_long <- function(wide,
 #' @param col Column index or quoted name of the column variable
 #' @param response Column index or quoted name of the response variable
 #' @rdname to_long
+#' @author Michael Friendly and Richard Heiberger
 #' @export
+#' @examples
+#' Arizona.long <- to_long(Arizona, varNames=c("Month", "City"))
+#' # back the other way
+#' to_wide(Arizona.long)
+
 
 to_wide <- function(long, row=1, col=2, response=3)	{
   tapply(long[,response], long[,c(row, col)], c)

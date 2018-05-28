@@ -10,6 +10,7 @@
 #' @param ... other arguments, passed down
 #' @importFrom stats terms
 #' @export
+#' @author Michael Friendly and Richard Heiberger
 #' @references the conversion of long to wide in a formula method was suggested on
 #'        \url{https://stackoverflow.com/questions/50469320/how-to-write-a-formula-method-that-converts-long-to-wide}
 #' @examples
