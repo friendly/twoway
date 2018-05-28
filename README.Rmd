@@ -111,6 +111,18 @@ model, and one for the model allowing 1 df for non-additivity.
 anova(sent.2way)
 ```
 
+### Other methods and functions
+
+* The `as.data.frame()` method for a `"twoway"` object gives a tidy data.frame result, containing the components of the fitted
+values and other quantities.
+
+```{r, R.options=list(digits=3)}
+as.data.frame(sent.2way)
+```
+
+* The utility functions `to_long()` and `to_wide()` facilitate conversion between matrix format and a long format
+with variables such as `Row`, `Col` and `Value`.
+
 ## TODOs
 
 This package is at a middle stage of development.  There are some small **TODO**s scattered throughout the code.  In addition:
@@ -118,4 +130,4 @@ This package is at a middle stage of development.  There are some small **TODO**
 <!-- * Implement a proper `anova.twoway()` method, giving a comprehensive analysis of variance table, including the Tukey 1 df test for non-additivity. The present version is just an initial sketch. -->
 <!-- * Create a formula method for a `data.frame` with columns like `row, col, value` as might be used in `twoway(value ~ row + col, data=)`. -->
 
-* It would be nicer to use the names of the row and column variables in some displays, rather than `row` and `col`.
+* It would be nicer to use the names of the row and column variables in some displays, rather than `Row` and `Col`.

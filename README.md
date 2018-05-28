@@ -8,7 +8,7 @@ twoway
 
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: `0.5.0`
+Version: `0.6.0`
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell, most typically used in an Analysis of Variance (ANOVA) context. The methods follow Tukey (1949), "One Degree of Freedom for Non-additivity", explained more concretely in Tukey (1972), *Exploratory Data Analysis*, but the graphical ideas are more interesting and general:
 
@@ -144,6 +144,26 @@ anova(sent.2way)
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
+### Other methods and functions
+
+-   The `as.data.frame()` method for a `"twoway"` object gives a tidy data.frame result, containing the components of the fitted values and other quantities.
+
+``` r
+as.data.frame(sent.2way)
+#>     row   col data  fit  dif residual roweff coleff   nonadd
+#> 1 subj1 sent1  1.7 1.13 7.33    0.567   -3.1 -0.733  0.45772
+#> 2 subj2 sent1  4.4 4.13 4.33    0.267   -0.1 -0.733  0.01477
+#> 3 subj3 sent1  6.6 7.43 1.03   -0.833    3.2 -0.733 -0.47248
+#> 4 subj1 sent2  1.9 1.50 7.70    0.400   -3.1 -0.367  0.22886
+#> 5 subj2 sent2  4.5 4.50 4.70    0.000   -0.1 -0.367  0.00738
+#> 6 subj3 sent2  7.4 7.80 1.40   -0.400    3.2 -0.367 -0.23624
+#> 7 subj1 sent3  2.0 2.97 9.17   -0.967   -3.1  1.100 -0.68658
+#> 8 subj2 sent3  5.7 5.97 6.17   -0.267   -0.1  1.100 -0.02215
+#> 9 subj3 sent3 10.5 9.27 2.87    1.233    3.2  1.100  0.70872
+```
+
+-   The utility functions `to_long()` and `to_wide()` facilitate conversion between matrix format and a long format with variables such as `Row`, `Col` and `Value`.
+
 TODOs
 -----
 
@@ -151,4 +171,4 @@ This package is at a middle stage of development. There are some small **TODO**s
 
 <!-- * Implement a proper `anova.twoway()` method, giving a comprehensive analysis of variance table, including the Tukey 1 df test for non-additivity. The present version is just an initial sketch. -->
 <!-- * Create a formula method for a `data.frame` with columns like `row, col, value` as might be used in `twoway(value ~ row + col, data=)`. -->
--   It would be nicer to use the names of the row and column variables in some displays, rather than `row` and `col`.
+-   It would be nicer to use the names of the row and column variables in some displays, rather than `Row` and `Col`.
