@@ -3,10 +3,10 @@ Type: Package
 Title: Analysis of Two-Way Tables
 Version: 0.6.0
 Authors@R: c(person(given = "Michael", family = "Friendly", role=c("aut", "cre"), email="friendly@yorku.ca"),
-            person(given = "Richard", family = "Heiberger", role="aut", email="rmh@temple.edu"),
+            person(given = c("Richard", "M."), family = "Heiberger", role="aut", email="rmh@temple.edu"),
             person(given = "John", family = "Fox", role="ctb", email="jfox@mcmaster.ca")
             )
-Author: Michael Friendly [aut, cre], Richard Heiberger [aut], John Fox [ctb]
+Author: Michael Friendly [aut, cre], Richard M. Heiberger [aut], John Fox [ctb]
 Maintainer: Michael Friendly <friendly@yorku.ca>
 Description: Carries out analyses of two-way tables with one observation per cell, together with graphical displays 
     for an additive fit and
