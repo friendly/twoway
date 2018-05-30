@@ -12,8 +12,6 @@ as.twoway <- function(x, ...) UseMethod("as.twoway")
 
 #' Method for matrix input
 #'
-#' @param x a numeric matrix or numeric data frame with rownames
-#' @param ... other arguments, unused here
 #' @param name Name of the data matrix
 #' @param responseName Name of the response variable
 #' @param varNames Names of the row and column variables

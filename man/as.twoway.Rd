@@ -20,10 +20,6 @@ as.twoway(x, ...)
 \item{responseName}{Name of the response variable}
 
 \item{varNames}{Names of the row and column variables}
-
-\item{x}{a numeric matrix or numeric data frame with rownames}
-
-\item{...}{other arguments, unused here}
 }
 \value{
 An object of class \code{c("twoway")} with all effects(roweff, coleff, overall) set to zero, and \code{method="Initial"}
