@@ -1,0 +1,60 @@
+## twoway_0.6.0
+
+taskRT
+task.long <- to_long(taskRT)
+task.long
+task.wide <- to_wide(task.long)
+task.wide
+
+twW <- twoway(taskRT)
+twW
+twL <- twoway(RT ~ Task + Topic, task.long)
+twL
+
+all.equal(twL, twW)
+## [1] "Component “residuals”: Attributes: < Length mismatch: comparison on first 2 components >"
+## [2] "Component “name”: 1 string mismatch"
+str(twW)
+str(twL)
+
+## as.twoway.R
+## print.twoway-061.R
+## twoway-061.R
+
+as.twoway(taskRT)
+
+twoway(as.twoway(taskRT))
+twWnew <- twoway(taskRT)
+twWnew
+
+twoway(as.twoway(taskRT), method="median")
+twWnewmed <- twoway(taskRT, method="median")
+twWnewmed
+
+plot(as.twoway(taskRT)) ## this is silly.  Something else needs to be plotted here.
+
+plot(twWnew, xlim=c(2,7))    ## they need the same xlim, so I can alternate them
+plot(twWnewmed, xlim=c(2,7))
+
+## They also need ylim control, so I am modifying plot.twoway in file plot.twoway_061.R
+
+plot(twWnew, xlim=c(2,7), ylim=c(1.5, 6.5))  ## they they also need ylim control (for manual control of labels)
+plot(twWnewmed, xlim=c(2,7), ylim=c(1.5, 6.5))
+
+
+plot(as.twoway(taskRT), which="diagnose") ## this is silly.  Something else needs to be plotted here.
+
+plot(twWnew, which="diagnose", xlim=c(-.19, .19), ylim=c(-.5, .55))
+plot(twWnewmed, which="diagnose", xlim=c(-.19, .19), ylim=c(-.5, .55)) ## only 11 points show up for the median.
+## We need to indicate overplotting.
+
+
+## > system.time(for (i in 1:10000) outer(1:13, 1:14))
+##    user  system elapsed
+##   0.130   0.007   0.139
+## > system.time(for (i in 1:10000) matrix(1:13) %*% 1:14)
+##    user  system elapsed
+##   0.041   0.003   0.046
+
+## I am going to save and reuse the comparison values already calculated in twoway.default.
+## I am calculating and saving power also.
