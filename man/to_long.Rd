@@ -48,7 +48,7 @@ Arizona.long <- to_long(Arizona, varNames=c("Month", "City"))
 to_wide(Arizona.long)
 }
 \author{
-Michael Friendly and Richard Heiberger
+Michael Friendly and Richard M. Heiberger
 
-Michael Friendly and Richard Heiberger
+Michael Friendly and Richard M. Heiberger
 }
