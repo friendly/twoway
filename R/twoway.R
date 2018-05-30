@@ -35,7 +35,7 @@ twoway <-
 	function(x, ...) UseMethod("twoway")
 
 #' Default method for two-way tables
-
+#'
 #' @param method one of \code{"mean"} or \code{"median"}
 #'
 #' @rdname twoway

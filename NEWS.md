@@ -1,3 +1,8 @@
+# twoway 0.6.1
+
+* added `as.twoway()` to give an initial display of a two-way table as a "twoway" object [RMH]
+* `print.twoway()` now displays the `names(dimnames(x))` and the `responseName` when available [RMH].
+
 # twoway 0.6.0
 
 * Change some built-in data sets to matrices with proper names(dimnames); in matrix form, a `"responseName"` attribute is now partially supported in some functions.
