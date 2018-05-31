@@ -2,34 +2,55 @@
 % Please edit documentation in R/plot.twoway.R
 \name{plot.twoway}
 \alias{plot.twoway}
-\title{Plot method for two-way tables}
+\alias{plot.twoway.fit}
+\alias{plot.twoway.diagnose}
+\title{Plot methods for two-way tables}
 \usage{
-\method{plot}{twoway}(x, which = c("fit", "diagnose"), main, ylab,
-  annotate = TRUE, rfactor = 1, rcolor = c("blue", "red"), ...)
+\method{plot}{twoway}(x, which = c("fit", "diagnose"), ...)
+
+\method{plot}{twoway.fit}(x, main = paste0("Tukey two-way fit plot for ",
+  x$name, " (method: ", x$method, ")"), xlab = expression(hat(mu) *
+  " + Column Effect - Row Effect"), ylab = expression("Fit = " * hat(mu) *
+  " + Column Effect + Row Effect"), rfactor = 1, rcolor = c("blue", "red"),
+  lwd = 3, ylim = NULL, ...)
+
+\method{plot}{twoway.diagnose}(x, annotate = TRUE, ...)
 }
 \arguments{
 \item{x}{a \code{class("twoway")} object}
 
 \item{which}{one of \code{"fit"} or \code{"diagnose"}}
 
+\item{...}{othere arguments, passed to \code{plot}}
+
 \item{main}{plot title}
 
-\item{ylab}{Y axis label for \code{"fit"} plot}
+\item{xlab}{X axis label}
+
+\item{ylab}{Y axis label}
+
+\item{rfactor}{draw lines for \code{abs(residuals) > rfactor*sqrt(MSPE)}}
+
+\item{rcolor}{a vector of length 2 giving the color of lines for positive and negative residuals}
+
+\item{lwd}{line width for residual lines}
+
+\item{ylim}{Y axis limits}
 
 \item{annotate}{A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot}
-
-\item{rfactor}{for the \code{"fit"} method, draw lines for \code{abs(residuals) > rfactor*sqrt(MSPE)}}
-
-\item{rcolor}{for the \code{"fit"} method, a vector of length 2 giving the color of lines for positive and negative residuals}
-
-\item{...}{other arguments passed down}
 }
 \value{
-For the \code{"diagnose"} plot, a list with elements \code{c("slope", "power")} is returned invisibly
+Nothing
+
+A list with elements \code{c("slope", "power")} is returned invisibly
 }
 \description{
 Plots either the fitted values and residuals under additivity or
 a diagnostic plot for removable non-additivity by a power transformation
+
+Fitted value plot for two-way tables
+
+Diagnostic plot for two-way tables
 }
 \details{
 For the \code{which="fit"} plot, the basic result comes from a plot of the row effects against the column fitted
@@ -42,13 +63,12 @@ For the \code{which="fit"} plot, the basic result comes from a plot of the row e
     are plotted against the estimated components \eqn{\alpha_i \beta_j / \mu}. If this plot shows a substantially non-zero
     slope, \eqn{b}, this analysis suggests that a power transformation, \eqn{ y \rightarrow y^(1-b)} might reduce the
     apparent interaction effects.
+
+When a potential interaction between the row and column variables that is linear-by-linear in their
+     effects, the slope of the relationship betweeen the residuals and the product of the row and column
+     effects can be used to suggest a power transformation of the response to decrease the apparent interaction.
 }
 \examples{
-data(sentRT)
-twoway(sentRT)
-plot(twoway(sentRT), ylab="Reaction Time")
-plot(twoway(sentRT), which="diagnose")
-}
-\author{
-Michael Friendly
+# none yet
+# None here
 }

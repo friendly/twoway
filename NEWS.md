@@ -1,3 +1,8 @@
+# twoway 0.6.2
+
+* revised `twoway.default()` to calculate various other quantities and include these in the "twoway" object [RMH]
+* revised `plot.twoway()` with separate functions for the "fit" and "diagnose" plots. [RMH]
+
 # twoway 0.6.1
 
 * added `as.twoway()` to give an initial display of a two-way table as a "twoway" object [RMH]

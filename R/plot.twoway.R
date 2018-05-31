@@ -1,4 +1,4 @@
-#' Plot method for two-way tables
+#' Plot methods for two-way tables
 #'
 #' Plots either the fitted values and residuals under additivity or
 #' a diagnostic plot for removable non-additivity by a power transformation
@@ -15,164 +15,239 @@
 #'     apparent interaction effects.
 #' @param x a \code{class("twoway")} object
 #' @param which one of \code{"fit"} or \code{"diagnose"}
-#' @param main plot title
-#' @param ylab Y axis label for \code{"fit"} plot
-#' @param annotate  A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot
-#' @param rfactor for the \code{"fit"} method, draw lines for \code{abs(residuals) > rfactor*sqrt(MSPE)}
-#' @param rcolor  for the \code{"fit"} method, a vector of length 2 giving the color of lines for positive and negative residuals
-#' @param ... other arguments passed down
+#' @param ...  othere arguments, passed to \code{plot}
+#'
 #' @importFrom graphics plot text abline arrows segments
 #' @importFrom stats lm coef
-#' @return For the \code{"diagnose"} plot, a list with elements \code{c("slope", "power")} is returned invisibly
-#' @author Michael Friendly
+#' @rdname plot.twoway
 #' @export
-#' @examples
-#' data(sentRT)
-#' twoway(sentRT)
-#' plot(twoway(sentRT), ylab="Reaction Time")
-#' plot(twoway(sentRT), which="diagnose")
 
-plot.twoway <- function(x, which=c("fit", "diagnose"), main, ylab,
-                        annotate=TRUE,
-                        rfactor=1,
-                        rcolor=c("blue", "red"),
+plot.twoway <- function(x,
+                        which=c("fit", "diagnose"),
                         ...) {
-  which <- match.arg(which)
-  resp <- x$responseName
-  vnames <- x$varNames
 
-  # TODO: do both plots in a single call??
+  ## TODO: do both plots in a single call??
 
-  if(which=="fit") {
-    if (missing(main)) main <- paste0("Tukey two-way fit plot for ", x$name, " (method: ", x$method, ")")
-    if (missing(ylab)) ylab <- "Fitted value"
-    roweff <- x$roweff
-    coleff <- x$coleff
-    r <- length(roweff)
-    c <- length(coleff)
-    all <- x$overal
-    clo <- min(coleff) + all
-    chi <- max(coleff) + all
-    from <- cbind(clo - roweff, clo + roweff)
-    to   <- cbind(chi - roweff, chi + roweff)
-
-    rlo <- min(roweff)
-    rhi <- max(roweff)
-    from <- rbind(from,  cbind(coleff + all - rhi, coleff + all + rhi))
-    to   <- rbind(to,    cbind(coleff + all - rlo, coleff + all + rlo))
-    colnames(from) <- c("x", "y")
-    colnames(to)   <- c("x", "y")
-
-    labs <- c(names(roweff), names(coleff))
-
-    # find the plot range to include residuals and labels
-    fit <- outer(x$roweff, x$coleff, "+") + x$overall
-    dat <- fit + x$residuals
-    dif <- t(outer(coleff+all, roweff,  "-"))  # colfit - roweff
-    ylim <- range(rbind(dat, fit))
-    ylim <- ylim + c(-.25, .1)* range(rbind(dat,fit))
-
-    # coordinates of vertices in the plot are (fit, dif)
-    plot( rbind(from, to), main=main, type="n",
-          #          col=rep(c("red", "blue"), times= c(r, c)),
-          asp=1,
-          ylim = ylim,
-          ylab = ylab,
-          xlab=" Column Fit - Row Effect",
-          ...)
+  switch(match.arg(which),
+         fit=plot.twoway.fit(x, ...),
+         diagnose=plot.twoway.diagnose(x, ...),
+         stop("invalid 'which' value")
+         )
+}
 
 
-    indr <- 1:r
-    indc <- (r+1):(r+c)
-    # labels for rows and columns
-    # TODO: tweak label positions with an offset
-    off <- c(0, .5)
-    text(to[indr,], labs[indr], srt=45, pos=4, offset=c(0.1,0.5), xpd=TRUE)
-    text(to[(r+1):(r+c),], labs[(r+1):(r+c)], srt=-45, pos=4, offset=c(0,-.5), xpd=TRUE)
-    # draw lines
-    segments(from[indr,1], from[indr,2], to[indr,1], to[indr,2])
-    segments(from[indc,1], from[indc,2], to[indc,1], to[indc,2])
 
-    # draw lines/arrows for  large residuals
-    # TODO should use sqrt(SSPE)
-    e <- x$residuals
-    MSE <- sum(e^2) / prod(c(r,c)-1)
-    sigma <- sqrt(MSE)
-    showres <- abs(e) > rfactor * sigma
-    clr <- ifelse(e > 0, rcolor[1], rcolor[2])
-    #    browser()
+## New plot.twoway.fit [RMH]
+
+#' Fitted value plot for two-way tables
+#'
+#' @param main plot title
+#' @param xlab X axis label
+#' @param ylab Y axis label
+#' @param rfactor draw lines for \code{abs(residuals) > rfactor*sqrt(MSPE)}
+#' @param rcolor  a vector of length 2 giving the color of lines for positive and negative residuals
+#' @param lwd line width for residual lines
+#' @param ylim Y axis limits
+#'
+#' @return Nothing
+#' @rdname plot.twoway
+#' @export
+#'
+#' @examples
+#' # none yet
+plot.twoway.fit <-
+  function(x,
+           main=paste0("Tukey two-way fit plot for ", x$name, " (method: ", x$method, ")"),
+           xlab=expression(hat(mu) * " + Column Effect - Row Effect"),
+           ylab=expression("Fit = " * hat(mu) * " + Column Effect + Row Effect"),
+           rfactor=1,
+           rcolor=c("blue", "red"),
+           lwd=3,
+           ylim=NULL,
+           ...) {
+
+    CRA <- function(C, R, A) (A+R) + matrix(C, byrow=TRUE, nrow=length(R), ncol=length(C))
+
+    ## all points
+    ColPlusRow <-  CRA(x$coleff,  x$roweff, x$overall)
+    ColMinusRow <- CRA(x$coleff, -x$roweff, x$overall)
+    if (is.null(ylim)) {
+      ylim <- range(ColPlusRow) + range(x$residuals)
+      ylim <- ylim + c(-.02, .02)* diff(ylim)
+    }
+    plot(c(ColMinusRow), c(ColPlusRow),
+         asp=1, xlab=xlab, ylab=ylab, main=main,
+         ylim=ylim, ..., type="n")
+
+    ## Row grid lines
+    Rgridy <- CRA(range(x$coleff),  x$roweff, x$overall)
+    Rgridx <- CRA(range(x$coleff), -x$roweff, x$overall)
+    segments(Rgridx[,1], Rgridy[,1], Rgridx[,2], Rgridy[,2])
+
+    ## Col grid lines
+    Cgridy <- CRA(x$coleff,  range(x$roweff), x$overall)
+    Cgridx <- CRA(x$coleff, -range(x$roweff), x$overall)
+    segments(Cgridx[1,], Cgridy[1,], Cgridx[2,], Cgridy[2,])
+
+    ## labels
+    text(Rgridx[,2], Rgridy[,2], names(x$roweff), srt=45,  pos=4, offset=0.3, xpd=TRUE)
+    text(Cgridx[1,], Cgridy[1,], paste0("\n\n",names(x$coleff)), srt=-45, pos=4, offset=0.7, xpd=TRUE)
+
+    ## Row varName
+    xmin <- which(min(Rgridx[,2]) == Rgridx[,2])
+    xmax <- which(max(Rgridx[,2]) == Rgridx[,2])
+    text(Rgridx[xmin, 2] + .95*diff(Rgridx[c(xmin, xmax), 2]),
+         Rgridy[xmin, 2] + .25*diff(Rgridy[c(xmin, xmax), 2]), x$varNames[1])
+
+    ## Col varName
+    ymin <- which(min(Cgridy[2,]) == Cgridy[2,])
+    ymax <- which(max(Cgridy[2,]) == Cgridy[2,])
+    text(Cgridx[1, ymin] + .95*diff(Cgridx[1, c(ymin, ymax)]),
+         Cgridy[1, ymin] + .25*diff(Cgridy[1, c(ymin, ymax)]), x$varNames[2])
+
+    ## Residuals
+    segments(c(ColMinusRow), c(ColPlusRow), c(ColMinusRow), c(ColPlusRow + x$residuals),
+             col = rcolor[(x$residuals < 0) + 1],
+             lwd=lwd, xpd=TRUE)
+
+           }
 
 
-    # DONE: vectorize this code !!!
 
-    x.df <- as.data.frame(x)
-    bot <- cbind(x.df$dif, x.df$fit)
-    top <- cbind(x.df$dif, x.df$data)
-    clr <- ifelse(x$residual > 0, rcolor[1], rcolor[2])
-    segments(bot[,1], bot[,2], top[,1], top[,2], col = clr)
+## diagnostic plot
 
-    #     re <- outer(roweff, rep(1,r))
-    #     cf <- outer(rep(1,c), coleff) + all
-    #     for (i in 1:r) {
-    #       for (j in 1:c) {
-    #         bot <- c(dif[i,j], fit[i,j])
-    # #        bot <- c( (cf[i,j]-re[i,j]), (cf[i,j]+re[i,j]) )
-    #         top <- bot + c(0, e[i,j])
-    #         segments(bot[1], bot[2], top[1], top[2], col = clr[i,j])
-    #       }
-    #     }
+#' Diagnostic plot for two-way tables
+#'
+#' @details When a potential interaction between the row and column variables that is linear-by-linear in their
+#'      effects, the slope of the relationship betweeen the residuals and the product of the row and column
+#'      effects can be used to suggest a power transformation of the response to decrease the apparent interaction.
+#'
+#' @param annotate  A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot
+#'
+#' @return A list with elements \code{c("slope", "power")} is returned invisibly
+#' @rdname plot.twoway
+#' @export
+#'
+#' @examples
+#' # None here
+plot.twoway.diagnose <-
+  function(x,
+           annotate=TRUE,
+           ...) {
 
-  }
-  # diagnostic plot
-  else {
-    if (missing(main)) main <- paste0("Tukey additivity plot for ", x$name, " (method: ", x$method, ")")
-    # comp <- c(outer(x$roweff, x$coleff)/x$overall)
-    # res <- c(x$residuals)
-    # plot(comp, x$residuals, main = main,
-    #      xlab = "Diagnostic Comparison Values",
-    #      ylab = "Interaction Residuals",
-    #      ...)
-    # fit <- lm(res ~ comp)
-    # abline(fit)
-    # abline(h = 0, v = 0, lty = "dotted")
+#    x$compValue <- outer(x$roweff, x$coleff)/x$overall
 
-    x.df <- as.data.frame(x)
-    plot(residual ~ nonadd, data=x.df,
-         main = main,
+    plot(c(x$residual) ~ c(x$compValue),
+         main=paste0("Tukey additivity plot for ", x$name, " (method: ", x$method, ")"),
          cex = 1.2,
          pch = 16,
          xlab = expression("Comparison Values = roweff * coleff /" * hat(mu)),
-         ylab = sprintf("Residuals from %s ~ %s + %s", resp, vnames[1], vnames[2]),
-#         ylab = expression("Residual from y ~ row + col"),
+         ylab = sprintf("Residuals from %s ~ %s + %s",
+                        x$responseName, x$varNames[1], x$varNames[2]),
          ...)
-    fit <- lm(residual ~ nonadd, data=x.df)
-    abline(fit, lwd=2)
+    abline(lm(c(x$residual) ~ c(x$compValue)), lwd=2)
     abline(h = 0, v = 0, lty = "dotted")
-#    slope <- coef(fit)[2]
-    slope <- x$slope
-    power <- 1 - slope
-    cat("Slope of Residual on comparison value: ", round(slope,1),
-        "\nSuggested power transformation:        ", round(power,1),
+    power <- 1-x$slope
+    cat("Slope of Residual on comparison value: ", round(x$slope,1),
+        "\nSuggested power transformation:        ", round(x$power,1),
         "\n")
 
     if (is.logical(annotate) && annotate) {
-      if( slope > 0 ) {
-        loc <- c(min(x.df$nonadd), .95*max(x.df$residual))
+      if( x$slope > 0 ) {
+        loc <- c(min(x$compValue), .95*max(x$residual))
         pos=4
       }
       else {
-        loc <- c(max(x.df$nonadd), .95*max(x.df$residual))
+        loc <- c(max(x$compValue), .95*max(x$residual))
         pos=2
       }
 
       text(loc[1], loc[2],
-           paste("Slope:", round(slope,1), "\nPower:", round(power,1)),
-           pos=pos)
+           paste("Slope:", round(x$slope,1), "\nPower:", round(x$power,1)),
+           pos=pos, xpd=TRUE)
     }
 
-    # TODO: Identify unusual points
-    # TODO: Optionally, add confidence limits for lm line, or add loess smooth??
-    invisible(list(slope=slope, power=power))
+    ## TODO: Identify unusual points
+    ## TODO: Optionally, add confidence limits for lm line, or add loess smooth??
 
   }
-}
+
+## Michael Friendly, original plot.twoway.fit (modified)
+# plot.twoway.fitMF <-
+#   function(x,
+#            main=paste0("Tukey two-way fit plot for ", x$name, " (method: ", x$method, ")"),
+#            xlab=" Column Fit - Row Effect",
+#            ylab="Fitted value",
+#            rfactor=1,
+#            rcolor=c("blue", "red"),
+#            lwd=3,
+#            ylim=NULL,
+#            ...) {
+#     roweff <- x$roweff
+#     coleff <- x$coleff
+#     r <- length(x$roweff)
+#     c <- length(x$coleff)
+#     all <- x$overall
+#     clo <- min(coleff) + all
+#     chi <- max(coleff) + all
+#     from <- cbind(clo - roweff, clo + roweff)
+#     to   <- cbind(chi - roweff, chi + roweff)
+#
+#     rlo <- min(roweff)
+#     rhi <- max(roweff)
+#     from <- rbind(from,  cbind(coleff + all - rhi, coleff + all + rhi))
+#     to   <- rbind(to,    cbind(coleff + all - rlo, coleff + all + rlo))
+#     colnames(from) <- c("x", "y")
+#     colnames(to)   <- c("x", "y")
+#
+#     labs <- c(names(roweff), names(coleff))
+#
+#     ## find the plot range to include residuals and labels
+#     fit <- outer(x$roweff, x$coleff, "+") + x$overall
+#     dat <- fit + x$residuals
+#     dif <- t(outer(coleff+all, roweff,  "-"))  # colfit - roweff
+#     if (is.null(ylim)) {
+#       ylim <- range(rbind(dat, fit))
+#       ylim <- ylim + c(-.05, .05)* diff(ylim)
+#     }
+#     ## coordinates of vertices in the plot are (fit, dif)
+#     plot( rbind(from, to), main=main, type="n",
+#           ##          col=rep(c("red", "blue"), times= c(r, c)),
+#           asp=1,
+#           ylim = ylim,
+#           ylab = ylab,
+#           xlab = xlab,
+#           ...)
+#
+#
+#     indr <- 1:r
+#     indc <- (r+1):(r+c)
+#     ## labels for rows and columns
+#     ## TODO: tweak label positions with an offset
+#     off <- c(0, .5)
+#     text(to[indr,], labs[indr], srt=45, pos=4, offset=c(0.1,0.5), xpd=TRUE)
+#     text(to[(r+1):(r+c),], labs[(r+1):(r+c)], srt=-45, pos=4, offset=c(0,-.5), xpd=TRUE)
+#     ## draw lines
+#     segments(from[indr,1], from[indr,2], to[indr,1], to[indr,2])
+#     segments(from[indc,1], from[indc,2], to[indc,1], to[indc,2])
+#
+#     ## draw lines/arrows for  large residuals
+#     ## TODO should use sqrt(SSPE)
+#     e <- x$residuals
+#     MSE <- sum(e^2) / prod(c(r,c)-1)
+#     sigma <- sqrt(MSE)
+#     showres <- abs(e) > rfactor * sigma
+#     clr <- ifelse(e > 0, rcolor[1], rcolor[2])
+#     ##    browser()
+#
+#
+#     ## DONE: vectorize this code !!!
+#
+#     x.df <- as.data.frame(x)
+#     bot <- cbind(x.df$dif, x.df$fit)
+#     top <- cbind(x.df$dif, x.df$data)
+#     clr <- ifelse(x$residual > 0, rcolor[1], rcolor[2])
+#     segments(bot[,1], bot[,2], top[,1], top[,2], col = clr, lwd=lwd)
+#
+#   }
+#
