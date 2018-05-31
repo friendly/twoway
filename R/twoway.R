@@ -22,7 +22,9 @@
 #'  \item{method}{the fitting method}
 #'  \item{varNames}{the names of the row and column variables}
 #'  \item{responseName}{the name of the response variable}
+#'  \item{compValue}{the comparison values, for the diagnostic plot}
 #'  \item{slope}{the slope value, for the diagnostic plot}
+#'  \item{power}{the suggested power transformation, \code{1-slope}}
 #' }
 #' @rdname twoway
 #' @author Michael Friendly
@@ -37,6 +39,9 @@ twoway <-
 #' Default method for two-way tables
 #'
 #' @param method one of \code{"mean"} or \code{"median"}
+#' @param name name for the input dataset
+#' @param responseName name for the response variable
+#' @param varNames names for the Row and Column variables
 #'
 #' @rdname twoway
 #' @method twoway default
@@ -49,36 +54,61 @@ twoway <-
 #' twoway(taskRT)
 #'
 
-# TODO: The function now needs default arguments for `responseName` and `varNames`
-twoway.default <- function(x, method=c("mean", "median"), ...) {
+twoway.default <- function(x, method=c("mean", "median"), ...,
+                           name=deparse(substitute(x)),
+                           responseName=attr(x, "response"),
+                           varNames=names(dimnames(x))) {
+
+  if (is.null(responseName)) responseName <- "Value"
+  if (is.null(varNames)) varNames <- c("Row", "Col")
 
   method <- match.arg(method)
   if (method=="mean")
     result <- meanfit(x)
   else
     result <- medianfit(x, ...)
-  result$name <- deparse(substitute(x))
-
-  # keep the varNames and responseName in the object
-  # TODO: how to handle this for a data.frame input?
-  if (is.matrix(x)) {
-    if(!is.null(attr(x, "response"))) responseName <- attr(x, "response") else responseName <- "Value"
-    if(!is.null(names(dimnames(x)))) varNames <- names(dimnames(x)) else varNames <- c("Row", "Col")
-  }
-  else {
-    responseName <- "Value"
-    varNames <- c("Row", "Col")
-  }
+  result$name <- name
   result$varNames <- varNames
   result$responseName <- responseName
-
-  # add the slope to the object here [RMH]
-  comp <- c(outer(result$roweff, result$coleff)/result$overall)
-  res <- c(result$residuals)
-  fit <- lm(res ~ comp)
-  result$slope <- coef(fit)[2]
+  result$compValue <- with(result, matrix(roweff) %*% (coleff/overall)) ## rmh
+  dimnames(result$compValue) <- dimnames(result$residuals)
+  result$slope <- with(result, unname(coef(lm(c(residuals) ~ c(compValue)))[2]))
+  result$power <- 1 - result$slope
   result
 
 }
+
+
+# # TODO: The function now needs default arguments for `responseName` and `varNames`
+# twoway.default <- function(x, method=c("mean", "median"), ...) {
+#
+#   method <- match.arg(method)
+#   if (method=="mean")
+#     result <- meanfit(x)
+#   else
+#     result <- medianfit(x, ...)
+#   result$name <- deparse(substitute(x))
+#
+#   # keep the varNames and responseName in the object
+#   # TODO: how to handle this for a data.frame input?
+#   if (is.matrix(x)) {
+#     if(!is.null(attr(x, "response"))) responseName <- attr(x, "response") else responseName <- "Value"
+#     if(!is.null(names(dimnames(x)))) varNames <- names(dimnames(x)) else varNames <- c("Row", "Col")
+#   }
+#   else {
+#     responseName <- "Value"
+#     varNames <- c("Row", "Col")
+#   }
+#   result$varNames <- varNames
+#   result$responseName <- responseName
+#
+#   # add the slope to the object here [RMH]
+#   comp <- c(outer(result$roweff, result$coleff)/result$overall)
+#   res <- c(result$residuals)
+#   fit <- lm(res ~ comp)
+#   result$slope <- coef(fit)[2]
+#   result
+#
+# }
 
 

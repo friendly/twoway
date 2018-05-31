@@ -7,7 +7,9 @@
 \usage{
 twoway(x, ...)
 
-\method{twoway}{default}(x, method = c("mean", "median"), ...)
+\method{twoway}{default}(x, method = c("mean", "median"), ...,
+  name = deparse(substitute(x)), responseName = attr(x, "response"),
+  varNames = names(dimnames(x)))
 }
 \arguments{
 \item{x}{a numeric matrix or data frame.}
@@ -15,6 +17,12 @@ twoway(x, ...)
 \item{...}{other arguments passed down}
 
 \item{method}{one of \code{"mean"} or \code{"median"}}
+
+\item{name}{name for the input dataset}
+
+\item{responseName}{name for the response variable}
+
+\item{varNames}{names for the Row and Column variables}
 }
 \value{
 An object of class \code{c("twoway")} with the following named components:
@@ -29,7 +37,9 @@ An object of class \code{c("twoway")} with the following named components:
  \item{method}{the fitting method}
  \item{varNames}{the names of the row and column variables}
  \item{responseName}{the name of the response variable}
+ \item{compValue}{the comparison values, for the diagnostic plot}
  \item{slope}{the slope value, for the diagnostic plot}
+ \item{power}{the suggested power transformation, \code{1-slope}}
 }
 
 An object of class \code{"twoway"}, but supplemented by additional components used for labeling
