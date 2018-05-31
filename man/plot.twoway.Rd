@@ -67,6 +67,9 @@ For the \code{which="fit"} plot, the basic result comes from a plot of the row e
 When a potential interaction between the row and column variables that is linear-by-linear in their
      effects, the slope of the relationship betweeen the residuals and the product of the row and column
      effects can be used to suggest a power transformation of the response to decrease the apparent interaction.
+
+     If you want to use this to compare the result of \code{method="mean"} and \code{method="median"}, it is
+     essential to set the same \code{xlim} and \code{ylim} axes in the call.
 }
 \examples{
 # none yet

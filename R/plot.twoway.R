@@ -51,7 +51,6 @@ plot.twoway <- function(x,
 #'
 #' @return Nothing
 #' @rdname plot.twoway
-#' @export
 #'
 #' @examples
 #' # none yet
@@ -122,11 +121,13 @@ plot.twoway.fit <-
 #'      effects, the slope of the relationship betweeen the residuals and the product of the row and column
 #'      effects can be used to suggest a power transformation of the response to decrease the apparent interaction.
 #'
+#'      If you want to use this to compare the result of \code{method="mean"} and \code{method="median"}, it is
+#'      essential to set the same \code{xlim} and \code{ylim} axes in the call.
+#'
 #' @param annotate  A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot
 #'
 #' @return A list with elements \code{c("slope", "power")} is returned invisibly
 #' @rdname plot.twoway
-#' @export
 #'
 #' @examples
 #' # None here
