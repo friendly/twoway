@@ -33,24 +33,18 @@
 
 \item{rcolor}{a vector of length 2 giving the color of lines for positive and negative residuals}
 
-\item{lwd}{line width for residual lines}
+\item{lwd}{line width for residual lines in the fit plot}
 
 \item{ylim}{Y axis limits}
 
 \item{annotate}{A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot}
 }
 \value{
-Nothing
-
-A list with elements \code{c("slope", "power")} is returned invisibly
+The diagnostic plot invisibly returns a list with elements \code{c("slope", "power")}
 }
 \description{
 Plots either the fitted values and residuals under additivity or
 a diagnostic plot for removable non-additivity by a power transformation
-
-Fitted value plot for two-way tables
-
-Diagnostic plot for two-way tables
 }
 \details{
 For the \code{which="fit"} plot, the basic result comes from a plot of the row effects against the column fitted
@@ -64,14 +58,6 @@ For the \code{which="fit"} plot, the basic result comes from a plot of the row e
     slope, \eqn{b}, this analysis suggests that a power transformation, \eqn{ y \rightarrow y^(1-b)} might reduce the
     apparent interaction effects.
 
-When a potential interaction between the row and column variables that is linear-by-linear in their
-     effects, the slope of the relationship betweeen the residuals and the product of the row and column
-     effects can be used to suggest a power transformation of the response to decrease the apparent interaction.
-
-     If you want to use this to compare the result of \code{method="mean"} and \code{method="median"}, it is
+If you want to use the diagnostic plot to compare the result of \code{method="mean"} and \code{method="median"}, it is
      essential to set the same \code{xlim} and \code{ylim} axes in the call.
-}
-\examples{
-# none yet
-# None here
 }

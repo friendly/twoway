@@ -39,21 +39,16 @@ plot.twoway <- function(x,
 
 ## New plot.twoway.fit [RMH]
 
-#' Fitted value plot for two-way tables
-#'
 #' @param main plot title
 #' @param xlab X axis label
 #' @param ylab Y axis label
 #' @param rfactor draw lines for \code{abs(residuals) > rfactor*sqrt(MSPE)}
 #' @param rcolor  a vector of length 2 giving the color of lines for positive and negative residuals
-#' @param lwd line width for residual lines
+#' @param lwd line width for residual lines in the fit plot
 #' @param ylim Y axis limits
 #'
-#' @return Nothing
 #' @rdname plot.twoway
 #'
-#' @examples
-#' # none yet
 plot.twoway.fit <-
   function(x,
            main=paste0("Tukey two-way fit plot for ", x$name, " (method: ", x$method, ")"),
@@ -115,22 +110,15 @@ plot.twoway.fit <-
 
 ## diagnostic plot
 
-#' Diagnostic plot for two-way tables
-#'
-#' @details When a potential interaction between the row and column variables that is linear-by-linear in their
-#'      effects, the slope of the relationship betweeen the residuals and the product of the row and column
-#'      effects can be used to suggest a power transformation of the response to decrease the apparent interaction.
-#'
-#'      If you want to use this to compare the result of \code{method="mean"} and \code{method="median"}, it is
+#' @details
+#'      If you want to use the diagnostic plot to compare the result of \code{method="mean"} and \code{method="median"}, it is
 #'      essential to set the same \code{xlim} and \code{ylim} axes in the call.
 #'
 #' @param annotate  A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot
 #'
-#' @return A list with elements \code{c("slope", "power")} is returned invisibly
+#' @return The diagnostic plot invisibly returns a list with elements \code{c("slope", "power")}
 #' @rdname plot.twoway
 #'
-#' @examples
-#' # None here
 plot.twoway.diagnose <-
   function(x,
            annotate=TRUE,
