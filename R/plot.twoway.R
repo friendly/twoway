@@ -160,7 +160,7 @@ plot.twoway.diagnose <-
          ...)
     abline(lm(c(x$residual) ~ c(x$compValue)), lwd=2)
     abline(h = 0, v = 0, lty = "dotted")
-    power <- 1-x$slope
+
     cat("Slope of Residual on comparison value: ", round(x$slope,1),
         "\nSuggested power transformation:        ", round(x$power,1),
         "\n")
