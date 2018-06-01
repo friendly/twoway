@@ -21,7 +21,7 @@ plot(twmed, xlim=c(2,7), ylim=c(2,7))
 
 ## MF:
 # Yes, in comparing the mean and median fits, it is important to control the axis limits. Perhaps
-# this needs a comment or example in the documentation
+# this needs a comment or example in the documentation: **DONE** in the examples.
 
 plot(tw,    which="diagnose", xlim=c(-.19, .19), ylim=c(-.5, .55))
 plot(twmed, which="diagnose", xlim=c(-.19, .19), ylim=c(-.5, .55)) ## only 11 points are visible for the median.
