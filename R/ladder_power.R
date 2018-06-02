@@ -6,6 +6,7 @@
 #'          where \code{p=0} is interpreted to mean \eqn{log(y)}
 #' @return a named list of two elements: \code{power}, the ladder-of-power value, and
 #'         \code{name}, the name for the transformation
+#' @export
 #' @examples
 #' ladder_power(0.6)
 #' ladder_power(-0.6)

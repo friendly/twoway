@@ -161,8 +161,10 @@ plot.twoway.diagnose <-
     abline(lm(c(x$residual) ~ c(x$compValue)), lwd=2)
     abline(h = 0, v = 0, lty = "dotted")
 
+    lpower <- ladder_power(x$power)
     cat("Slope of Residual on comparison value: ", round(x$slope,1),
         "\nSuggested power transformation:        ", round(x$power,1),
+        "\nLadder of powers transformation:       ", lpower$name,
         "\n")
 
     if (is.logical(annotate) && annotate) {
