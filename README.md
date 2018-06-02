@@ -8,7 +8,7 @@ twoway
 
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: `0.6.0`
+Version: `0.6.2`
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell, most typically used in an Analysis of Variance (ANOVA) context. The methods follow Tukey (1949), "One Degree of Freedom for Non-additivity", explained more concretely in Tukey (1972), *Exploratory Data Analysis*, but the graphical ideas are more interesting and general:
 
@@ -58,7 +58,7 @@ The `twoway()` function gives the basic analysis: a decomposition of the two-way
 sent.2way <- twoway(sentRT)
 print(sent.2way)
 #> 
-#> Mean decomposition (Dataset: "sentRT")
+#> Mean decomposition (Dataset: "sentRT"; Response: Value)
 #> Residuals bordered by row effects, column effects, and overall
 #> 
 #>          sent1    sent2    sent3      roweff  
@@ -75,7 +75,7 @@ print(sent.2way)
 ``` r
 print(twoway(sentRT, method="median"), border=2)
 #> 
-#> Median polish decomposition (Dataset: "sentRT")
+#> Median polish decomposition (Dataset: "sentRT"; Response: Value)
 #> Residuals bordered by row effects, column effects, and overall
 #> 
 #>          sent1 sent2 sent3   roweff
@@ -111,7 +111,8 @@ plot(sent.2way, which="diagnose")
 ![](README-ex1-plot2-1.png)
 
     #> Slope of Residual on comparison value:  1.6 
-    #> Suggested power transformation:         -0.6
+    #> Suggested power transformation:         -0.6 
+    #> Ladder of powers transformation:        reciprocal root
 
 There is an opposite-corner pattern to the residuals in the analysis by means. In the diagnostic plot, the positive slope, *b* = 1.6 suggests a power transformation *x*<sup>1 − *b*</sup> = *x*<sup>−0.6</sup>, which can be taken as close to $1 / \\sqrt{x}$. Alternatively, reaction time data is often more easily analyzed by classical methods and the results more easily understood in terms of *response speed*, using the transformation 1/*x*.
 

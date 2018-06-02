@@ -15,9 +15,19 @@ a named list of two elements: \code{power}, the ladder-of-power value, and
         \code{name}, the name for the transformation
 }
 \description{
-The input power value is rounded to the nearest integer or fractional powers, \eqn{\pm 1/3, 1/2}
+The input power value is rounded to the nearest integer or fractional powers, \eqn{\pm 1/3, 1/2}.
+The function is presently designed just for display purposes.
+}
+\details{
+In use, the transformation via the ladder of powers usually attaches a minus sign to
+      the transformation when the \code{power < 0}, so that the order of the response values
+      are preserved under the transformation. Thus, a result of \code{power = -0.5} is interpreted
+      to mean \eqn{-1 / \sqrt{y}}.
 }
 \examples{
 ladder_power(0.6)
 ladder_power(-0.6)
+}
+\references{
+Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesley.
 }
