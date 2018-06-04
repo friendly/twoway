@@ -3,7 +3,7 @@
 # TODO:  It would be nicer to label outliers in these plots.  Using graphics::boxplot, this requires
 #     an additional call to text(), having first saved the result of `boxplot()`.
 #     See: https://stackoverflow.com/questions/15181086/labeling-outliers-on-boxplot-in-r
-#     `car::Boxplot()`may be easier`, but the way I use the argument `all=TRUE` may make both of these
+#     `car::Boxplot()` may be easier, but the way I use the argument `all=TRUE` may make both of these
 #     more difficult.
 
 #' Title
