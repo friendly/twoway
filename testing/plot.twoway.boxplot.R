@@ -21,6 +21,12 @@
 #' @export
 #'
 #' @examples
+#' twAZ <- twoway(Arizona, method="median")
+#' plot.twoway.boxplot(twAZ, by="row")
+#' plot.twoway.boxplot(twAZ, by="row", all=TRUE)
+#' plot.twoway.boxplot(twAZ, by="col", all=TRUE)
+#' plot.twoway.boxplot(twAZ, by="all")
+
 plot.twoway.boxplot <-
   function(x,
            main = paste0("Residuals for ", x$name, " (method: ", x$method, ")"),
@@ -53,15 +59,4 @@ plot.twoway.boxplot <-
                 col=col, main=main, pch=pch, ...)
   }
 
-TESTING <- FALSE
-if (TESTING) {
-twAZ <- twoway(Arizona, method="median")
-twAZ
-plot.twoway.boxplot(twAZ, by="row")
-plot.twoway.boxplot(twAZ, by="row", all=TRUE)
-plot.twoway.boxplot(twAZ, by="col", all=TRUE)
-plot.twoway.boxplot(twAZ, by="all")
-
-
-}
 
