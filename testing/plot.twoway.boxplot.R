@@ -12,11 +12,11 @@
 #'
 #' @param x
 #' @param main
-#' @param by One or more of \code{c("row", "col", "all")}
-#' @param all if \code{TRUE}, all residuals are shown in a separate boxplot
+#' @param by One of \code{c("row", "col", "all")}
+#' @param all if \code{TRUE}, all residuals are shown in a separate boxplot next to those for rows or columns
 #' @param col color for boxplot central box
 #' @param pch plotting character for outliers
-#' @param ... other arguments passed down
+#' @param ... other arguments passed down to \code{boxplot}
 #'
 #' @export
 #'
@@ -30,33 +30,35 @@
 plot.twoway.boxplot <-
   function(x,
            main = paste0("Residuals for ", x$name, " (method: ", x$method, ")"),
-           by = c("row", "col"),
+           by = c("row", "col", "all"),
            all = FALSE,
-           col = "lightgray",
+           col = gray(.85),
            pch = 16,
            ...) {
     res <- resids <- x$residuals
-    if ("col" %in% by) {
-      if (all) {
+    by <- match.arg(by)
+    if (by == "col") {
         res <- as.list(as.data.frame(resids))
+        if (all) {
         res$All <- c(resids)
       }
       boxplot(res, ylab="Residual", xlab=x$varNames[2],
               col=col, main=main, pch=pch, ...)
     }
 
-    if ("row" %in% by) {
+    if (by == "row") {
+      res <- as.list(as.data.frame(t(resids)))
       if (all) {
-        res <- as.list(as.data.frame(t(resids)))
         res$All <- c(resids)
       }
       boxplot(res, ylab="Residual", xlab=x$varNames[1],
               col=col, main=main, pch=pch, ...)
     }
 
-    if ("all" %in% by)
+    if (by == "all") {
         boxplot(c(resids), ylab="Residual",
                 col=col, main=main, pch=pch, ...)
+    }
   }
 
 
