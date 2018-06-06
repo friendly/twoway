@@ -139,6 +139,7 @@ plot.twoway.fit <-
 #'      essential to set the same \code{xlim} and \code{ylim} axes in the call.
 #'
 #' @param annotate  A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot
+#' @param jitter    A logical value; if \code{TRUE}, the comparison values in the plot are jittered to avoid overplotting
 #'
 #' @return The diagnostic plot invisibly returns a list with elements \code{c("slope", "power")}
 #' @rdname plot.twoway
@@ -146,11 +147,13 @@ plot.twoway.fit <-
 plot.twoway.diagnose <-
   function(x,
            annotate=TRUE,
+           jitter=FALSE,
            ...) {
 
 #    x$compValue <- outer(x$roweff, x$coleff)/x$overall
 
-    plot(c(x$residual) ~ c(x$compValue),
+    cval <- if (jitter) jitter(c(x$compValue)) else c(x$compValue)
+    plot(c(x$residual) ~ cval,
          main=paste0("Tukey additivity plot for ", x$name, " (method: ", x$method, ")"),
          cex = 1.2,
          pch = 16,

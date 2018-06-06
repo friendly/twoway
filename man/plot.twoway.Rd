@@ -14,7 +14,7 @@
   " + Column Effect + Row Effect"), rfactor = 1, rcolor = c("blue", "red"),
   lwd = 3, ylim = NULL, ...)
 
-\method{plot}{twoway.diagnose}(x, annotate = TRUE, ...)
+\method{plot}{twoway.diagnose}(x, annotate = TRUE, jitter = FALSE, ...)
 }
 \arguments{
 \item{x}{a \code{class("twoway")} object}
@@ -38,6 +38,8 @@
 \item{ylim}{Y axis limits}
 
 \item{annotate}{A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot}
+
+\item{jitter}{A logical value; if \code{TRUE}, the comparison values in the plot are jittered to avoid overplotting}
 }
 \value{
 The diagnostic plot invisibly returns a list with elements \code{c("slope", "power")}
