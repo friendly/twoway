@@ -4,3 +4,4 @@
 .Ruserdata
 twoway.Rproj
 *.bak
+inst/doc

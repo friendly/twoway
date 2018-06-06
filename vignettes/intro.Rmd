@@ -23,8 +23,6 @@ par(mar=c(3,3,1,1)+.1)
 
 ```{r load-packages, echo=FALSE}
 library(twoway)   # Load additional packages here 
-library(ggplot2)
-library(dplyr)
 ```
 
 
@@ -65,11 +63,11 @@ Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr*
 
 ## More Examples
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+<!-- You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`. -->
 
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
+<!-- ```{r, echo=FALSE, results='asis'} -->
+<!-- knitr::kable(head(mtcars, 10)) -->
+<!-- ``` -->
 
 Also a quote using `>`:
 
