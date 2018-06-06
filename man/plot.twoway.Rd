@@ -14,7 +14,8 @@
   " + Column Effect + Row Effect"), rfactor = 1, rcolor = c("blue", "red"),
   lwd = 3, ylim = NULL, ...)
 
-\method{plot}{twoway.diagnose}(x, annotate = TRUE, jitter = FALSE, ...)
+\method{plot}{twoway.diagnose}(x, annotate = TRUE, jitter = FALSE,
+  smooth = FALSE, pch = 16, ...)
 }
 \arguments{
 \item{x}{a \code{class("twoway")} object}
@@ -40,6 +41,10 @@
 \item{annotate}{A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot}
 
 \item{jitter}{A logical value; if \code{TRUE}, the comparison values in the plot are jittered to avoid overplotting}
+
+\item{smooth}{A logical value; if \code{TRUE}, a smoothed \code{\link[stats]{loess}} curve is added to the plot}
+
+\item{pch}{Plot character for point symbols in the diagnostic plot}
 }
 \value{
 The diagnostic plot invisibly returns a list with elements \code{c("slope", "power")}
@@ -84,4 +89,5 @@ plot(twimed, xlim=c(-250, 700), ylim=c(-180, 900))
 
 plot(twi,    which="diagnose", xlim=c(-160, 170), ylim=c(-200, 400))  ## power = .1
 plot(twimed, which="diagnose", xlim=c(-160, 170), ylim=c(-200, 400))  ## power = .3
+
 }

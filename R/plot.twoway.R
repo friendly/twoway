@@ -43,7 +43,7 @@
 #'
 #' plot(twi,    which="diagnose", xlim=c(-160, 170), ylim=c(-200, 400))  ## power = .1
 #' plot(twimed, which="diagnose", xlim=c(-160, 170), ylim=c(-200, 400))  ## power = .3
-
+#'
 
 
 plot.twoway <- function(x,
@@ -140,6 +140,8 @@ plot.twoway.fit <-
 #'
 #' @param annotate  A logical value; if \code{TRUE}, the slope and power are displayed in the diagnostic plot
 #' @param jitter    A logical value; if \code{TRUE}, the comparison values in the plot are jittered to avoid overplotting
+#' @param smooth    A logical value; if \code{TRUE}, a smoothed \code{\link[stats]{loess}} curve is added to the plot
+#' @param pch       Plot character for point symbols in the diagnostic plot
 #'
 #' @return The diagnostic plot invisibly returns a list with elements \code{c("slope", "power")}
 #' @rdname plot.twoway
@@ -148,6 +150,8 @@ plot.twoway.diagnose <-
   function(x,
            annotate=TRUE,
            jitter=FALSE,
+           smooth=FALSE,
+           pch=16,
            ...) {
 
 #    x$compValue <- outer(x$roweff, x$coleff)/x$overall
@@ -156,13 +160,14 @@ plot.twoway.diagnose <-
     plot(c(x$residual) ~ cval,
          main=paste0("Tukey additivity plot for ", x$name, " (method: ", x$method, ")"),
          cex = 1.2,
-         pch = 16,
+         pch = pch,
          xlab = expression("Comparison Values = roweff * coleff /" * hat(mu)),
          ylab = sprintf("Residuals from %s ~ %s + %s",
                         x$responseName, x$varNames[1], x$varNames[2]),
          ...)
-    abline(lm(c(x$residual) ~ c(x$compValue)), lwd=2)
+    abline(lm(c(x$residual) ~ c(x$compValue)), lwd=2, col="blue")
     abline(h = 0, v = 0, lty = "dotted")
+    if (smooth) lines(loess.smooth(c(x$compValue), c(x$residuals)), col="red")
 
     lpower <- ladder_power(x$power)
     cat("Slope of Residual on comparison value: ", round(x$slope,1),

@@ -3,6 +3,7 @@
 * revised `twoway.default()` to calculate various other quantities and include these in the "twoway" object [RMH]
 * revised `plot.twoway()` with separate functions for the "fit" and "diagnose" plots. [RMH]
 * added `ladder_power()` to find the nearest ladder of powers value
+* enhanced arguments for diagnostic plot: jitter, smooth, pch
 
 
 # twoway 0.6.1
