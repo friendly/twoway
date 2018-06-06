@@ -21,11 +21,17 @@
 #' @export
 #'
 #' @examples
+#' data(Arizona)
 #' twAZ <- twoway(Arizona, method="median")
 #' plot.twoway.boxplot(twAZ, by="row")
 #' plot.twoway.boxplot(twAZ, by="row", all=TRUE)
 #' plot.twoway.boxplot(twAZ, by="col", all=TRUE)
 #' plot.twoway.boxplot(twAZ, by="all")
+#'
+#' data(insectCounts)
+#' insect.2way <- twoway(insectCounts, method="median")
+#' plot.twoway.boxplot(insect.2way, by="row")
+#' plot.twoway.boxplot(insect.2way, by="col")
 
 plot.twoway.boxplot <-
   function(x,
