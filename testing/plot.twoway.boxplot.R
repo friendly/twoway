@@ -5,6 +5,10 @@
 #     See: https://stackoverflow.com/questions/15181086/labeling-outliers-on-boxplot-in-r
 #     `car::Boxplot()` may be easier, but the way I use the argument `all=TRUE` may make both of these
 #     more difficult.
+#
+# TODO? Rather than having this as a plot sub-method, this could be renamed `boxplot.twoway`, to be
+#     a boxplot method for a two way object.
+#     In this guise, it could plot (a) data values, (b) fitted values, or (c) residuals
 
 #' Title
 #'
