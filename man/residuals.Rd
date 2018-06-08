@@ -15,12 +15,6 @@
 \item{nonadd}{If \code{TRUE}, the 1 degree of freedom term for non-additivity is subtracted from the additive residuals}
 
 \item{...}{other arguments (unused)}
-
-\item{object}{A \code{class="twoway"} object}
-
-\item{nonadd}{If \code{TRUE}, the 1 degree of freedom term for non-additivity is added to the fit of the additive model}
-
-\item{...}{other arguments (unused)}
 }
 \value{
 A numeric matrix of residuals corresponding to the data supplied to \code{twoway}

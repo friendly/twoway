@@ -28,9 +28,6 @@ residuals.twoway <- function(object, nonadd=FALSE, ...) {
 
 #' Extract fitted values from a twoway object
 #'
-#' @param object A \code{class="twoway"} object
-#' @param nonadd If \code{TRUE}, the 1 degree of freedom term for non-additivity is added to the fit of the additive model
-#' @param ... other arguments (unused)
 #'
 #' @return A numeric matrix of fitted values corresponding to the data supplied to \code{twoway}
 #' @export

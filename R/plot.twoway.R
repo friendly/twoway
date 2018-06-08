@@ -143,6 +143,8 @@ plot.twoway.fit <-
 #' @param smooth    A logical value; if \code{TRUE}, a smoothed \code{\link[stats]{loess}} curve is added to the plot
 #' @param pch       Plot character for point symbols in the diagnostic plot
 #'
+#' @importFrom graphics lines
+#' @importFrom stats loess.smooth
 #' @return The diagnostic plot invisibly returns a list with elements \code{c("slope", "power")}
 #' @rdname plot.twoway
 #'
