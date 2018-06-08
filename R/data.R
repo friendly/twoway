@@ -89,5 +89,18 @@ NULL
 #' plot(insect.sqrt)
 #' plot(insect.sqrt, which="diagnose")
 
+NULL
+
+#' Number of U.S. housing starts by month for the years 1965 -- 1973
+#'
+#' @name hstart
+#' @docType data
+#' @keywords data
+#' @format a 9 x 12 matrix, where the entries are the number of housing starts, in thousands
+#' @references Becker, Chambers & Wilks (1988), \emph{The New S Language}, Brooks Cole.
+#'             Friendly, M. (1991). \emph{SAS System for Statistical Graphics} Cary, NC: SAS Institute, p.380
+#' @examples
+#' hstart.2way <- twoway(hstart, method="mean")
+#' plot(hstart.2way)
 
 NULL
