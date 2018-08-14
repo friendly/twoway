@@ -4,6 +4,7 @@
 #'
 #' @details At present, this function simply gives the results of the ANOVAs for the additive model, the model including the 1 df
 #'          term for non-additivity, and an \code{anova()} comparison of the two.
+#'          The analysis is based on row and column means.
 #'
 #' @param object a \code{class("twoway")} object
 #' @param ... other arguments passed down, but not used here
@@ -30,6 +31,7 @@ anova.twoway <- function(object, ...) {
   # ssrow <- c * sum(object$row^2)
   # sscol <- r * sum(object$col^2)
 
+  if (object$method == "median") warning("The anova method is not appropriate for analysis by medians.\nThis analysis uses means.")
   z <- as.data.frame(object)
   aov1 <- anova(mod1 <- aov(data ~ row + col, data=z))
   aov2 <- anova(mod2 <- aov(data ~ row + col + nonadd, data=z))

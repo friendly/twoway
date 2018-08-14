@@ -10,9 +10,9 @@
 
 \method{plot}{twoway.fit}(x, main = paste0("Tukey two-way fit plot for ",
   x$name, " (method: ", x$method, ")"), xlab = expression(hat(mu) *
-  " + Column Effect - Row Effect"), ylab = expression("Fit = " * hat(mu) *
-  " + Column Effect + Row Effect"), rfactor = 1, rcolor = c("blue", "red"),
-  lwd = 3, ylim = NULL, ...)
+  " + Column Effect - Row Effect"), ylab = expression("Fit = " * hat(mu)
+  * " + Column Effect + Row Effect"), rfactor = 1, rcolor = c("blue",
+  "red"), lwd = 3, ylim = NULL, ...)
 
 \method{plot}{twoway.diagnose}(x, annotate = TRUE, jitter = FALSE,
   smooth = FALSE, pch = 16, ...)

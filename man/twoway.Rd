@@ -46,8 +46,6 @@ An object of class \code{"twoway"}, but supplemented by additional components us
 }
 \description{
 Fits an additive model using either row and column means or Tukey's median polish procedure
-
-Default method for two-way tables
 }
 \details{
 The \code{rownames(x)} are used as the levels of the row factor and the \code{colnames(x}) are

@@ -17,6 +17,7 @@ Test for a 1-df interaction in two-way ANOVA table by the Tukey test.
 \details{
 At present, this function simply gives the results of the ANOVAs for the additive model, the model including the 1 df
          term for non-additivity, and an \code{anova()} comparison of the two.
+         The analysis is based on row and column means.
 }
 \examples{
 data(sentRT)
