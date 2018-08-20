@@ -105,11 +105,15 @@ in terms of *response speed*, using the transformation $1/x$.
 ### anova method
 
 In the present version, the `anova()` method for a `"twoway"` object gives the results of two analyses: one for the additive
-model, and one for the model allowing 1 df for non-additivity.
+model, and one for the model allowing 1 df for non-additivity. Both of these assume
+that row and column effects are fit using means (`method="mean"`).
 
 ```{r}
 anova(sent.2way)
 ```
+
+There is a variety of other tests for additivity in twoway tables with $n=1$ per cell.
+A number of these are implemented in the [additivityTests package](https://cran.r-project.org/package=additivityTests).
 
 ### Other methods and functions
 

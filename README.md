@@ -111,14 +111,13 @@ plot(sent.2way, which="diagnose")
 ![](README-ex1-plot2-1.png)
 
     #> Slope of Residual on comparison value:  1.6 
-    #> Suggested power transformation:         -0.6 
-    #> Ladder of powers transformation:        reciprocal root
+    #> Suggested power transformation:         -0.6
 
 There is an opposite-corner pattern to the residuals in the analysis by means. In the diagnostic plot, the positive slope, *b* = 1.6 suggests a power transformation *x*<sup>1 − *b*</sup> = *x*<sup>−0.6</sup>, which can be taken as close to $1 / \\sqrt{x}$. Alternatively, reaction time data is often more easily analyzed by classical methods and the results more easily understood in terms of *response speed*, using the transformation 1/*x*.
 
 ### anova method
 
-In the present version, the `anova()` method for a `"twoway"` object gives the results of two analyses: one for the additive model, and one for the model allowing 1 df for non-additivity.
+In the present version, the `anova()` method for a `"twoway"` object gives the results of two analyses: one for the additive model, and one for the model allowing 1 df for non-additivity. Both of these assume that row and column effects are fit using means (`method="mean"`).
 
 ``` r
 anova(sent.2way)
@@ -144,6 +143,8 @@ anova(sent.2way)
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
+
+There is a variety of other tests for additivity in twoway tables with *n* = 1 per cell. A number of these are implemented in the [additivityTests package](https://cran.r-project.org/package=additivityTests).
 
 ### Other methods and functions
 

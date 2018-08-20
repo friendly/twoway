@@ -5,7 +5,8 @@
 * added `ladder_power()` to find the nearest ladder of powers value
 * enhanced arguments for diagnostic plot: jitter, smooth, pch
 * added `residuals.twoway()` and `fitted.twoway()`
-
+* added warning, if `anova.twoway()` is invoked when the model is fit using row/col medians.
+* prepare for initial CRAN release.
 
 # twoway 0.6.1
 
