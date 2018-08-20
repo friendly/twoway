@@ -4,7 +4,7 @@
 #' The formula method reshapes the data set from long to wide format and calls the default method.
 #'
 #' @param formula A formula of the form \code{response ~ rowvar + colvar}, where \code{response} is numeric
-#' @param data The name of the data set, containing a row vactor, column factor and a numeric response
+#' @param data The name of the data set, containing a row vector, column factor and a numeric response
 #' @param subset An expression to subset the data (unused)
 #' @param na.action What to do with NAs? (unused)
 #' @param ... other arguments, passed down

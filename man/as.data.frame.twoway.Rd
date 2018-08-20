@@ -20,7 +20,7 @@ a data.frame with \eqn{r \times c} rows corresponding to the input data table, a
  \item{data}{the data value in the cell}
  \item{fit}{the fitted value, }
  \item{roweff}{the row effect}
- \item{coleff}{the column effec}
+ \item{coleff}{the column effect}
  \item{nonadd}{the 1 df for non-additivity value}
 }
 }

@@ -22,7 +22,7 @@
 
 \item{which}{one of \code{"fit"} or \code{"diagnose"}}
 
-\item{...}{othere arguments, passed to \code{plot}}
+\item{...}{other arguments, passed to \code{plot}}
 
 \item{main}{plot title}
 

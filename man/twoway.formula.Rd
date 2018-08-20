@@ -9,7 +9,7 @@
 \arguments{
 \item{formula}{A formula of the form \code{response ~ rowvar + colvar}, where \code{response} is numeric}
 
-\item{data}{The name of the data set, containing a row vactor, column factor and a numeric response}
+\item{data}{The name of the data set, containing a row vector, column factor and a numeric response}
 
 \item{subset}{An expression to subset the data (unused)}
 

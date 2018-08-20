@@ -15,7 +15,7 @@
 #'     apparent interaction effects.
 #' @param x a \code{class("twoway")} object
 #' @param which one of \code{"fit"} or \code{"diagnose"}
-#' @param ...  othere arguments, passed to \code{plot}
+#' @param ...  other arguments, passed to \code{plot}
 #'
 #' @importFrom graphics plot text abline arrows segments
 #' @importFrom stats lm coef
