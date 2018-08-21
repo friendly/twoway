@@ -8,6 +8,7 @@
 * added warning, if `anova.twoway()` is invoked when the model is fit using row/col medians.
 * prepare for initial CRAN release.
 
+
 # twoway 0.6.1
 
 * added `as.twoway()` to give an initial display of a two-way table as a "twoway" object [RMH]
