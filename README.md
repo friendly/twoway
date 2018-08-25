@@ -1,5 +1,5 @@
 
-[![Project Status: Active The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status: Active The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
 
 <!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -111,7 +111,8 @@ plot(sent.2way, which="diagnose")
 ![](README-ex1-plot2-1.png)
 
     #> Slope of Residual on comparison value:  1.6 
-    #> Suggested power transformation:         -0.6
+    #> Suggested power transformation:         -0.6 
+    #> Ladder of powers transformation:        reciprocal root
 
 There is an opposite-corner pattern to the residuals in the analysis by means. In the diagnostic plot, the positive slope, *b* = 1.6 suggests a power transformation *x*<sup>1 − *b*</sup> = *x*<sup>−0.6</sup>, which can be taken as close to $1 / \\sqrt{x}$. Alternatively, reaction time data is often more easily analyzed by classical methods and the results more easily understood in terms of *response speed*, using the transformation 1/*x*.
 
