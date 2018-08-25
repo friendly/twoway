@@ -2,6 +2,8 @@
 output: github_document
 ---
 [![Project Status: Active The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
+
 
 <!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
 
@@ -33,7 +35,7 @@ This R implementation is based on my SAS macro, [twoway.sas](http://www.datavis.
 
 ## Installation
 
-This package has not yet been submitted to CRAN.
+This package has recenty been submitted to CRAN.
 You can install `twoway` from github with:
 
 ```{r gh-installation, eval = FALSE}
