@@ -1,8 +1,10 @@
 ---
 output: github_document
 ---
-[![Project Status: Active The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
+[![Project Status: Active The project being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/twoway)](https://cran.r-project.org/package=twoway)
 
 
 <!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
@@ -17,7 +19,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# twoway
+# twoway <img src="twoway-logo.png" align="right" height="250px" />
 **Analysis of Two-Way Tables a la Tukey**
 
 Version: ```r packageVersion("twoway")```
@@ -35,8 +37,13 @@ This R implementation is based on my SAS macro, [twoway.sas](http://www.datavis.
 
 ## Installation
 
-This package has recenty been submitted to CRAN.
-You can install `twoway` from github with:
+This currently released package can be installed directly from CRAN:
+```{r install-cran, eval=FALSE}
+install.packages("twoway")
+```
+
+
+You can install the development version `twoway` from github with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
