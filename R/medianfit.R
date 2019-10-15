@@ -36,6 +36,7 @@ medianfit <- function(x, trace.iter=FALSE, ...) {
 #' @param x a numeric matrix or data frame
 #'
 #' @param ... other arguments passed down
+#' @param na.rm logical. Should missing values be removed?
 #' @export
 #' @return An object of class \code{c("twoway")} with the following named components:
 #' \describe{
@@ -50,22 +51,24 @@ medianfit <- function(x, trace.iter=FALSE, ...) {
 #' }
 
 
-meanfit <- function(x, ...) {
-  z <- as.matrix(x)
-  nr <- nrow(z)
-  nc <- ncol(z)
-  r <- numeric(nr)
-  c <- numeric(nc)
-  overall <- mean(z)
-  roweff <- rowMeans(z) - overall
-  coleff <- colMeans(z) - overall
-  residuals <- z - outer(roweff, coleff, "+") - overall
-  names(roweff) <- rownames(z)
-  names(coleff) <- colnames(z)
-  ans <- list(overall = overall, roweff = roweff, coleff = coleff, residuals = residuals,
-              name = deparse(substitute(x)), rownames = rownames(z), colnames = colnames(z),
-              method = "mean")
-  class(ans) <- "twoway"
-  ans
+meanfit <-
+function (x, ..., na.rm=FALSE)
+{
+    z <- as.matrix(x)
+    nr <- nrow(z)
+    nc <- ncol(z)
+    r <- numeric(nr)
+    c <- numeric(nc)
+    overall <- mean(z, na.rm=na.rm)
+    roweff <- rowMeans(z, na.rm=na.rm) - overall
+    coleff <- colMeans(z, na.rm=na.rm) - overall
+    residuals <- z - outer(roweff, coleff, "+") - overall
+    names(roweff) <- rownames(z)
+    names(coleff) <- colnames(z)
+    ans <- list(overall = overall, roweff = roweff, coleff = coleff,
+        residuals = residuals, name = deparse(substitute(x)),
+        rownames = rownames(z), colnames = colnames(z), method = "mean")
+    class(ans) <- "twoway"
+    ans
 }
 
