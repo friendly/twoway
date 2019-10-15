@@ -6,13 +6,15 @@
 \alias{plot.twoway.diagnose}
 \title{Plot methods for two-way tables}
 \usage{
-\method{plot}{twoway}(x, which = c("fit", "diagnose"), ...)
+\method{plot}{twoway}(x, which = c("fit", "diagnose"), ...,
+  na.rm=any(is.na(x$residuals)))
 
 \method{plot}{twoway.fit}(x, main = paste0("Tukey two-way fit plot for ",
   x$name, " (method: ", x$method, ")"), xlab = expression(hat(mu) *
   " + Column Effect - Row Effect"), ylab = expression("Fit = " * hat(mu)
   * " + Column Effect + Row Effect"), rfactor = 1, rcolor = c("blue",
-  "red"), lwd = 3, ylim = NULL, ...)
+  "red"), lwd = 3, ylim = NULL, ...,
+  na.rm=any(is.na(x$residuals)))
 
 \method{plot}{twoway.diagnose}(x, annotate = TRUE, jitter = FALSE,
   smooth = FALSE, pch = 16, ...)
@@ -23,6 +25,8 @@
 \item{which}{one of \code{"fit"} or \code{"diagnose"}}
 
 \item{...}{other arguments, passed to \code{plot}}
+
+\item{na.rm}{logical. Should missing values be removed?}
 
 \item{main}{plot title}
 
