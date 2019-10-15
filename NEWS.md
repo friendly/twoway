@@ -1,3 +1,14 @@
+# twoway 0.6.3
+
+* revised `plot.twoway()` to use and default to na.rm=FALSE
+* revised `plot.twoway.fit()` to use and default to na.rm=FALSE
+* revised `meanfit()` to use and default to na.rm=FALSE
+* revised `twoway.default()` to pass ... (hence na.rm) to meanfit
+* added demo/ directory
+* added demo/example-na.r to illustrate use of na.rm
+* added demo/00Index
+
+
 # twoway 0.6.2
 
 * revised `twoway.default()` to calculate various other quantities and include these in the "twoway" object [RMH]
@@ -18,7 +29,7 @@
 
 * Change some built-in data sets to matrices with proper names(dimnames); in matrix form, a `"responseName"` attribute is now partially supported in some functions.
 * Added `to_long()` and `to_wide()` to facilitate working either way [RMH]
-* `twoway.formula()` now uses `to_wide()` rather than `tidyr` constructs, resulting in a big speed-up 
+* `twoway.formula()` now uses `to_wide()` rather than `tidyr` constructs, resulting in a big speed-up
 * `twoway.default()` now calculates the slope for the diagnostic plot, including it in the object [Suggestion: RMH]
 * `twoway.default()` now prefers matrix inputs, allowing better labels for row/col/response variables, but not yet implemented throughout the various methods.
 
