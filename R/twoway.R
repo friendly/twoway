@@ -65,7 +65,7 @@ twoway.default <- function(x, method=c("mean", "median"), ...,
 
   method <- match.arg(method)
   if (method=="mean")
-    result <- meanfit(x)
+    result <- meanfit(x, ...)
   else
     result <- medianfit(x, ...)
   result$name <- name

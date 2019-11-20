@@ -16,6 +16,7 @@
 #' @param x a \code{class("twoway")} object
 #' @param which one of \code{"fit"} or \code{"diagnose"}
 #' @param ...  other arguments, passed to \code{plot}
+#' @param na.rm logical. Should missing values be removed?
 #'
 #' @importFrom graphics plot text abline arrows segments
 #' @importFrom stats lm coef
@@ -48,12 +49,12 @@
 
 plot.twoway <- function(x,
                         which=c("fit", "diagnose"),
-                        ...) {
+                        ..., na.rm=any(is.na(x$residuals))) {
 
   ## TODO: do both plots in a single call??
 
   switch(match.arg(which),
-         fit=plot.twoway.fit(x, ...),
+         fit=plot.twoway.fit(x, ..., na.rm=na.rm),
          diagnose=plot.twoway.diagnose(x, ...),
          stop("invalid 'which' value")
          )
@@ -82,7 +83,8 @@ plot.twoway.fit <-
            rcolor=c("blue", "red"),
            lwd=3,
            ylim=NULL,
-           ...) {
+           ...,
+           na.rm=any(is.na(x$residuals))) {
 
     CRA <- function(C, R, A) (A+R) + matrix(C, byrow=TRUE, nrow=length(R), ncol=length(C))
 
@@ -90,7 +92,7 @@ plot.twoway.fit <-
     ColPlusRow <-  CRA(x$coleff,  x$roweff, x$overall)
     ColMinusRow <- CRA(x$coleff, -x$roweff, x$overall)
     if (is.null(ylim)) {
-      ylim <- range(ColPlusRow) + range(x$residuals)
+      ylim <- range(ColPlusRow, na.rm=na.rm) + range(x$residuals, na.rm=na.rm)
       ylim <- ylim + c(-.02, .02)* diff(ylim)
     }
     plot(c(ColMinusRow), c(ColPlusRow),
@@ -98,13 +100,13 @@ plot.twoway.fit <-
          ylim=ylim, ..., type="n")
 
     ## Row grid lines
-    Rgridy <- CRA(range(x$coleff),  x$roweff, x$overall)
-    Rgridx <- CRA(range(x$coleff), -x$roweff, x$overall)
+    Rgridy <- CRA(range(x$coleff, na.rm=na.rm),  x$roweff, x$overall)
+    Rgridx <- CRA(range(x$coleff, na.rm=na.rm), -x$roweff, x$overall)
     segments(Rgridx[,1], Rgridy[,1], Rgridx[,2], Rgridy[,2])
 
     ## Col grid lines
-    Cgridy <- CRA(x$coleff,  range(x$roweff), x$overall)
-    Cgridx <- CRA(x$coleff, -range(x$roweff), x$overall)
+    Cgridy <- CRA(x$coleff,  range(x$roweff, na.rm=na.rm), x$overall)
+    Cgridx <- CRA(x$coleff, -range(x$roweff, na.rm=na.rm), x$overall)
     segments(Cgridx[1,], Cgridy[1,], Cgridx[2,], Cgridy[2,])
 
     ## labels
@@ -112,14 +114,14 @@ plot.twoway.fit <-
     text(Cgridx[1,], Cgridy[1,], paste0("\n\n",names(x$coleff)), srt=-45, pos=4, offset=0.7, xpd=TRUE)
 
     ## Row varName
-    xmin <- which(min(Rgridx[,2]) == Rgridx[,2])
-    xmax <- which(max(Rgridx[,2]) == Rgridx[,2])
+    xmin <- which(min(Rgridx[,2], na.rm=na.rm) == Rgridx[,2])
+    xmax <- which(max(Rgridx[,2], na.rm=na.rm) == Rgridx[,2])
     text(Rgridx[xmin, 2] + .95*diff(Rgridx[c(xmin, xmax), 2]),
          Rgridy[xmin, 2] + .25*diff(Rgridy[c(xmin, xmax), 2]), x$varNames[1])
 
     ## Col varName
-    ymin <- which(min(Cgridy[2,]) == Cgridy[2,])
-    ymax <- which(max(Cgridy[2,]) == Cgridy[2,])
+    ymin <- which(min(Cgridy[2,], na.rm=na.rm) == Cgridy[2,])
+    ymax <- which(max(Cgridy[2,], na.rm=na.rm) == Cgridy[2,])
     text(Cgridx[1, ymin] + .95*diff(Cgridx[1, c(ymin, ymax)]),
          Cgridy[1, ymin] + .25*diff(Cgridy[1, c(ymin, ymax)]), x$varNames[2])
 
