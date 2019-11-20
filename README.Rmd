@@ -6,6 +6,7 @@ output: github_document
 [![Project Status: Active The project being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/twoway)](https://cran.r-project.org/package=twoway)
+[![Travis build status](https://travis-ci.org/friendly/twoway.svg?branch=master)](https://travis-ci.org/friendly/twoway)
 <!-- badges: end -->
 
 

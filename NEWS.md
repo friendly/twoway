@@ -7,6 +7,7 @@
 * added demo/ directory
 * added demo/example-na.r to illustrate use of na.rm
 * added demo/00Index
+* Turn on travis CI
 
 
 # twoway 0.6.2
