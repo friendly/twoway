@@ -1,16 +1,23 @@
 ## Test environments
-* local Win 64 install, R 3.4.4, R Studio
-* win-builder R Under development (unstable) (2018-08-13 r75131)
+* local Win 64 install, 3.6.3 (2020-02-29)
+* win-builder R Under development (unstable) (2020-06-23 r78741)
 
 ## R CMD check results
 
 0 errors | 0 warnings | 1 note: New submission
 
-### Version 0.6.2
+### Version 0.6.3
 
-* This is an initial CRAN release of the twoway package.
+* revised `plot.twoway()` to use and default to na.rm=FALSE
+* revised `plot.twoway.fit()` to use and default to na.rm=FALSE
+* revised `meanfit()` to use and default to na.rm=FALSE
+* revised `twoway.default()` to pass ... (hence na.rm) to meanfit
+* added demo/ directory
+* added demo/example-na.r to illustrate use of na.rm
+* added demo/00Index
+* Turn on travis CI
 
 ## Reverse dependencies
 
-This is a new release, so there are no reverse dependencies.
+
 
