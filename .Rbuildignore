@@ -7,3 +7,4 @@ testing/
 ^cran-comments\.md$
 ^twoway-logo\.png$
 ^\.travis\.yml$
+^CRAN-RELEASE$
