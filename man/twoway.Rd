@@ -7,9 +7,14 @@
 \usage{
 twoway(x, ...)
 
-\method{twoway}{default}(x, method = c("mean", "median"), ...,
-  name = deparse(substitute(x)), responseName = attr(x, "response"),
-  varNames = names(dimnames(x)))
+\method{twoway}{default}(
+  x,
+  method = c("mean", "median"),
+  ...,
+  name = deparse(substitute(x)),
+  responseName = attr(x, "response"),
+  varNames = names(dimnames(x))
+)
 }
 \arguments{
 \item{x}{a numeric matrix or data frame.}
@@ -60,6 +65,7 @@ twoway(taskRT)
 }
 \references{
 Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesley.
+
             Friendly, M. (1991). \emph{SAS System for Statistical Graphics} Cary, NC: SAS Institute
 }
 \seealso{

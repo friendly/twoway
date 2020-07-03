@@ -4,7 +4,9 @@
 \name{insectCounts}
 \alias{insectCounts}
 \title{Counts of an insect for the combinations of 4 treatments and 6 areas of a field}
-\format{a 4 x 6 matrix, where the rows are treatments and the columns are areas of a field.}
+\format{
+a 4 x 6 matrix, where the rows are treatments and the columns are areas of a field.
+}
 \description{
 Counts of numbers of an insect, \emph{Leptinotarsa decemlineata} (the
 Colorado potato beetle), each of which is the sum for two plots treated

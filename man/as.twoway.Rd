@@ -7,8 +7,13 @@
 \usage{
 as.twoway(x, ...)
 
-\method{as.twoway}{matrix}(x, ..., name = deparse(substitute(x)),
-  responseName = name, varNames = names(dimnames(x)))
+\method{as.twoway}{matrix}(
+  x,
+  ...,
+  name = deparse(substitute(x)),
+  responseName = name,
+  varNames = names(dimnames(x))
+)
 }
 \arguments{
 \item{x}{a numeric matrix or numeric data frame with rownames}

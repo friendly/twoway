@@ -5,8 +5,13 @@
 \alias{to_wide}
 \title{Reshape a data.frame or matrix to a long data.frame}
 \usage{
-to_long(wide, rowname = NULL, colname = NULL,
-  responseName = deparse(substitute(wide)), varNames = c("Row", "Col"))
+to_long(
+  wide,
+  rowname = NULL,
+  colname = NULL,
+  responseName = deparse(substitute(wide)),
+  varNames = c("Row", "Col")
+)
 
 to_wide(long, row = 1, col = 2, response = 3)
 }

@@ -4,12 +4,13 @@
 \alias{meanfit}
 \title{Fit a two-way table using row and column means}
 \usage{
-meanfit(x, ..., na.rm=FALSE)
+meanfit(x, ..., na.rm = FALSE)
 }
 \arguments{
 \item{x}{a numeric matrix or data frame}
 
 \item{...}{other arguments passed down}
+
 \item{na.rm}{logical. Should missing values be removed?}
 }
 \value{

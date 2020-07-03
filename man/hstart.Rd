@@ -4,7 +4,9 @@
 \name{hstart}
 \alias{hstart}
 \title{Number of U.S. housing starts by month for the years 1965 -- 1973}
-\format{a 9 x 12 matrix, where the entries are the number of housing starts, in thousands}
+\format{
+a 9 x 12 matrix, where the entries are the number of housing starts, in thousands
+}
 \description{
 Number of U.S. housing starts by month for the years 1965 -- 1973
 }

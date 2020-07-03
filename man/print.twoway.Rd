@@ -4,8 +4,7 @@
 \alias{print.twoway}
 \title{Print method for two-way tables}
 \usage{
-\method{print}{twoway}(x, digits = getOption("digits"), border = 2,
-  zapsmall = TRUE, ...)
+\method{print}{twoway}(x, digits = getOption("digits"), border = 2, zapsmall = TRUE, ...)
 }
 \arguments{
 \item{x}{a numeric matrix}
