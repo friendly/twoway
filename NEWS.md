@@ -1,3 +1,9 @@
+# twoway 0.6.4
+
+* added VermontPop data
+* added Rubber data
+
+
 # twoway 0.6.3
 
 * revised `plot.twoway()` to use and default to na.rm=FALSE

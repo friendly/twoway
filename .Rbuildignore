@@ -8,3 +8,4 @@ testing/
 ^twoway-logo\.png$
 ^\.travis\.yml$
 ^CRAN-RELEASE$
+rawdata/
