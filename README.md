@@ -3,21 +3,18 @@
 
 [![Project Status: Active The project being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/twoway)](https://cran.r-project.org/package=twoway)
-[![Travis build
-status](https://travis-ci.org/friendly/twoway.svg?branch=master)](https://travis-ci.org/friendly/twoway)
 <!-- badges: end -->
 
 <!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# twoway <img src="twoway-logo.png" align="right" height="250px" />
+# twoway <img src="man/figures/logo.png" align="right" height="250px" />
 
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: 0.6.3
+Version: 0.6.3 <!-- 0.6.3 -->
 
 The `twoway` package provides analysis and graphical methods for two-way
 tables with one observation per cell, most typically used in an Analysis
@@ -26,16 +23,16 @@ Degree of Freedom for Non-additivity”, explained more concretely in
 Tukey (1972), *Exploratory Data Analysis*, but the graphical ideas are
 more interesting and general:
 
-  - How to display an **assumed** additive relation between two factors
-    graphically, and visualize departures from an additive fit?
-  - How to assess **visually** whether a power transformation of the
-    response might be more nearly additive in the factors?
+- How to display an **assumed** additive relation between two factors
+  graphically, and visualize departures from an additive fit?
+- How to assess **visually** whether a power transformation of the
+  response might be more nearly additive in the factors?
 
 The goal of the package is to introduce these ideas in R, and allow
 further development. This R implementation is based on my SAS macro,
 [twoway.sas](http://www.datavis.ca/sasmac/twoway.html).
 
-## Installation
+## Installation 📦
 
 This currently released package can be installed directly from CRAN:
 
@@ -57,17 +54,14 @@ reaction times for three subjects presented with three types of
 sentences and asked to judge whether the sentence was TRUE or FALSE. The
 questions are:
 
-  - How does reaction time vary with subject and sentence type?
-  - Can the results be accounted for by an additive model, with an
-    effect for subject and for sentence type?
-  - Are there any unusual observations that deviate from an additive
-    model?
-  - If there are systematic departures from additivity, could a power
-    transformation of the response (1/x, log(x), sqrt(x), \(x^2\), …)
-    make the simpler additive model more tenable, and more easily
-    understood?
-
-<!-- end list -->
+- How does reaction time vary with subject and sentence type?
+- Can the results be accounted for by an additive model, with an effect
+  for subject and for sentence type?
+- Are there any unusual observations that deviate from an additive
+  model?
+- If there are systematic departures from additivity, could a power
+  transformation of the response (1/x, log(x), sqrt(x), $x^2$, …) make
+  the simpler additive model more tenable, and more easily understood?
 
 ``` r
 library(twoway)
@@ -82,12 +76,10 @@ sentRT
 The `twoway()` function gives the basic analysis: a decomposition of the
 two-way table, giving the:
 
-  - grand mean (\(\mu = \bar{x}_{..}\)),
-  - row effects (\(\alpha_i = \bar{x}_{i.}-\mu\)),
-  - column effects (\(\beta_j = \bar{x}_{.j}-\mu\)), and
-  - residuals (\(x_{ij}-\mu -\alpha_i -\beta_j\))
-
-<!-- end list -->
+- grand mean ($\mu = \bar{x}_{..}$),
+- row effects ($\alpha_i = \bar{x}_{i.}-\mu$),
+- column effects ($\beta_j = \bar{x}_{.j}-\mu$), and
+- residuals ($x_{ij}-\mu -\alpha_i -\beta_j$)
 
 ``` r
 sent.2way <- twoway(sentRT)
@@ -133,42 +125,39 @@ one large one stands out.
 The plot method for `twoway` objects currently provides two types of
 plots:
 
-  - a plot of fitted values under the additive models and residuals (the
-    default, `which="fit"`)
-  - a diagnostic plot of interaction residuals vs. comparison values
-    under additivity (`which="diagnose"`).
-
-<!-- end list -->
+- a plot of fitted values under the additive models and residuals (the
+  default, `which="fit"`)
+- a diagnostic plot of interaction residuals vs. comparison values under
+  additivity (`which="diagnose"`).
 
 ``` r
 plot(sent.2way)
 ```
 
-![](README-ex1-plot-1.png)<!-- -->
+![](man/figures/README-ex1-plot-1.png)<!-- -->
 
 The diagnostic plot shows the regression of residuals under the additive
 model against the comparison values under the additive model. If the
 points in this plot are reasonably linear and have a non-zero slope,
-*b*, a suggested power transformation of the response to \(x^{1-b}\)
-will often remove non-additivity.
+*b*, a suggested power transformation of the response to $x^{1-b}$ will
+often remove non-additivity.
 
 ``` r
 plot(sent.2way, which="diagnose")
 ```
 
-![](README-ex1-plot2-1.png)<!-- -->
+![](man/figures/README-ex1-plot2-1.png)<!-- -->
 
     #> Slope of Residual on comparison value:  1.6 
     #> Suggested power transformation:         -0.6 
     #> Ladder of powers transformation:        reciprocal root
 
 There is an opposite-corner pattern to the residuals in the analysis by
-means. In the diagnostic plot, the positive slope, \(b=1.6\) suggests a
-power transformation \(x^{1-b} = x^{-0.6}\), which can be taken as close
-to \(1 / \sqrt{x}\). Alternatively, reaction time data is often more
+means. In the diagnostic plot, the positive slope, $b=1.6$ suggests a
+power transformation $x^{1-b} = x^{-0.6}$, which can be taken as close
+to $1 / \sqrt{x}$. Alternatively, reaction time data is often more
 easily analyzed by classical methods and the results more easily
-understood in terms of *response speed*, using the transformation
-\(1/x\).
+understood in terms of *response speed*, using the transformation $1/x$.
 
 ### anova method
 
@@ -203,17 +192,15 @@ anova(sent.2way)
 ```
 
 There is a variety of other tests for additivity in twoway tables with
-\(n=1\) per cell. A number of these are implemented in the
+$n=1$ per cell. A number of these are implemented in the
 [additivityTests
 package](https://cran.r-project.org/package=additivityTests).
 
 ### Other methods and functions
 
-  - The `as.data.frame()` method for a `"twoway"` object gives a tidy
-    data.frame result, containing the components of the fitted values
-    and other quantities.
-
-<!-- end list -->
+- The `as.data.frame()` method for a `"twoway"` object gives a tidy
+  data.frame result, containing the components of the fitted values and
+  other quantities.
 
 ``` r
 as.data.frame(sent.2way)
@@ -229,9 +216,9 @@ as.data.frame(sent.2way)
 #> 9 subj3 sent3 10.5 9.27 2.87    1.233    3.2  1.100  0.70872
 ```
 
-  - The utility functions `to_long()` and `to_wide()` facilitate
-    conversion between matrix format and a long format with variables
-    such as `Row`, `Col` and `Value`.
+- The utility functions `to_long()` and `to_wide()` facilitate
+  conversion between matrix format and a long format with variables such
+  as `Row`, `Col` and `Value`.
 
 ## TODOs
 
@@ -239,8 +226,7 @@ This package is at a middle stage of development. There are some small
 **TODO**s scattered throughout the code. In addition:
 
 <!-- * Implement a proper `anova.twoway()` method, giving a comprehensive analysis of variance table, including the Tukey 1 df test for non-additivity. The present version is just an initial sketch. -->
-
 <!-- * Create a formula method for a `data.frame` with columns like `row, col, value` as might be used in `twoway(value ~ row + col, data=)`. -->
 
-  - It would be nicer to use the names of the row and column variables
-    in some displays, rather than `Row` and `Col`.
+- It would be nicer to use the names of the row and column variables in
+  some displays, rather than `Row` and `Col`.

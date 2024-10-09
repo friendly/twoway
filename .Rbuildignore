@@ -9,3 +9,6 @@ testing/
 ^\.travis\.yml$
 ^CRAN-RELEASE$
 rawdata/
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

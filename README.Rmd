@@ -6,7 +6,6 @@ output: github_document
 [![Project Status: Active The project being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/twoway)](https://cran.r-project.org/package=twoway)
-[![Travis build status](https://travis-ci.org/friendly/twoway.svg?branch=master)](https://travis-ci.org/friendly/twoway)
 <!-- badges: end -->
 
 
@@ -18,14 +17,14 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-"
 )
 ```
 
-# twoway <img src="twoway-logo.png" align="right" height="250px" />
+# twoway <img src="man/figures/logo.png" align="right" height="250px" />
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: 0.6.3
+Version: `r packageVersion("twoway")` <!-- 0.6.3 -->
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell,
 most typically used in an Analysis of Variance (ANOVA) context.
@@ -38,7 +37,7 @@ but the graphical ideas are more interesting and general:
 The goal of the package is to introduce these ideas in R, and allow further development.
 This R implementation is based on my SAS macro, [twoway.sas](http://www.datavis.ca/sasmac/twoway.html). 
 
-## Installation
+## Installation 📦
 
 This currently released package can be installed directly from CRAN:
 ```{r install-cran, eval=FALSE}
