@@ -13,7 +13,7 @@ Description: Carries out analyses of two-way tables with one observation per cel
     a diagnostic plot for removable 'non-additivity' via a power transformation of the response.
     It implements Tukey's Exploratory Data Analysis (1973) <ISBN: 978-0201076165> methods, including a
     1-degree-of-freedom test for row*column 'non-additivity', linear in the row and column effects.
-URL: https://github.com/friendly/twoway
+URL: https://friendly.github.io/twoway, https://github.com/friendly/twoway
 BugReports: https://github.com/friendly/twoway/issues
 License: GPL-3
 Encoding: UTF-8

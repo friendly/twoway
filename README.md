@@ -14,7 +14,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: 0.6.3 <!-- 0.6.3 -->
+Version: 0.6.4 <!--0.6.3  -->
 
 The `twoway` package provides analysis and graphical methods for two-way
 tables with one observation per cell, most typically used in an Analysis

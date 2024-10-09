@@ -24,7 +24,8 @@ knitr::opts_chunk$set(
 # twoway <img src="man/figures/logo.png" align="right" height="250px" />
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: `r packageVersion("twoway")` <!-- 0.6.3 -->
+Version: 0.6.4
+ <!--`r packageVersion("twoway")`  -->
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell,
 most typically used in an Analysis of Variance (ANOVA) context.
