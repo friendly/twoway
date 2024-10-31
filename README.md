@@ -10,11 +10,11 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 <!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# twoway <img src="man/figures/logo.png" align="right" height="250px" />
+## twoway <img src="man/figures/logo.png" align="right" height="250px" />
 
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: 0.6.4 <!--0.6.3  -->
+Version: 0.6.4 <!--0.6.4  -->
 
 The `twoway` package provides analysis and graphical methods for two-way
 tables with one observation per cell, most typically used in an Analysis
