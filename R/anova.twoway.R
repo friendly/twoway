@@ -33,8 +33,14 @@ anova.twoway <- function(object, ...) {
 
   if (object$method == "median") warning("The anova method is not appropriate for analysis by medians.\nThis analysis uses means.")
   z <- as.data.frame(object)
-  aov1 <- anova(mod1 <- aov(data ~ row + col, data=z))
-  aov2 <- anova(mod2 <- aov(data ~ row + col + nonadd, data=z))
+  vn <- object$varNames
+  formula1 <- data ~ row + col
+  ref1 <- reformulate(vn, formula1[[2]])
+  aov1 <- anova(mod1 <- aov(ref1, data=z))
+
+  formula2 <- data ~ row + col + nonadd
+  ref2 <- reformulate(c(vn, "nonadd"), formula2[[2]])
+  aov2 <- anova(mod2 <- aov(ref2, data=z))
   aov3 <- anova(mod1, mod2)
 
   info <- paste0('Dataset: ',  object$name, '; ', 'method: "', object$method, '"\n\n')

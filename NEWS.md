@@ -1,3 +1,8 @@
+# twoway 0.7.0
+
+* revised twoway functions to use the names of variables for row/col
+
+
 # twoway 0.6.4
 
 * added VermontPop data
