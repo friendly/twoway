@@ -41,6 +41,4 @@ as.twoway(taskRT)
 }
 \author{
 Richard M. Heiberger
-
-Richard M. Heiberger
 }

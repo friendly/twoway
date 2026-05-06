@@ -9,7 +9,7 @@
 #' @param object a \code{class("twoway")} object
 #' @param ... other arguments passed down, but not used here
 #' @author Michael Friendly
-#' @importFrom stats anova aov
+#' @importFrom stats anova aov reformulate
 #' @export
 #' @examples
 #' data(sentRT)

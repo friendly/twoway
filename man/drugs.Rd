@@ -9,7 +9,10 @@ The original source is Winer (1971), p. 268.  This was used as an example in Fri
 }
 \examples{
 data(drugs)
-twoway(drugs)
+tw <- twoway(drugs) |>
+  print()
+
+plot(tw)
 }
 \references{
 Friendly, M. (1991). \emph{SAS System for Statistical Graphics} Cary, NC: SAS Institute, Output 7.28

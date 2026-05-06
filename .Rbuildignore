@@ -14,3 +14,4 @@ rawdata/
 ^pkgdown$
 ^\.positai$
 ^\.claude$
+^dev$

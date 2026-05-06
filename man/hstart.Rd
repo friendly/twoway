@@ -12,6 +12,7 @@ Number of U.S. housing starts by month for the years 1965 -- 1973
 }
 \examples{
 hstart.2way <- twoway(hstart, method="mean")
+anova(hstart.2way)
 plot(hstart.2way)
 }
 \references{

@@ -73,6 +73,7 @@ plot.twoway <- function(x,
 #' @param ylim Y axis limits
 #'
 #' @rdname plot.twoway
+#' @export
 #'
 plot.twoway.fit <-
   function(x,
@@ -149,6 +150,7 @@ plot.twoway.fit <-
 #' @importFrom stats loess.smooth
 #' @return The diagnostic plot invisibly returns a list with elements \code{c("slope", "power")}
 #' @rdname plot.twoway
+#' @export
 #'
 plot.twoway.diagnose <-
   function(x,

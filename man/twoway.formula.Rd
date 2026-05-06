@@ -22,7 +22,9 @@ The formula method reshapes the data set from long to wide format and calls the 
 }
 \examples{
 longRT <- to_long(taskRT)
-twoway(RT ~ Task + Topic, data=longRT)
+RT.2way <-twoway(RT ~ Task + Topic, data=longRT)
+RT.2way
+anova(RT.2way)
 }
 \references{
 the conversion of long to wide in a formula method was suggested on
