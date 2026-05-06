@@ -1,20 +1,22 @@
 
 <!-- badges: start -->
 
-[![Project Status: Active The project being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status:
+Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
+[![R-Universe](https://friendly.r-universe.dev/badges/twoway)](https://friendly.r-universe.dev)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/twoway)](https://cran.r-project.org/package=twoway)
 <!-- badges: end -->
 
 <!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## twoway <img src="man/figures/logo.png" align="right" height="250px" />
+## twoway <img src="man/figures/logo.png" align="right" height="200px" alt="twoway logo" />
 
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: 0.6.4 <!--0.6.4  -->
+Version: 0.7.0 <!--0.6.3  -->
 
 The `twoway` package provides analysis and graphical methods for two-way
 tables with one observation per cell, most typically used in an Analysis
@@ -226,6 +228,7 @@ This package is at a middle stage of development. There are some small
 **TODO**s scattered throughout the code. In addition:
 
 <!-- * Implement a proper `anova.twoway()` method, giving a comprehensive analysis of variance table, including the Tukey 1 df test for non-additivity. The present version is just an initial sketch. -->
+
 <!-- * Create a formula method for a `data.frame` with columns like `row, col, value` as might be used in `twoway(value ~ row + col, data=)`. -->
 
 - It would be nicer to use the names of the row and column variables in
