@@ -3,8 +3,9 @@ output: github_document
 ---
 
 <!-- badges: start -->
-[![Project Status: Active The project being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
+[![R-Universe](https://friendly.r-universe.dev/badges/twoway)](https://friendly.r-universe.dev)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/twoway)](https://cran.r-project.org/package=twoway)
 <!-- badges: end -->
 
@@ -24,7 +25,7 @@ knitr::opts_chunk$set(
 ## twoway <img src="man/figures/logo.png" align="right" height="250px" />
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: 0.6.4
+Version: 0.7.0
  <!--`r packageVersion("twoway")`  -->
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell,

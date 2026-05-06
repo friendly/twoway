@@ -39,7 +39,10 @@ NULL
 #' @references Friendly, M. (1991). \emph{SAS System for Statistical Graphics} Cary, NC: SAS Institute, Output 7.28
 #' @examples
 #' data(drugs)
-#' twoway(drugs)
+#' tw <- twoway(drugs) |>
+#'   print()
+#'
+#' plot(tw)
 NULL
 
 
@@ -56,7 +59,7 @@ NULL
 #' data(Arizona)
 #' (AR.2way <-twoway(Arizona, method="median"))
 #'
-#' ## plot(AR.2way)
+#' plot(AR.2way)
 NULL
 
 #' Counts of an insect for the combinations of 4 treatments and 6 areas of a field
@@ -101,6 +104,7 @@ NULL
 #'             Friendly, M. (1991). \emph{SAS System for Statistical Graphics} Cary, NC: SAS Institute, p.380
 #' @examples
 #' hstart.2way <- twoway(hstart, method="mean")
+#' anova(hstart.2way)
 #' plot(hstart.2way)
 
 NULL
@@ -131,7 +135,7 @@ NULL
 #' @format a 4 x 6 matrix, where the cell values are the specific volume (in cubic centimeters per gram)
 #'         of peroxide-cured rubber. The row and column variables are:
 #'  \itemize{
-#'      \item{Temperature}, in degrees Celcuis
+#'      \item{Temperature}, in degrees Celsius
 #'      \item{Pressure}, in kg / cm^2 above atmospheric pressure.
 #'  }
 #' @source
@@ -144,7 +148,7 @@ NULL
 #'      In Hoaglin, D. C., Mosteller, F., & Tukey, J. W. (Eds.). Exploring data tables, trends and shapes. John Wiley Sons.
 #'      Ch. 3, Table 3.1.
 #' @examples
-#' Rubber
+#' data(Rubber)
 #' # scale the response to avoid small decimals
 #' rub <- 10000*Rubber
 #' rubfit <- twoway(rub, "median")

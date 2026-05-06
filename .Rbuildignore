@@ -12,3 +12,5 @@ rawdata/
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^\.positai$
+^\.claude$
