@@ -12,7 +12,7 @@ Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repost
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## twoway <img src="man/figures/logo.png" align="right" height="200px" alt="twoway logo" />
+## twoway <img src="man/figures/logo.png" align="right" height="160px" alt="twoway logo" />
 
 **Analysis of Two-Way Tables a la Tukey**
 

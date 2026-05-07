@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-## twoway <img src="man/figures/logo.png" align="right" height="200px" alt="twoway logo" />
+## twoway <img src="man/figures/logo.png" align="right" height="160px" alt="twoway logo" />
 **Analysis of Two-Way Tables a la Tukey**
 
 Version: 0.7.0
