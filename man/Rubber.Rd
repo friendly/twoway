@@ -8,7 +8,7 @@
 a 4 x 6 matrix, where the cell values are the specific volume (in cubic centimeters per gram)
         of peroxide-cured rubber. The row and column variables are:
  \itemize{
-     \item{Temperature}, in degrees Celcuis
+     \item{Temperature}, in degrees Celsius
      \item{Pressure}, in kg / cm^2 above atmospheric pressure.
  }
 }
@@ -25,7 +25,7 @@ The specific volume of natural rubber was measured at four values of temperature
 Is there any evidence that volume is not an additive relation with temperature and pressure?
 }
 \examples{
-Rubber
+data(Rubber)
 # scale the response to avoid small decimals
 rub <- 10000*Rubber
 rubfit <- twoway(rub, "median")

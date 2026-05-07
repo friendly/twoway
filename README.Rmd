@@ -3,8 +3,9 @@ output: github_document
 ---
 
 <!-- badges: start -->
-[![Project Status: Active The project being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
+[![R-Universe](https://friendly.r-universe.dev/badges/twoway)](https://friendly.r-universe.dev)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/twoway)](https://cran.r-project.org/package=twoway)
 <!-- badges: end -->
 
@@ -21,10 +22,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-## twoway <img src="man/figures/logo.png" align="right" height="250px" />
+## twoway <img src="man/figures/logo.png" align="right" height="200px" alt="twoway logo" />
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: 0.6.4
+Version: 0.7.0
  <!--`r packageVersion("twoway")`  -->
 
 The `twoway` package provides analysis and graphical methods for two-way tables with one observation per cell,
@@ -32,8 +33,13 @@ most typically used in an Analysis of Variance (ANOVA) context.
 The methods follow Tukey (1949), "One Degree of Freedom for Non-additivity", explained more concretely in Tukey (1972), *Exploratory Data Analysis*,
 but the graphical ideas are more interesting and general:
 
-* How to display an **assumed** additive relation between two factors graphically, and visualize departures from an additive fit?
-* How to assess **visually** whether a power transformation of the response might be more nearly additive in the factors?
+* How to display an **assumed** additive relation between two factors graphically, and visualize departures from an additive fit? The
+plot method here uses a rectangle for the row and column effects, but rotated 40 degrees so that the vertical axis represents the fitted
+value under an additive model. In this, the actual value can be shown as a vertical segment representing the departure from an
+additive model.
+
+* How to assess **visually** whether a power transformation of the response, $y^p$  might be more nearly additive in the factors? The diagnostic
+plot implemented here shows a plot designed so that the slope $b$ of a fitted line suggests a transformation $y \rightarrow y^{1-b}$.
 
 The goal of the package is to introduce these ideas in R, and allow further development.
 This R implementation is based on my SAS macro, [twoway.sas](http://www.datavis.ca/sasmac/twoway.html). 

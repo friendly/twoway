@@ -1,3 +1,11 @@
+# twoway 0.7.0
+
+* revised twoway functions to use the names of variables for row/col
+* fixed documentation errors/warnings
+* include more graphs in examples
+* using |> pipes in examples: now depends on R >= 4.1
+
+
 # twoway 0.6.4
 
 * added VermontPop data

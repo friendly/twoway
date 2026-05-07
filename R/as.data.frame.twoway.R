@@ -39,7 +39,8 @@ as.data.frame.twoway <- function(x, ...){
   coleff <- rep(x$coleff, each=r)
   dif <- (x$overall + coleff) - roweff
   nonadd <- c(outer(x$roweff, x$coleff)/x$overall)
-#browser()
+
   result <- data.frame(row, col, data, fit, dif, residual, roweff, coleff, nonadd)
+  colnames(result)[1:2] <- x$varNames
   result
 }

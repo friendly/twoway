@@ -15,7 +15,9 @@
 #'        \url{https://stackoverflow.com/questions/50469320/how-to-write-a-formula-method-that-converts-long-to-wide}
 #' @examples
 #' longRT <- to_long(taskRT)
-#' twoway(RT ~ Task + Topic, data=longRT)
+#' RT.2way <-twoway(RT ~ Task + Topic, data=longRT)
+#' RT.2way
+#' anova(RT.2way)
 
 twoway.formula <- function(formula, data, subset, na.action, ...) {
 

@@ -69,7 +69,7 @@ Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesle
             Friendly, M. (1991). \emph{SAS System for Statistical Graphics} Cary, NC: SAS Institute
 }
 \seealso{
-code{\link{twoway.formula}}, code{\link[stats]{medpolish}}
+\code{\link{twoway.formula}}, \code{\link[stats]{medpolish}}
 
 \code{\link{medianfit}}, \code{\link{meanfit}}
 }

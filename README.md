@@ -1,20 +1,22 @@
 
 <!-- badges: start -->
 
-[![Project Status: Active The project being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status:
+Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/twoway)](https://cran.r-project.org/package=twoway)
+[![R-Universe](https://friendly.r-universe.dev/badges/twoway)](https://friendly.r-universe.dev)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/twoway)](https://cran.r-project.org/package=twoway)
 <!-- badges: end -->
 
 <!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## twoway <img src="man/figures/logo.png" align="right" height="250px" />
+## twoway <img src="man/figures/logo.png" align="right" height="200px" alt="twoway logo" />
 
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: 0.6.4 <!--0.6.4  -->
+Version: 0.7.0 <!--0.7.0  -->
 
 The `twoway` package provides analysis and graphical methods for two-way
 tables with one observation per cell, most typically used in an Analysis
@@ -24,9 +26,18 @@ Tukey (1972), *Exploratory Data Analysis*, but the graphical ideas are
 more interesting and general:
 
 - How to display an **assumed** additive relation between two factors
-  graphically, and visualize departures from an additive fit?
+  graphically, and visualize departures from an additive fit? The plot
+  method here uses a rectangle for the row and column effects, but
+  rotated 40 degrees so that the vertical axis represents the fitted
+  value under an additive model. In this, the actual value can be shown
+  as a vertical segment representing the departure from an additive
+  model.
+
 - How to assess **visually** whether a power transformation of the
-  response might be more nearly additive in the factors?
+  response, $y^p$ might be more nearly additive in the factors? The
+  diagnostic plot implemented here shows a plot designed so that the
+  slope $b$ of a fitted line suggests a transformation
+  $y \rightarrow y^{1-b}$.
 
 The goal of the package is to introduce these ideas in R, and allow
 further development. This R implementation is based on my SAS macro,
@@ -67,10 +78,11 @@ questions are:
 library(twoway)
 data("sentRT")
 sentRT
-#>       sent1 sent2 sent3
-#> subj1   1.7   1.9   2.0
-#> subj2   4.4   4.5   5.7
-#> subj3   6.6   7.4  10.5
+#>        Sent
+#> Subj    sent1 sent2 sent3
+#>   subj1   1.7   1.9   2.0
+#>   subj2   4.4   4.5   5.7
+#>   subj3   6.6   7.4  10.5
 ```
 
 The `twoway()` function gives the basic analysis: a decomposition of the
@@ -88,13 +100,14 @@ print(sent.2way)
 #> Mean decomposition (Dataset: "sentRT"; Response: Value)
 #> Residuals bordered by row effects, column effects, and overall
 #> 
-#>          sent1    sent2    sent3      roweff  
-#>        + -------- -------- -------- + --------
-#> subj1  |  0.56667  0.40000 -0.96667 : -3.10000
-#> subj2  |  0.26667  0.00000 -0.26667 : -0.10000
-#> subj3  | -0.83333 -0.40000  1.23333 :  3.20000
-#>        + ........ ........ ........ + ........
-#> coleff | -0.73333 -0.36667  1.10000 :  4.96667
+#>         Sent
+#> Subj       sent1    sent2    sent3      roweff  
+#>          + -------- -------- -------- + --------
+#>   subj1  |  0.56667  0.40000 -0.96667 : -3.10000
+#>   subj2  |  0.26667  0.00000 -0.26667 : -0.10000
+#>   subj3  | -0.83333 -0.40000  1.23333 :  3.20000
+#>          + ........ ........ ........ + ........
+#>   coleff | -0.73333 -0.36667  1.10000 :  4.96667
 ```
 
 `twoway()` also allows for a robust fitting by row and column medians,
@@ -108,13 +121,14 @@ print(twoway(sentRT, method="median"), border=2)
 #> Median polish decomposition (Dataset: "sentRT"; Response: Value)
 #> Residuals bordered by row effects, column effects, and overall
 #> 
-#>          sent1 sent2 sent3   roweff
-#>        + ----  ----  ----  + ----  
-#> subj1  |  0.0   0.0  -1.1  : -2.6  
-#> subj2  |  0.1   0.0   0.0  :  0.0  
-#> subj3  | -0.6   0.0   1.9  :  2.9  
-#>        + ....  ....  ....  + ....  
-#> coleff | -0.2   0.0   1.2  :  4.5
+#>         Sent
+#> Subj       sent1 sent2 sent3   roweff
+#>          + ----  ----  ----  + ----  
+#>   subj1  |  0.0   0.0  -1.1  : -2.6  
+#>   subj2  |  0.1   0.0   0.0  :  0.0  
+#>   subj3  | -0.6   0.0   1.9  :  2.9  
+#>          + ....  ....  ....  + ....  
+#>   coleff | -0.2   0.0   1.2  :  4.5
 ```
 
 The result is much simpler, in that most residuals are closer to 0, and
@@ -173,8 +187,8 @@ anova(sent.2way)
 #> Analysis of Variance Table, assuming additivity
 #> 
 #>           Df Sum Sq Mean Sq F value   Pr(>F)   
-#> row        2 59.580 29.7900 30.2949 0.003835 **
-#> col        2  5.647  2.8233  2.8712 0.168574   
+#> Subj       2 59.580 29.7900 30.2949 0.003835 **
+#> Sent       2  5.647  2.8233  2.8712 0.168574   
 #> Residuals  4  3.933  0.9833                    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -183,8 +197,8 @@ anova(sent.2way)
 #> Analysis of Variance Table, allowing non-additivity
 #> 
 #>            Df Sum Sq Mean Sq F value    Pr(>F)    
-#> row         2 59.580 29.7900 513.449 0.0001572 ***
-#> col         2  5.647  2.8233  48.662 0.0051710 ** 
+#> Subj        2 59.580 29.7900 513.449 0.0001572 ***
+#> Sent        2  5.647  2.8233  48.662 0.0051710 ** 
 #> nonadd      1  3.759  3.7593  64.793 0.0040046 ** 
 #> pure error  3  0.174  0.0580                      
 #> ---
@@ -204,7 +218,7 @@ package](https://cran.r-project.org/package=additivityTests).
 
 ``` r
 as.data.frame(sent.2way)
-#>     row   col data  fit  dif residual roweff coleff   nonadd
+#>    Subj  Sent data  fit  dif residual roweff coleff   nonadd
 #> 1 subj1 sent1  1.7 1.13 7.33    0.567   -3.1 -0.733  0.45772
 #> 2 subj2 sent1  4.4 4.13 4.33    0.267   -0.1 -0.733  0.01477
 #> 3 subj3 sent1  6.6 7.43 1.03   -0.833    3.2 -0.733 -0.47248
@@ -226,6 +240,7 @@ This package is at a middle stage of development. There are some small
 **TODO**s scattered throughout the code. In addition:
 
 <!-- * Implement a proper `anova.twoway()` method, giving a comprehensive analysis of variance table, including the Tukey 1 df test for non-additivity. The present version is just an initial sketch. -->
+
 <!-- * Create a formula method for a `data.frame` with columns like `row, col, value` as might be used in `twoway(value ~ row + col, data=)`. -->
 
 - It would be nicer to use the names of the row and column variables in
