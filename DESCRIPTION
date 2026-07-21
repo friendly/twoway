@@ -2,7 +2,7 @@ Package: twoway
 Type: Package
 Title: Analysis of Two-Way Tables
 Version: 0.7.0
-Date: 2026-05-06)
+Date: 2026-07-21
 Authors@R: c(person(given = "Michael", family = "Friendly", role=c("aut", "cre"), email="friendly@yorku.ca",
              comment=c(ORCID="0000-0002-3237-0941")),
             person(given = c("Richard", "M."), family = "Heiberger", role="aut", email="rmh@temple.edu"),
