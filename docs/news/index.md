@@ -3,6 +3,17 @@
 ## twoway 0.7.1
 
 - added EastCoast data, from Tukey EDA, Exhibit 9 of chapter 10, p. 354
+- added examples for
+  [`anova.twoway()`](https://friendly.github.io/twoway/reference/anova.twoway.md)
+  using `EastCoast`, `hstart`, and `Arizona`
+- [`anova.twoway()`](https://friendly.github.io/twoway/reference/anova.twoway.md)
+  gains a `test = c("both", "add", "nonadd")` argument and now returns a
+  useful `"anova.twoway"` object (a named list of the fitted
+  additive/non-additive models, with a
+  [`print.anova.twoway()`](https://friendly.github.io/twoway/reference/anova.twoway.md)
+  method), instead of printing via
+  [`cat()`](https://rdrr.io/r/base/cat.html)/[`print()`](https://rdrr.io/r/base/print.html)
+  and returning nothing
 
 ## twoway 0.7.0
 

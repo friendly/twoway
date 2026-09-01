@@ -31,7 +31,8 @@ further development. This R implementation is based on my SAS macro,
 
 ## Installation 📦
 
-This currently released package can be installed directly from CRAN:
+This currently released CRAN package can be installed directly from
+CRAN:
 
 ``` r
 install.packages("twoway")
@@ -243,6 +244,7 @@ This package is at a middle stage of development. There are some small
 ## All functions
 
 - [`anova(`*`<twoway>`*`)`](https://friendly.github.io/twoway/reference/anova.twoway.md)
+  [`print(`*`<anova.twoway>`*`)`](https://friendly.github.io/twoway/reference/anova.twoway.md)
   : ANOVA summary for a two-way table, including Tukey Additivity Test
 
 - [`Arizona`](https://friendly.github.io/twoway/reference/Arizona.md) :

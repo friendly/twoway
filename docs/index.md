@@ -31,7 +31,8 @@ further development. This R implementation is based on my SAS macro,
 
 ## Installation 📦
 
-This currently released package can be installed directly from CRAN:
+This currently released CRAN package can be installed directly from
+CRAN:
 
 ``` r
 install.packages("twoway")

@@ -34,6 +34,10 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7.1" id="twoway-071">twoway 0.7.1<a class="anchor" aria-label="anchor" href="#twoway-071"></a></h2>
 <ul><li>added EastCoast data, from Tukey EDA, Exhibit 9 of chapter 10, p. 354</li>
+<li>added examples for <code><a href="../reference/anova.twoway.html">anova.twoway()</a></code> using <code>EastCoast</code>, <code>hstart</code>, and <code>Arizona</code>
+</li>
+<li>
+<code><a href="../reference/anova.twoway.html">anova.twoway()</a></code> gains a <code>test = c("both", "add", "nonadd")</code> argument and now returns a useful <code>"anova.twoway"</code> object (a named list of the fitted additive/non-additive models, with a <code><a href="../reference/anova.twoway.html">print.anova.twoway()</a></code> method), instead of printing via <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>/<code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and returning nothing</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7.0" id="twoway-070">twoway 0.7.0<a class="anchor" aria-label="anchor" href="#twoway-070"></a></h2><p class="text-muted">CRAN release: 2026-07-21</p>

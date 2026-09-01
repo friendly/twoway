@@ -39,7 +39,10 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'twoway'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">object</span>, test <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>, <span class="st">"add"</span>, <span class="st">"nonadd"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'anova.twoway'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -50,15 +53,41 @@
 <dd><p>a <code>class("twoway")</code> object</p></dd>
 
 
+<dt id="arg-test">test<a class="anchor" aria-label="anchor" href="#arg-test"></a></dt>
+<dd><p>one of <code>"both"</code>, <code>"add"</code>, <code>"nonadd"</code>: which model(s) to fit and
+report. <code>"add"</code> fits the additive model alone; <code>"nonadd"</code> fits the model that adds
+the 1 df term for non-additivity (the Tukey test, shown as the <code>nonadd</code> row);
+<code>"both"</code> (default) fits and reports both.</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>other arguments passed down, but not used here</p></dd>
 
+
+<dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
+<dd><p>an object of class <code>"anova.twoway"</code>, from <code>anova.twoway</code></p></dd>
+
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>An object of class <code>"anova.twoway"</code>: a named list of the fitted model(s)
+  (<code>additive</code> and/or <code>nonadditive</code>, each an <code>"aov"</code> object, depending on
+  <code>test</code>), with the dataset name and fitting method attached as attributes for the print
+  method to report.</p>
+    </div>
+    <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>At present, this function simply gives the results of the ANOVAs for the additive model, the model including the 1 df
-         term for non-additivity, and an <code><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova()</a></code> comparison of the two.
-         The analysis is based on row and column means.</p>
+    <p>Fits the additive model, the model adding the 1 df term for non-additivity, or both
+  (the default), depending on <code>test</code>. The analysis is based on row and column means.</p>
+<p>The non-additive model's ANOVA table already includes the Tukey test as its <code>nonadd</code>
+  row. To instead see it as a direct comparison of the two fitted models, call <code><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova()</a></code>
+  on the two components of the result, e.g. <code>anova(result$additive, result$nonadditive)</code>
+  – this reproduces the same F and p-value as the <code>nonadd</code> row.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Tukey, J. W. (1949). One Degree of Freedom for Non-Additivity. <em>Biometrics</em>, 5(3), 232-242.
+  <a href="https://doi.org/10.2307/3001938" class="external-link">doi:10.2307/3001938</a></p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -89,6 +118,121 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sent        2  5.647  2.8233  48.662 0.0051710 ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> nonadd      1  3.759  3.7593  64.793 0.0040046 ** </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> pure error  3  0.174  0.0580                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">EastCoast</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">EC.2way</span> <span class="op">&lt;-</span> <span class="fu"><a href="twoway.html">twoway</a></span><span class="op">(</span><span class="va">EastCoast</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">EC.2way</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dataset: EastCoast; method: "mean"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table, assuming additivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Month      6 5222.4  870.40  27.655 2.339e-06 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> City       2 5315.5 2657.76  84.443 8.524e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 12  377.7   31.47                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table, allowing non-additivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Month       6 5222.4  870.40  548.70 5.728e-13 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> City        2 5315.5 2657.76 1675.45 2.145e-14 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> nonadd      1  360.2  360.24  227.09 1.085e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pure error 11   17.4    1.59                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hstart</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">hstart.2way</span> <span class="op">&lt;-</span> <span class="fu"><a href="twoway.html">twoway</a></span><span class="op">(</span><span class="va">hstart</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">hstart.2way</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dataset: hstart; method: "mean"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table, assuming additivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> year       8 112905 14113.2  50.971 &lt; 2.2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> month     11  64978  5907.1  21.334 &lt; 2.2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 88  24366   276.9                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table, allowing non-additivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df Sum Sq Mean Sq F value  Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> year        8 112905 14113.2 53.5510 &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> month      11  64978  5907.1 22.4139 &lt; 2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> nonadd      1   1437  1437.2  5.4534 0.02183 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pure error 87  22929   263.5                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">Arizona</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">AR.2way</span> <span class="op">&lt;-</span> <span class="fu"><a href="twoway.html">twoway</a></span><span class="op">(</span><span class="va">Arizona</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">AR.2way</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dataset: Arizona; method: "mean"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table, assuming additivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Month      6 5132.2  855.37  2304.9 &lt; 2.2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> City       2 3525.9 1762.94  4750.4 &lt; 2.2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 12    4.5    0.37                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table, allowing non-additivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df Sum Sq Mean Sq   F value Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Month       6 5132.2  855.37 2904.0166 &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> City        2 3525.9 1762.94 5985.2512 &lt;2e-16 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> nonadd      1    1.2    1.21    4.1192 0.0673 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pure error 11    3.2    0.29                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># just the additive-model ANOVA</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">sent.2way</span>, test <span class="op">=</span> <span class="st">"add"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dataset: sentRT; method: "mean"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table, assuming additivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df Sum Sq Mean Sq F value   Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Subj       2 59.580 29.7900 30.2949 0.003835 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sent       2  5.647  2.8233  2.8712 0.168574   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals  4  3.933  0.9833                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># just the non-additive-model ANOVA -- the Tukey test is its `nonadd` row</span></span></span>
+<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">sent.2way</span>, test <span class="op">=</span> <span class="st">"nonadd"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">result</span><span class="op">$</span><span class="va">nonadditive</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    aov(formula = ref2, data = z)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Terms:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     Subj     Sent   nonadd Residuals</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sum of Squares  59.58000  5.64667  3.75928   0.17406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Deg. of Freedom        2        2        1         3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual standard error: 0.2408721</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimated effects may be unbalanced</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># the same Tukey test, as a direct comparison of the two fitted models</span></span></span>
+<span class="r-in"><span><span class="va">both</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">sent.2way</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">both</span><span class="op">$</span><span class="va">additive</span>, <span class="va">both</span><span class="op">$</span><span class="va">nonadditive</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model 1: data ~ Subj + Sent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model 2: data ~ Subj + Sent + nonadd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      4 3.9333                                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      3 0.1741  1    3.7593 64.793 0.004005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
 </code></pre></div>

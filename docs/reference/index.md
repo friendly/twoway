@@ -3,6 +3,7 @@
 ## All functions
 
 - [`anova(`*`<twoway>`*`)`](https://friendly.github.io/twoway/reference/anova.twoway.md)
+  [`print(`*`<anova.twoway>`*`)`](https://friendly.github.io/twoway/reference/anova.twoway.md)
   : ANOVA summary for a two-way table, including Tukey Additivity Test
 
 - [`Arizona`](https://friendly.github.io/twoway/reference/Arizona.md) :

@@ -57,7 +57,8 @@ used by Tukey (1977) as a second example of a two-way (row + column) fit.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">EastCoast</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">EC.2way</span> <span class="op">&lt;-</span> <span class="fu"><a href="twoway.html">twoway</a></span><span class="op">(</span><span class="va">EastCoast</span>, method<span class="op">=</span><span class="st">"median"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Using median polish</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">EC.2way.med</span> <span class="op">&lt;-</span> <span class="fu"><a href="twoway.html">twoway</a></span><span class="op">(</span><span class="va">EastCoast</span>, method<span class="op">=</span><span class="st">"median"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Median polish decomposition (Dataset: "EastCoast"; Response: Temperature)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals bordered by row effects, column effects, and overall</span>
@@ -76,13 +77,42 @@ used by Tukey (1977) as a second example of a two-way (row + column) fit.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   coleff |  21.4    0.0      -19.7   :  54.4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">EC.2way</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">EC.2way.med</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="EastCoast-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">EC.2way</span>, which<span class="op">=</span><span class="st">"diagnose"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">EC.2way.med</span>, which<span class="op">=</span><span class="st">"diagnose"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="EastCoast-2.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slope of Residual on comparison value:  -0.9 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Suggested power transformation:         1.9 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Ladder of powers transformation:        square </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Using mean polish</span></span></span>
+<span class="r-in"><span><span class="va">EC.2way.mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="twoway.html">twoway</a></span><span class="op">(</span><span class="va">EastCoast</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">EC.2way.mean</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="EastCoast-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Show the two ANOVAs</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">EC.2way.mean</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dataset: EastCoast; method: "mean"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table, assuming additivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Month      6 5222.4  870.40  27.655 2.339e-06 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> City       2 5315.5 2657.76  84.443 8.524e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 12  377.7   31.47                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table, allowing non-additivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Month       6 5222.4  870.40  548.70 5.728e-13 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> City        2 5315.5 2657.76 1675.45 2.145e-14 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> nonadd      1  360.2  360.24  227.09 1.085e-08 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pure error 11   17.4    1.59                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

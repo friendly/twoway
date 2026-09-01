@@ -20,7 +20,8 @@ Addison-Wesley. Exhibit 9 of chapter 10, p. 354
 
 ``` r
 data(EastCoast)
-(EC.2way <- twoway(EastCoast, method="median"))
+# Using median polish
+(EC.2way.med <- twoway(EastCoast, method="median"))
 #> 
 #> Median polish decomposition (Dataset: "EastCoast"; Response: Temperature)
 #> Residuals bordered by row effects, column effects, and overall
@@ -39,11 +40,40 @@ data(EastCoast)
 #>   coleff |  21.4    0.0      -19.7   :  54.4 
 #> 
 
-plot(EC.2way)
+plot(EC.2way.med)
 
-plot(EC.2way, which="diagnose")
+plot(EC.2way.med, which="diagnose")
 
 #> Slope of Residual on comparison value:  -0.9 
 #> Suggested power transformation:         1.9 
 #> Ladder of powers transformation:        square 
+
+# Using mean polish
+EC.2way.mean <- twoway(EastCoast)
+plot(EC.2way.mean)
+
+
+# Show the two ANOVAs
+anova(EC.2way.mean)
+#> Dataset: EastCoast; method: "mean"
+#> 
+#> Analysis of Variance Table, assuming additivity
+#> 
+#>           Df Sum Sq Mean Sq F value    Pr(>F)    
+#> Month      6 5222.4  870.40  27.655 2.339e-06 ***
+#> City       2 5315.5 2657.76  84.443 8.524e-08 ***
+#> Residuals 12  377.7   31.47                      
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> 
+#> Analysis of Variance Table, allowing non-additivity
+#> 
+#>            Df Sum Sq Mean Sq F value    Pr(>F)    
+#> Month       6 5222.4  870.40  548.70 5.728e-13 ***
+#> City        2 5315.5 2657.76 1675.45 2.145e-14 ***
+#> nonadd      1  360.2  360.24  227.09 1.085e-08 ***
+#> pure error 11   17.4    1.59                      
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
