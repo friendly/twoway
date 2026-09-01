@@ -76,10 +76,18 @@ NULL
 #' @references Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesley. Exhibit 9 of chapter 10, p. 354
 #' @examples
 #' data(EastCoast)
-#' (EC.2way <- twoway(EastCoast, method="median"))
+#' # Using median polish
+#' (EC.2way.med <- twoway(EastCoast, method="median"))
 #'
-#' plot(EC.2way)
-#' plot(EC.2way, which="diagnose")
+#' plot(EC.2way.med)
+#' plot(EC.2way.med, which="diagnose")
+#'
+#' # Using mean polish
+#' EC.2way.mean <- twoway(EastCoast)
+#' plot(EC.2way.mean)
+#'
+#' # Show the two ANOVAs
+#' anova(EC.2way.mean)
 NULL
 
 #' Counts of an insect for the combinations of 4 treatments and 6 areas of a field

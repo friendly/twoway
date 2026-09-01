@@ -15,6 +15,18 @@
 #' data(sentRT)
 #' sent.2way <- twoway(sentRT)
 #' anova(sent.2way)
+#'
+#' data(EastCoast)
+#' EC.2way <- twoway(EastCoast)
+#' anova(EC.2way)
+#'
+#' data(hstart)
+#' hstart.2way <- twoway(hstart)
+#' anova(hstart.2way)
+#'
+#' data(Arizona)
+#' AR.2way <- twoway(Arizona)
+#' anova(AR.2way)
 
 
 anova.twoway <- function(object, ...) {
