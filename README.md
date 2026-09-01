@@ -9,14 +9,13 @@ Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repost
 <!-- badges: end -->
 
 <!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## twoway <img src="man/figures/logo.png" align="right" height="160px" alt="twoway logo" />
+## twoway <img src="man/figures/logo.png" align="right" height="140px" alt="twoway logo" />
 
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: 0.7.0 <!--0.7.0  -->
+Version 0.7.1; documentation built for `pkgdown` 2026-09-01
 
 The `twoway` package provides analysis and graphical methods for two-way
 tables with one observation per cell, most typically used in an Analysis
@@ -240,7 +239,6 @@ This package is at a middle stage of development. There are some small
 **TODO**s scattered throughout the code. In addition:
 
 <!-- * Implement a proper `anova.twoway()` method, giving a comprehensive analysis of variance table, including the Tukey 1 df test for non-additivity. The present version is just an initial sketch. -->
-
 <!-- * Create a formula method for a `data.frame` with columns like `row, col, value` as might be used in `twoway(value ~ row + col, data=)`. -->
 
 - It would be nicer to use the names of the row and column variables in

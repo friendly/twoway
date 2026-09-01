@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">twoway</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,11 +56,32 @@
 <span class="r-in"><span><span class="va">VP</span> <span class="op">&lt;-</span> <span class="fu"><a href="twoway.html">twoway</a></span><span class="op">(</span><span class="va">VermontPop</span>,</span></span>
 <span class="r-in"><span>             method<span class="op">=</span><span class="st">"median"</span>,</span></span>
 <span class="r-in"><span>             responseName <span class="op">=</span> <span class="st">"log Population"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'VermontPop' not found</span>
 <span class="r-in"><span><span class="va">VP</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'VP' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Median polish decomposition (Dataset: "VermontPop"; Response: log Population)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals bordered by row effects, column effects, and overall</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              1900 1910 1920 1930 1940 1950 1960 1970 1980 1990   roweff</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            + ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- + ----  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Chittenden | -167 -137 -120  -81  -39   40  111  182  195  206 :  383  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Rutland    |  -23   13    0   24   -1    1    3    2   -7  -25 :  287  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Washington |  -58   -2  -28    6    6   18   13    6   -7  -31 :  240  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Windsor    |  -78  -59  -14   -6    1   34   45    8   18   -2 :  204  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Franklin   |    4   -1    5    9    4    8   -3  -30  -38  -23 :   94  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Windham    |  -30  -26  -32  -34   -3   11   21   13    7   14 :   75  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Caledonia  |   -3   25   24   52    5   -1  -29  -82  -82  -94 :    9  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bennington |  -36  -43  -35  -30  -16   17   29   44   46   32 :   -9  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Orleans    |    3   28   43   30    6   -5  -32  -85  -73 -108 :  -42  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Addison    |   40    0  -26  -40  -38   -4    5   34   63   68 :  -80  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Orange     |   44   30    0  -11   -1   -2  -34  -44   12   26 : -140  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Lamoille   |   13   23    1  -30  -26  -12  -31   -2   44   69 : -305  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Essex      |   94   56   59   44    9   -8  -25 -128 -116 -154 : -570  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Grand Isle |   75    0    7   29   14  -35 -105  -72  -15    2 : -807  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            + .... .... .... .... .... .... .... .... .... .... + ....  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> coleff     |    3    3   -1   -4   -6   -5    0   53  107  152 : 4379  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">VP</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'VP' not found</span>
+<span class="r-plt img"><img src="VermontPop-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -72,7 +93,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

@@ -37,12 +37,8 @@ Two-Way Tables". In Hoaglin, D. C., Mosteller, F., & Tukey, J. W.
 
 ``` r
 data(Rubber)
-#> Warning: data set 'Rubber' not found
 # scale the response to avoid small decimals
 rub <- 10000*Rubber
-#> Error: object 'Rubber' not found
 rubfit <- twoway(rub, "median")
-#> Error: object 'rub' not found
 plot(rubfit)
-#> Error: object 'rubfit' not found
 ```

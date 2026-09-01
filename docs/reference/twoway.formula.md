@@ -68,8 +68,8 @@ anova(RT.2way)
 #> Analysis of Variance Table, assuming additivity
 #> 
 #>           Df Sum Sq Mean Sq F value    Pr(>F)    
-#> row        2 6.4113  3.2057  40.355 0.0003313 ***
-#> col        3 4.4500  1.4833  18.673 0.0019073 ** 
+#> Task       2 6.4113  3.2057  40.355 0.0003313 ***
+#> Topic      3 4.4500  1.4833  18.673 0.0019073 ** 
 #> Residuals  6 0.4766  0.0794                      
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -78,8 +78,8 @@ anova(RT.2way)
 #> Analysis of Variance Table, allowing non-additivity
 #> 
 #>            Df Sum Sq Mean Sq F value   Pr(>F)   
-#> row         2 6.4113  3.2057 34.0366 0.001225 **
-#> col         3 4.4500  1.4833 15.7497 0.005570 **
+#> Task        2 6.4113  3.2057 34.0366 0.001225 **
+#> Topic       3 4.4500  1.4833 15.7497 0.005570 **
 #> nonadd      1 0.0057  0.0057  0.0606 0.815402   
 #> pure error  5 0.4709  0.0942                    
 #> ---

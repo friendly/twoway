@@ -20,6 +20,9 @@
 - [`drugs`](https://friendly.github.io/twoway/reference/drugs.md) :
   Scores for 5 subjects after being given each of 4 drugs
 
+- [`EastCoast`](https://friendly.github.io/twoway/reference/EastCoast.md)
+  : Mean monthly temperatures on the East Coast
+
 - [`hstart`](https://friendly.github.io/twoway/reference/hstart.md) :
   Number of U.S. housing starts by month for the years 1965 – 1973
 

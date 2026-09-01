@@ -61,7 +61,7 @@ table, and the following columns
 data(sentRT)
 sent.2way <- twoway(sentRT)
 as.data.frame(sent.2way)
-#>     row   col data      fit      dif   residual roweff     coleff      nonadd
+#>    Subj  Sent data      fit      dif   residual roweff     coleff      nonadd
 #> 1 subj1 sent1  1.7 1.133333 7.333333  0.5666667   -3.1 -0.7333333  0.45771812
 #> 2 subj2 sent1  4.4 4.133333 4.333333  0.2666667   -0.1 -0.7333333  0.01476510
 #> 3 subj3 sent1  6.6 7.433333 1.033333 -0.8333333    3.2 -0.7333333 -0.47248322

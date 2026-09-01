@@ -1,8 +1,8 @@
-## twoway ![](reference/figures/logo.png)
+## twoway ![twoway logo](reference/figures/logo.png)
 
 **Analysis of Two-Way Tables a la Tukey**
 
-Version: 0.6.4
+Version 0.7.1; documentation built for `pkgdown` 2026-09-01
 
 The `twoway` package provides analysis and graphical methods for two-way
 tables with one observation per cell, most typically used in an Analysis
@@ -12,9 +12,18 @@ Tukey (1972), *Exploratory Data Analysis*, but the graphical ideas are
 more interesting and general:
 
 - How to display an **assumed** additive relation between two factors
-  graphically, and visualize departures from an additive fit?
+  graphically, and visualize departures from an additive fit? The plot
+  method here uses a rectangle for the row and column effects, but
+  rotated 40 degrees so that the vertical axis represents the fitted
+  value under an additive model. In this, the actual value can be shown
+  as a vertical segment representing the departure from an additive
+  model.
+
 - How to assess **visually** whether a power transformation of the
-  response might be more nearly additive in the factors?
+  response, $y^{p}$ might be more nearly additive in the factors? The
+  diagnostic plot implemented here shows a plot designed so that the
+  slope $b$ of a fitted line suggests a transformation
+  $\left. y\rightarrow y^{1 - b} \right.$.
 
 The goal of the package is to introduce these ideas in R, and allow
 further development. This R implementation is based on my SAS macro,
@@ -25,14 +34,12 @@ further development. This R implementation is based on my SAS macro,
 This currently released package can be installed directly from CRAN:
 
 ``` r
-
 install.packages("twoway")
 ```
 
 You can install the development version `twoway` from github with:
 
 ``` r
-
 # install.packages("devtools")
 devtools::install_github("friendly/twoway")
 ```
@@ -50,44 +57,44 @@ questions are:
 - Are there any unusual observations that deviate from an additive
   model?
 - If there are systematic departures from additivity, could a power
-  transformation of the response (1/x, log(x), sqrt(x), $`x^2`$, …) make
+  transformation of the response (1/x, log(x), sqrt(x), $x^{2}$, …) make
   the simpler additive model more tenable, and more easily understood?
 
 ``` r
-
 library(twoway)
 data("sentRT")
 sentRT
-#>       sent1 sent2 sent3
-#> subj1   1.7   1.9   2.0
-#> subj2   4.4   4.5   5.7
-#> subj3   6.6   7.4  10.5
+#>        Sent
+#> Subj    sent1 sent2 sent3
+#>   subj1   1.7   1.9   2.0
+#>   subj2   4.4   4.5   5.7
+#>   subj3   6.6   7.4  10.5
 ```
 
 The [`twoway()`](https://friendly.github.io/twoway/reference/twoway.md)
 function gives the basic analysis: a decomposition of the two-way table,
 giving the:
 
-- grand mean ($`\mu = \bar{x}_{..}`$),
-- row effects ($`\alpha_i = \bar{x}_{i.}-\mu`$),
-- column effects ($`\beta_j = \bar{x}_{.j}-\mu`$), and
-- residuals ($`x_{ij}-\mu -\alpha_i -\beta_j`$)
+- grand mean ($\mu = {\bar{x}}_{..}$),
+- row effects ($\alpha_{i} = {\bar{x}}_{i.} - \mu$),
+- column effects ($\beta_{j} = {\bar{x}}_{.j} - \mu$), and
+- residuals ($x_{ij} - \mu - \alpha_{i} - \beta_{j}$)
 
 ``` r
-
 sent.2way <- twoway(sentRT)
 print(sent.2way)
 #> 
 #> Mean decomposition (Dataset: "sentRT"; Response: Value)
 #> Residuals bordered by row effects, column effects, and overall
 #> 
-#>          sent1    sent2    sent3      roweff  
-#>        + -------- -------- -------- + --------
-#> subj1  |  0.56667  0.40000 -0.96667 : -3.10000
-#> subj2  |  0.26667  0.00000 -0.26667 : -0.10000
-#> subj3  | -0.83333 -0.40000  1.23333 :  3.20000
-#>        + ........ ........ ........ + ........
-#> coleff | -0.73333 -0.36667  1.10000 :  4.96667
+#>         Sent
+#> Subj       sent1    sent2    sent3      roweff  
+#>          + -------- -------- -------- + --------
+#>   subj1  |  0.56667  0.40000 -0.96667 : -3.10000
+#>   subj2  |  0.26667  0.00000 -0.26667 : -0.10000
+#>   subj3  | -0.83333 -0.40000  1.23333 :  3.20000
+#>          + ........ ........ ........ + ........
+#>   coleff | -0.73333 -0.36667  1.10000 :  4.96667
 ```
 
 [`twoway()`](https://friendly.github.io/twoway/reference/twoway.md) also
@@ -98,19 +105,19 @@ uses `method="median"` in the call to
 [`twoway()`](https://friendly.github.io/twoway/reference/twoway.md).
 
 ``` r
-
 print(twoway(sentRT, method="median"), border=2)
 #> 
 #> Median polish decomposition (Dataset: "sentRT"; Response: Value)
 #> Residuals bordered by row effects, column effects, and overall
 #> 
-#>          sent1 sent2 sent3   roweff
-#>        + ----  ----  ----  + ----  
-#> subj1  |  0.0   0.0  -1.1  : -2.6  
-#> subj2  |  0.1   0.0   0.0  :  0.0  
-#> subj3  | -0.6   0.0   1.9  :  2.9  
-#>        + ....  ....  ....  + ....  
-#> coleff | -0.2   0.0   1.2  :  4.5
+#>         Sent
+#> Subj       sent1 sent2 sent3   roweff
+#>          + ----  ----  ----  + ----  
+#>   subj1  |  0.0   0.0  -1.1  : -2.6  
+#>   subj2  |  0.1   0.0   0.0  :  0.0  
+#>   subj3  | -0.6   0.0   1.9  :  2.9  
+#>          + ....  ....  ....  + ....  
+#>   coleff | -0.2   0.0   1.2  :  4.5
 ```
 
 The result is much simpler, in that most residuals are closer to 0, and
@@ -127,7 +134,6 @@ plots:
   additivity (`which="diagnose"`).
 
 ``` r
-
 plot(sent.2way)
 ```
 
@@ -136,11 +142,10 @@ plot(sent.2way)
 The diagnostic plot shows the regression of residuals under the additive
 model against the comparison values under the additive model. If the
 points in this plot are reasonably linear and have a non-zero slope,
-*b*, a suggested power transformation of the response to $`x^{1-b}`$
+*b*, a suggested power transformation of the response to $x^{1 - b}$
 will often remove non-additivity.
 
 ``` r
-
 plot(sent.2way, which="diagnose")
 ```
 
@@ -153,12 +158,11 @@ plot(sent.2way, which="diagnose")
 ```
 
 There is an opposite-corner pattern to the residuals in the analysis by
-means. In the diagnostic plot, the positive slope, $`b=1.6`$ suggests a
-power transformation $`x^{1-b} = x^{-0.6}`$, which can be taken as close
-to $`1 / \sqrt{x}`$. Alternatively, reaction time data is often more
+means. In the diagnostic plot, the positive slope, $b = 1.6$ suggests a
+power transformation $x^{1 - b} = x^{- 0.6}$, which can be taken as
+close to $1/\sqrt{x}$. Alternatively, reaction time data is often more
 easily analyzed by classical methods and the results more easily
-understood in terms of *response speed*, using the transformation
-$`1/x`$.
+understood in terms of *response speed*, using the transformation $1/x$.
 
 ### anova method
 
@@ -170,15 +174,14 @@ assume that row and column effects are fit using means
 (`method="mean"`).
 
 ``` r
-
 anova(sent.2way)
 #> Dataset: sentRT; method: "mean"
 #> 
 #> Analysis of Variance Table, assuming additivity
 #> 
 #>           Df Sum Sq Mean Sq F value   Pr(>F)   
-#> row        2 59.580 29.7900 30.2949 0.003835 **
-#> col        2  5.647  2.8233  2.8712 0.168574   
+#> Subj       2 59.580 29.7900 30.2949 0.003835 **
+#> Sent       2  5.647  2.8233  2.8712 0.168574   
 #> Residuals  4  3.933  0.9833                    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -187,8 +190,8 @@ anova(sent.2way)
 #> Analysis of Variance Table, allowing non-additivity
 #> 
 #>            Df Sum Sq Mean Sq F value    Pr(>F)    
-#> row         2 59.580 29.7900 513.449 0.0001572 ***
-#> col         2  5.647  2.8233  48.662 0.0051710 ** 
+#> Subj        2 59.580 29.7900 513.449 0.0001572 ***
+#> Sent        2  5.647  2.8233  48.662 0.0051710 ** 
 #> nonadd      1  3.759  3.7593  64.793 0.0040046 ** 
 #> pure error  3  0.174  0.0580                      
 #> ---
@@ -196,7 +199,7 @@ anova(sent.2way)
 ```
 
 There is a variety of other tests for additivity in twoway tables with
-$`n=1`$ per cell. A number of these are implemented in the
+$n = 1$ per cell. A number of these are implemented in the
 [additivityTests
 package](https://cran.r-project.org/package=additivityTests).
 
@@ -207,9 +210,8 @@ package](https://cran.r-project.org/package=additivityTests).
   containing the components of the fitted values and other quantities.
 
 ``` r
-
 as.data.frame(sent.2way)
-#>     row   col data  fit  dif residual roweff coleff   nonadd
+#>    Subj  Sent data  fit  dif residual roweff coleff   nonadd
 #> 1 subj1 sent1  1.7 1.13 7.33    0.567   -3.1 -0.733  0.45772
 #> 2 subj2 sent1  4.4 4.13 4.33    0.267   -0.1 -0.733  0.01477
 #> 3 subj3 sent1  6.6 7.43 1.03   -0.833    3.2 -0.733 -0.47248

@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="index.html">twoway</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,10 +59,10 @@
 <!-- [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html) -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div class="section level2">
-<h2 id="twoway-">twoway <img src="reference/figures/logo.png" align="right" height="160px" alt="twoway logo"><a class="anchor" aria-label="anchor" href="#twoway-"></a>
+<h2 id="twoway-">twoway <img src="reference/figures/logo.png" align="right" height="140px" alt="twoway logo"><a class="anchor" aria-label="anchor" href="#twoway-"></a>
 </h2>
 <p><strong>Analysis of Two-Way Tables a la Tukey</strong></p>
-<p>Version: 0.7.0 <!--0.7.0  --></p>
+<p>Version 0.7.1; documentation built for <code>pkgdown</code> 2026-09-01</p>
 <p>The <code>twoway</code> package provides analysis and graphical methods for two-way tables with one observation per cell, most typically used in an Analysis of Variance (ANOVA) context. The methods follow Tukey (1949), “One Degree of Freedom for Non-additivity”, explained more concretely in Tukey (1972), <em>Exploratory Data Analysis</em>, but the graphical ideas are more interesting and general:</p>
 <ul>
 <li><p>How to display an <strong>assumed</strong> additive relation between two factors graphically, and visualize departures from an additive fit? The plot method here uses a rectangle for the row and column effects, but rotated 40 degrees so that the vertical axis represents the fitted value under an additive model. In this, the actual value can be shown as a vertical segment representing the departure from an additive model.</p></li>
@@ -71,7 +71,7 @@
 <p>The goal of the package is to introduce these ideas in R, and allow further development. This R implementation is based on my SAS macro, <a href="http://www.datavis.ca/sasmac/twoway.html" class="external-link">twoway.sas</a>.</p>
 </div>
 <div class="section level2">
-<h2 id="installation-package">Installation 📦<a class="anchor" aria-label="anchor" href="#installation-package"></a>
+<h2 id="installation-">Installation 📦<a class="anchor" aria-label="anchor" href="#installation-"></a>
 </h2>
 <p>This currently released package can be installed directly from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -92,7 +92,7 @@
 <li>If there are systematic departures from additivity, could a power transformation of the response (1/x, log(x), sqrt(x), <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>x</mi><mn>2</mn></msup><annotation encoding="application/x-tex">x^2</annotation></semantics></math>, …) make the simpler additive model more tenable, and more easily understood?</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://friendly.github.io/twoway">twoway</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://friendly.github.io/twoway/">twoway</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sentRT"</span><span class="op">)</span></span>
 <span><span class="va">sentRT</span></span>
 <span><span class="co">#&gt;        Sent</span></span>
@@ -156,7 +156,7 @@
 <div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co">#&gt; Slope of Residual on comparison value:  1.6 </span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt; Suggested power transformation:         -0.6 </span></span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; Ladder of powers transformation:        reciprocal root</span></span></code></pre></div>
-<p>There is an opposite-corner pattern to the residuals in the analysis by means. In the diagnostic plot, the positive slope, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>1.6</mn></mrow><annotation encoding="application/x-tex">b=1.6</annotation></semantics></math> suggests a power transformation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mrow><mn>1</mn><mo>−</mo><mi>b</mi></mrow></msup><mo>=</mo><msup><mi>x</mi><mrow><mi>−</mi><mn>0.6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">x^{1-b} = x^{-0.6}</annotation></semantics></math>, which can be taken as close to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msqrt><mi>x</mi></msqrt></mrow><annotation encoding="application/x-tex">1 / \sqrt{x}</annotation></semantics></math>. Alternatively, reaction time data is often more easily analyzed by classical methods and the results more easily understood in terms of <em>response speed</em>, using the transformation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">1/x</annotation></semantics></math>.</p>
+<p>There is an opposite-corner pattern to the residuals in the analysis by means. In the diagnostic plot, the positive slope, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>1.6</mn></mrow><annotation encoding="application/x-tex">b=1.6</annotation></semantics></math> suggests a power transformation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mrow><mn>1</mn><mo>−</mo><mi>b</mi></mrow></msup><mo>=</mo><msup><mi>x</mi><mrow><mo>−</mo><mn>0.6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">x^{1-b} = x^{-0.6}</annotation></semantics></math>, which can be taken as close to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msqrt><mi>x</mi></msqrt></mrow><annotation encoding="application/x-tex">1 / \sqrt{x}</annotation></semantics></math>. Alternatively, reaction time data is often more easily analyzed by classical methods and the results more easily understood in terms of <em>response speed</em>, using the transformation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">1/x</annotation></semantics></math>.</p>
 </div>
 <div class="section level3">
 <h3 id="anova-method">anova method<a class="anchor" aria-label="anchor" href="#anova-method"></a>
@@ -273,7 +273,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
