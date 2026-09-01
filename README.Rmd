@@ -45,7 +45,7 @@ This R implementation is based on my SAS macro, [twoway.sas](http://www.datavis.
 
 ## Installation 📦
 
-This currently released package can be installed directly from CRAN:
+This currently released CRAN package can be installed directly from CRAN:
 ```{r install-cran, eval=FALSE}
 install.packages("twoway")
 ```
