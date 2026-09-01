@@ -1,3 +1,8 @@
+# twoway 0.7.1
+
+* added EastCoast data, from Tukey EDA, Exhibit 9 of chapter 10, p. 354
+
+
 # twoway 0.7.0
 
 * revised twoway functions to use the names of variables for row/col

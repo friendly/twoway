@@ -62,6 +62,26 @@ NULL
 #' plot(AR.2way)
 NULL
 
+#' Mean monthly temperatures on the East Coast
+#'
+#' Companion to \code{Arizona}: monthly mean temperatures for three cities spanning a wide
+#' range of latitudes along the East Coast (Laredo, TX; Washington, DC; Caribou, ME),
+#' used by Tukey (1977) as a second example of a two-way (row + column) fit.
+#' @name EastCoast
+#' @docType data
+#' @keywords data
+#' @format a matrix of 7 rows (Month, Jan--July) and 3 columns (City: Laredo, Washington,
+#'       Caribou) where the value is mean monthly temperature in degrees F. The matrix has
+#'       a \code{responseName} attribute, \code{"Temperature"}
+#' @references Tukey, J. W. (1977). \emph{Exploratory Data Analysis}, Reading MA: Addison-Wesley. Exhibit 9 of chapter 10, p. 354
+#' @examples
+#' data(EastCoast)
+#' (EC.2way <- twoway(EastCoast, method="median"))
+#'
+#' plot(EC.2way)
+#' plot(EC.2way, which="diagnose")
+NULL
+
 #' Counts of an insect for the combinations of 4 treatments and 6 areas of a field
 #'
 #' Counts of numbers of an insect, \emph{Leptinotarsa decemlineata} (the

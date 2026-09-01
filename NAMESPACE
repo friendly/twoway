@@ -18,17 +18,21 @@ export(medianfit)
 export(to_long)
 export(to_wide)
 export(twoway)
-importFrom(graphics,abline)
-importFrom(graphics,arrows)
-importFrom(graphics,lines)
-importFrom(graphics,plot)
-importFrom(graphics,segments)
-importFrom(graphics,text)
-importFrom(stats,anova)
-importFrom(stats,aov)
-importFrom(stats,coef)
-importFrom(stats,lm)
-importFrom(stats,loess.smooth)
-importFrom(stats,medpolish)
-importFrom(stats,reformulate)
-importFrom(stats,terms)
+importFrom(graphics,
+  abline,
+  arrows,
+  lines,
+  plot,
+  segments,
+  text
+)
+importFrom(stats,
+  anova,
+  aov,
+  coef,
+  lm,
+  loess.smooth,
+  medpolish,
+  reformulate,
+  terms
+)
