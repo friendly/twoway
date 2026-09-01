@@ -2,22 +2,42 @@
 % Please edit documentation in R/anova.twoway.R
 \name{anova.twoway}
 \alias{anova.twoway}
+\alias{print.anova.twoway}
 \title{ANOVA summary for a two-way table, including Tukey Additivity Test}
 \usage{
-\method{anova}{twoway}(object, ...)
+\method{anova}{twoway}(object, test = c("both", "add", "nonadd"), ...)
+
+\method{print}{anova.twoway}(x, ...)
 }
 \arguments{
 \item{object}{a \code{class("twoway")} object}
 
+\item{test}{one of \code{"both"}, \code{"add"}, \code{"nonadd"}: which model(s) to fit and
+report. \code{"add"} fits the additive model alone; \code{"nonadd"} fits the model that adds
+the 1 df term for non-additivity (the Tukey test, shown as the \code{nonadd} row);
+\code{"both"} (default) fits and reports both.}
+
 \item{...}{other arguments passed down, but not used here}
+
+\item{x}{an object of class \code{"anova.twoway"}, from \code{\link{anova.twoway}}}
+}
+\value{
+An object of class \code{"anova.twoway"}: a named list of the fitted model(s)
+  (\code{additive} and/or \code{nonadditive}, each an \code{"aov"} object, depending on
+  \code{test}), with the dataset name and fitting method attached as attributes for the print
+  method to report.
 }
 \description{
 Test for a 1-df interaction in two-way ANOVA table by the Tukey test.
 }
 \details{
-At present, this function simply gives the results of the ANOVAs for the additive model, the model including the 1 df
-         term for non-additivity, and an \code{anova()} comparison of the two.
-         The analysis is based on row and column means.
+Fits the additive model, the model adding the 1 df term for non-additivity, or both
+  (the default), depending on \code{test}. The analysis is based on row and column means.
+
+  The non-additive model's ANOVA table already includes the Tukey test as its \code{nonadd}
+  row. To instead see it as a direct comparison of the two fitted models, call \code{anova()}
+  on the two components of the result, e.g. \code{anova(result$additive, result$nonadditive)}
+  -- this reproduces the same F and p-value as the \code{nonadd} row.
 }
 \examples{
 data(sentRT)
@@ -35,6 +55,21 @@ anova(hstart.2way)
 data(Arizona)
 AR.2way <- twoway(Arizona)
 anova(AR.2way)
+
+# just the additive-model ANOVA
+anova(sent.2way, test = "add")
+
+# just the non-additive-model ANOVA -- the Tukey test is its `nonadd` row
+result <- anova(sent.2way, test = "nonadd")
+result$nonadditive
+
+# the same Tukey test, as a direct comparison of the two fitted models
+both <- anova(sent.2way)
+anova(both$additive, both$nonadditive)
+}
+\references{
+Tukey, J. W. (1949). One Degree of Freedom for Non-Additivity. \emph{Biometrics}, 5(3), 232-242.
+  \doi{10.2307/3001938}
 }
 \author{
 Michael Friendly
